@@ -54,15 +54,15 @@ class _NotedScreenState extends State<NotedScreen> {
 
   void setData() async {
     try {
-      await FirebaseFirestore.instance.collection("Users").doc().set({
-        'Name': nameController.text,
-        'Surname': surnameController.text,
-        'Mobile': mobileController.text,
-        'Email': eMailController.text,
-        // 'Dis': "Junagadh",
-        // 'Taluka': "Talala",
-        // 'Village': "Dhanej",
-        'Address': addressController.text,
+      await FirebaseFirestore.instance.collection("users").doc().set({
+        'name': nameController.text,
+        'surname': surnameController.text,
+        'mobile_number': mobileController.text,
+        'email': eMailController.text,
+       'district': districSelect ,
+        'taluka': talukaSelect ,
+       'village':  villageSelect,
+        'address': addressController.text,
       }).then((value) {
         Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
       });
@@ -78,7 +78,7 @@ class _NotedScreenState extends State<NotedScreen> {
     districSelect = '';
     districSelectId = '';
     try {
-      var storeData = await FirebaseFirestore.instance.collection("District").get();
+      var storeData = await FirebaseFirestore.instance.collection("district").get();
       listOfDistrict = storeData.docs;
     } catch (e) {
       print(e);
@@ -99,7 +99,7 @@ class _NotedScreenState extends State<NotedScreen> {
     talukaSelect = '';
     talukaSelectId = '';
 
-    var storeData = await FirebaseFirestore.instance.collection("Taluka").where("district_id", isEqualTo: districSelectId).get();
+    var storeData = await FirebaseFirestore.instance.collection("taluka").where("district_id", isEqualTo: districSelectId).get();
     listOfTaluka = storeData.docs;
 
     for (int i = 0; i < listOfTaluka.length; i++) {
@@ -117,7 +117,7 @@ class _NotedScreenState extends State<NotedScreen> {
     villageListId.clear();
     villageSelect = '';
     villageSelectId = '';
-    var storeData = await FirebaseFirestore.instance.collection("Village").where("taluka_id", isEqualTo: talukaSelectId).get();
+    var storeData = await FirebaseFirestore.instance.collection("village").where("taluka_id", isEqualTo: talukaSelectId).get();
     listOfVillage = storeData.docs;
 
     for (int i = 0; i < listOfVillage.length; i++) {

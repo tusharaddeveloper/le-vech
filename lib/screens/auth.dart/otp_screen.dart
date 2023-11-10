@@ -26,6 +26,7 @@ class OtpScreen extends StatefulWidget {
 }
 
 class _OtpScreenState extends State<OtpScreen> {
+  bool isLoading = false;
   TextEditingController verifyotp = TextEditingController();
   FirebaseAuth? auth;
   List<QueryDocumentSnapshot> firebasedata = <QueryDocumentSnapshot>[];
@@ -34,6 +35,9 @@ class _OtpScreenState extends State<OtpScreen> {
     auth = FirebaseAuth.instance;
     final code = verifyotp.text.trim();
     try {
+      setState(() {
+        isLoading=true;
+      });
       PhoneAuthCredential phonecredential = PhoneAuthProvider.credential(verificationId: widget.varId, smsCode: code);
       UserCredential result = await auth!.signInWithCredential(phonecredential);
 
@@ -41,6 +45,9 @@ class _OtpScreenState extends State<OtpScreen> {
       if (result.user != null) {
         getData();
       } else {
+        setState(() {
+          isLoading=false;
+        });
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             backgroundColor: Colors.red,
             content: Center(
@@ -49,7 +56,9 @@ class _OtpScreenState extends State<OtpScreen> {
               style: TextStyle(color: Colors.black),
             ))));
       }
-    } catch (e) {
+    } catch (e) {  setState(() {
+      isLoading=false;
+    });
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           backgroundColor: Colors.red,
           content: Center(
@@ -61,7 +70,7 @@ class _OtpScreenState extends State<OtpScreen> {
   }
 
   void getData() async {
-    var storeData = await FirebaseFirestore.instance.collection("Users").where("Mobile", isEqualTo: widget.mo).get();
+    var storeData = await FirebaseFirestore.instance.collection("users").where("mobile_number", isEqualTo: widget.mo).get();
     firebasedata = storeData.docs;
     if (firebasedata.isNotEmpty) {
       Navigator.push(
@@ -76,6 +85,9 @@ class _OtpScreenState extends State<OtpScreen> {
             builder: (context) => NotedScreen(Mobile: widget.mo),
           ));
     }
+    setState(() {
+      isLoading=false;
+    });
   }
 
   @override
@@ -117,9 +129,13 @@ class _OtpScreenState extends State<OtpScreen> {
                         width: 200,
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(25), color: AppColor.themecolor),
                         child: Center(
-                          child: Text(
+                          child: isLoading?const Padding(
+                            padding: EdgeInsets.all(3.0),
+                            child: CircularProgressIndicator(color: Colors.white,),
+                          )
+                              :Text(
                             AppString.nextPage,
-                            style: TextStyle(color: AppColor.primarycolor, fontSize: 18, fontWeight: FontWeight.w500),
+                            style: TextStyle(color: AppColor.primarycolor, fontSize: 20, fontWeight: FontWeight.w500),
                           ),
                         ),
                       ),
@@ -130,6 +146,7 @@ class _OtpScreenState extends State<OtpScreen> {
                         Navigator.push(context, MaterialPageRoute(builder: (context) => LoginSCreen()));
                       },
                       child: Text(
+
                         AppString.otpBack,
                         style: TextStyle(color: AppColor.themecolor, fontSize: 18, fontWeight: FontWeight.w600),
                       ),

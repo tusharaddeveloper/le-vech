@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:le_vech/widgets.dart/app_bar.dart';
@@ -22,7 +23,89 @@ class AddItemsScreen extends StatefulWidget {
 String leVech = "LeVech";
 
 class _AddItemsScreenState extends State<AddItemsScreen> {
+
+
+
+  List<QueryDocumentSnapshot> listOfDistrict = <QueryDocumentSnapshot>[];
+  List<QueryDocumentSnapshot> listOfTaluka = <QueryDocumentSnapshot>[];
+  List<QueryDocumentSnapshot> listOfVillage = <QueryDocumentSnapshot>[];
+  List<String> districList = [];
+  List<String> districListId = [];
+  String districSelect = '';
+  String districSelectId = '';
+  List<String> talukaList = [''];
+  List<String> talukaListId = [];
+  String talukaSelect = '';
+  String talukaSelectId = '';
+  List<String> villageList = [''];
+  List<String> villageListId = [];
+  String villageSelect = '';
+  String villageSelectId = '';
+  String selectItem=AppString.tractor;
+  bool isFirst = true;
   List<String> imageList = [AppImage.tractorEicher, AppImage.cow, AppImage.horse, AppImage.bike, AppImage.car, AppImage.imglogo];
+
+  @override
+  void initState() {
+    getDis();
+    super.initState();
+  }
+  void getDis() async {
+    districList.clear();
+    districListId.clear();
+    districSelect = '';
+    districSelectId = '';
+    try {
+      var storeData = await FirebaseFirestore.instance.collection("district").get();
+      listOfDistrict = storeData.docs;
+    } catch (e) {
+      print(e);
+    }
+    for (int i = 0; i < listOfDistrict.length; i++) {
+      districList.add(listOfDistrict[i]["district_name"]);
+      districListId.add(listOfDistrict[i].id);
+    }
+    districSelect = districList.first;
+    districSelectId = districListId.first;
+    setState(() {});
+    getTaluka();
+  }
+
+  void getTaluka() async {
+    talukaList.clear();
+    talukaListId.clear();
+    talukaSelect = '';
+    talukaSelectId = '';
+
+    var storeData = await FirebaseFirestore.instance.collection("taluka").where("district_id", isEqualTo: districSelectId).get();
+    listOfTaluka = storeData.docs;
+
+    for (int i = 0; i < listOfTaluka.length; i++) {
+      talukaList.add(listOfTaluka[i]["taluka_name"]);
+      talukaListId.add(listOfTaluka[i].id);
+    }
+    talukaSelect = talukaList.first;
+    talukaSelectId = talukaListId.first;
+    setState(() {});
+    getVillage();
+  }
+
+  void getVillage() async {
+    villageList.clear();
+    villageListId.clear();
+    villageSelect = '';
+    villageSelectId = '';
+    var storeData = await FirebaseFirestore.instance.collection("village").where("taluka_id", isEqualTo: talukaSelectId).get();
+    listOfVillage = storeData.docs;
+
+    for (int i = 0; i < listOfVillage.length; i++) {
+      villageList.add(listOfVillage[i]["village_name"]);
+      villageListId.add(listOfVillage[i].id);
+    }
+    villageSelect = villageList.first;
+    villageSelectId = villageListId.first;
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +170,11 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 child: Column(
                   children: [
-                    DropDown(items: [AppString.tractor, AppString.cow, AppString.horse, AppString.twoWheel, AppString.fourWheel, AppString.others], dropdownvalue: 'Item 1', onTap: (String value) {}),
+                    DropDown(items: [AppString.tractor, AppString.cow, AppString.horse, AppString.twoWheel, AppString.fourWheel, AppString.others], dropdownvalue: selectItem, onTap: (String value) {
+                      setState(() {
+                        selectItem=value;
+                      });
+                    }),
                     SizedBox(height: 10),
                     AppTextField(
                       txtValue: AppString.price,
@@ -111,29 +198,46 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                       readOnly: true,
                     ),
                     SizedBox(height: 10),
-                    DropDown(items: [
-                      'Item 1',
-                      'Item 2',
-                      'Item 3',
-                      'Item 4',
-                      'Item 5',
-                    ], dropdownvalue: 'Item 1', onTap: (String value) {}),
+                    DropDown(
+                      items: districList,
+                      dropdownvalue: districSelect,
+                      onTap: (String value) {
+
+                        setState(() {
+                          districSelect = value;
+                          districSelectId = districListId[districList.indexOf(districSelect)];
+                          isFirst = false;
+                          getTaluka();
+                        });
+
+                      },
+                    ),
                     SizedBox(height: 10),
-                    DropDown(items: [
-                      'Item 1',
-                      'Item 2',
-                      'Item 3',
-                      'Item 4',
-                      'Item 5',
-                    ], dropdownvalue: 'Item 1', onTap: (String value) {}),
+                    DropDown(
+                      items: talukaList,
+                      dropdownvalue: talukaSelect,
+                      onTap: (String value) {
+
+                        setState(() {
+                          talukaSelect = value;
+                          talukaSelectId = talukaListId[talukaList.indexOf(talukaSelect)];
+                          getVillage();
+                        });
+
+                      },
+                    ),
                     SizedBox(height: 10),
-                    DropDown(items: [
-                      'Item 1',
-                      'Item 2',
-                      'Item 3',
-                      'Item 4',
-                      'Item 5',
-                    ], dropdownvalue: 'Item 1', onTap: (String value) {}),
+                    DropDown(
+                        items: villageList,
+                        dropdownvalue: villageSelect,
+                        onTap: (String value) {
+
+                          setState(() {
+                            villageSelect = value;
+                            villageSelectId = villageListId[villageList.indexOf(villageSelect)];
+                          });
+
+                        }),
                     SizedBox(height: 10),
                     AppTextField(
                       txtValue: AppString.mobileNo,
