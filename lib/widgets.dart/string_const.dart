@@ -1,11 +1,14 @@
 class AppString {
   // Login Page
+  static String baseCollection='le-vech_config';
+  static String baseDoc='developer';
   static String enterNum = "કૃપા કરી તમારો મોબાઇલ નંબર દાખલ કરો.";
   static String mobileNo = "મોબાઈલ નંબર";
   static String getOtp = "OTP  મેળવો";
 
   // OTP Screen
   static String enterOtp = "કૃપા કરી તમને મળેલ OTP દાખલ કરો.";
+  static String enterRightOtp = "કૃપા કરી તમને મળેલ સાચો OTP દાખલ કરો.";
   static String otpCode = "* * * * * *";
   static String otpText = "OTP";
   static String nextPage = "આગળ";

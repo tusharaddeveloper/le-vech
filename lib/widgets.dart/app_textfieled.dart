@@ -67,6 +67,9 @@ class _AppTextFieldState extends State<AppTextField> {
           borderRadius: BorderRadius.circular(30),
         ),
       ),
+      onChanged: (a) {
+        setState(() {});
+      },
     );
   }
 }

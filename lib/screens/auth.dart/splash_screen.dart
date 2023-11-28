@@ -6,9 +6,7 @@ import 'package:le_vech/screens/auth.dart/login_screen.dart';
 import 'package:le_vech/widgets.dart/color_const.dart';
 import 'package:le_vech/widgets.dart/image_const.dart';
 
-
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

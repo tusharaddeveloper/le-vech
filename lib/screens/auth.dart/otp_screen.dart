@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 
 import 'package:le_vech/screens/auth.dart/login_screen.dart';
 import 'package:le_vech/screens/auth.dart/noted_screen.dart';
+import 'package:le_vech/utils/firebase_get.dart';
+import 'package:le_vech/utils/snackbar.dart';
 import 'package:le_vech/widgets.dart/app_bar.dart';
 import 'package:le_vech/widgets.dart/app_textfieled.dart';
 
@@ -59,19 +61,14 @@ class _OtpScreenState extends State<OtpScreen> {
     } catch (e) {  setState(() {
       isLoading=false;
     });
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          backgroundColor: Colors.red,
-          content: Center(
-              child: Text(
-            'Invalid Otp',
-            style: TextStyle(color: Colors.black),
-          ))));
+    errorSnackBar(context, AppString.enterRightOtp);
     }
   }
 
   void getData() async {
-    var storeData = await FirebaseFirestore.instance.collection("users").where("mobile_number", isEqualTo: widget.mo).get();
-    firebasedata = storeData.docs;
+    firebasedata=await firebaseGetwhere('users', 'mobile_number', 'widget.mo');
+    // var storeData = await FirebaseFirestore.instance.collection("users").where("mobile_number", isEqualTo: widget.mo).get();
+    //firebasedata = storeData.docs;
     if (firebasedata.isNotEmpty) {
       Navigator.push(
           context,

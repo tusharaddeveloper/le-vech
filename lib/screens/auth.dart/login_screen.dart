@@ -1,15 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:le_vech/screens/auth.dart/otp_screen.dart';
+import 'package:le_vech/utils/snackbar.dart';
 import 'package:le_vech/widgets.dart/app_bar.dart';
 import 'package:le_vech/widgets.dart/app_button.dart';
 import 'package:le_vech/widgets.dart/app_textfieled.dart';
 
-
 import 'package:le_vech/widgets.dart/color_const.dart';
 
 import 'package:le_vech/widgets.dart/string_const.dart';
-
 
 class LoginSCreen extends StatefulWidget {
   const LoginSCreen({Key? key}) : super(key: key);
@@ -34,57 +33,60 @@ class _LoginSCreenState extends State<LoginSCreen> {
 
   void userlogin(BuildContext context) async {
     try {
-      setState(() {
-        isLoading=true;
-      });
-      _auth = FirebaseAuth.instance;
+      if (mobileNoController.text.isNotEmpty) {
+        setState(() {
+          isLoading = true;
+        });
+        _auth = FirebaseAuth.instance;
 
-      _auth!.verifyPhoneNumber(
-        phoneNumber: '+91' + mobileNoController.text,
-        timeout: const Duration(seconds: 60),
-        verificationCompleted: (AuthCredential credetial) async {
-          print('abcd${credetial}');
-          setState(() {
-            isLoading=false;
-          });
-        },
-        verificationFailed: (error) {
-          setState(() {
-            progressvalue = true;
-            isLoading=false;
-          });
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              backgroundColor: Colors.red,
-              content: Center(
-                  child: Text(
-                error.code,
-                style: const TextStyle(color: Colors.black),
-              ))));
-          print('error1002 ${error.message}');
-        },
-        codeSent: (String verificationId, int? resendToken) async {
-          varId = verificationId;
+        _auth!.verifyPhoneNumber(
+          phoneNumber: '+91' + mobileNoController.text,
+          timeout: const Duration(seconds: 60),
+          verificationCompleted: (AuthCredential credetial) async {
+            print('abcd${credetial}');
+            setState(() {
+              isLoading = false;
+            });
+          },
+          verificationFailed: (error) {
+            setState(() {
+              progressvalue = true;
+              isLoading = false;
+            });
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                backgroundColor: Colors.red,
+                content: Center(
+                    child: Text(
+                  error.code,
+                  style: const TextStyle(color: Colors.black),
+                ))));
+            print('error1002 ${error.message}');
+          },
+          codeSent: (String verificationId, int? resendToken) async {
+            varId = verificationId;
 
-          setState(() {
-            progressvalue = true;
-            showbutton = true;
-            isLoading=false;
-          });
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => OtpScreen(
-                        varId: varId,
-                        mo: mobileNoController.text,
-                      )));
-        },
-        codeAutoRetrievalTimeout: (verificationId) {},
-      );
-
+            setState(() {
+              progressvalue = true;
+              showbutton = true;
+              isLoading = false;
+            });
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => OtpScreen(
+                          varId: varId,
+                          mo: mobileNoController.text,
+                        )));
+          },
+          codeAutoRetrievalTimeout: (verificationId) {},
+        );
+      }else{
+        errorSnackBar(context, AppString.enterNum);
+      }
     } catch (a) {
       print(a);
       setState(() {
-        isLoading=false;
+        isLoading = false;
       });
     }
   }
@@ -117,18 +119,14 @@ class _LoginSCreenState extends State<LoginSCreen> {
                       keytype: TextInputType.number,
                     ),
                     SizedBox(height: 10),
-                    InkWell(
-                      onTap: () {
-                        //Navigator.push(context,MaterialPageRoute(builder: (context)=>OtpScreen()));
-                        // userlogin();
+                    AppButton(
+                      height: 50,
+                      width: 170,
+                      isLoad: isLoading,
+                      buttontxt: AppString.getOtp,
+                      onTap: (){
                         userlogin(context);
                       },
-                      child: AppButton(
-                        height: 50,
-                        width: 170,
-                        isLoad: isLoading,
-                        buttontxt: AppString.getOtp,
-                      ),
                     ),
                   ],
                 ),

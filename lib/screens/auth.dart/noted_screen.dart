@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
 import 'package:le_vech/screens/Home%20Screen/home_screen.dart';
+import 'package:le_vech/utils/firebase_get.dart';
 import 'package:le_vech/widgets.dart/app_bar.dart';
 import 'package:le_vech/widgets.dart/app_button.dart';
 import 'package:le_vech/widgets.dart/app_textfieled.dart';
@@ -54,18 +55,17 @@ class _NotedScreenState extends State<NotedScreen> {
 
   void setData() async {
     try {
-      await FirebaseFirestore.instance.collection("users").doc().set({
+      storeData('users', {
         'name': nameController.text,
         'surname': surnameController.text,
         'mobile_number': mobileController.text,
         'email': eMailController.text,
-       'district': districSelect ,
+        'district': districSelect ,
         'taluka': talukaSelect ,
-       'village':  villageSelect,
+        'village':  villageSelect,
         'address': addressController.text,
-      }).then((value) {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
       });
+      await Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
     } catch (e) {
       print(e);
       // TODO
@@ -78,8 +78,7 @@ class _NotedScreenState extends State<NotedScreen> {
     districSelect = '';
     districSelectId = '';
     try {
-      var storeData = await FirebaseFirestore.instance.collection("district").get();
-      listOfDistrict = storeData.docs;
+      listOfDistrict = await firebaseGet('district');
     } catch (e) {
       print(e);
     }
@@ -99,8 +98,8 @@ class _NotedScreenState extends State<NotedScreen> {
     talukaSelect = '';
     talukaSelectId = '';
 
-    var storeData = await FirebaseFirestore.instance.collection("taluka").where("district_id", isEqualTo: districSelectId).get();
-    listOfTaluka = storeData.docs;
+   // var storeData = await FirebaseFirestore.instance.collection("taluka").where("district_id", isEqualTo: districSelectId).get();
+    listOfTaluka = await firebaseGetwhere('taluka', 'district_id', districSelectId);
 
     for (int i = 0; i < listOfTaluka.length; i++) {
       talukaList.add(listOfTaluka[i]["taluka_name"]);
@@ -117,8 +116,8 @@ class _NotedScreenState extends State<NotedScreen> {
     villageListId.clear();
     villageSelect = '';
     villageSelectId = '';
-    var storeData = await FirebaseFirestore.instance.collection("village").where("taluka_id", isEqualTo: talukaSelectId).get();
-    listOfVillage = storeData.docs;
+  //  var storeData = await FirebaseFirestore.instance.collection("village").where("taluka_id", isEqualTo: talukaSelectId).get();
+    listOfVillage = await firebaseGetwhere('village', 'taluka_id', talukaSelectId);
 
     for (int i = 0; i < listOfVillage.length; i++) {
       villageList.add(listOfVillage[i]["village_name"]);
