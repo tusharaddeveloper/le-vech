@@ -63,7 +63,7 @@ class _AppTextFieldState extends State<AppTextField> {
         labelText: widget.lableValue,
         labelStyle: TextStyle(fontSize: 18, color: AppColor.primarycolorblack),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColor.primarycolorblack),
+          borderSide: BorderSide(color: AppColor.iconColor),
           borderRadius: BorderRadius.circular(30),
         ),
       ),

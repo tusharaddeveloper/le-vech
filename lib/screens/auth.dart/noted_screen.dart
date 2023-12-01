@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:le_vech/screens/Home%20Screen/home_screen.dart';
 import 'package:le_vech/utils/firebase_get.dart';
+import 'package:le_vech/utils/snackbar.dart';
 import 'package:le_vech/widgets.dart/app_bar.dart';
 import 'package:le_vech/widgets.dart/app_button.dart';
 import 'package:le_vech/widgets.dart/app_textfieled.dart';
@@ -55,17 +56,28 @@ class _NotedScreenState extends State<NotedScreen> {
 
   void setData() async {
     try {
-      storeData('users', {
-        'name': nameController.text,
-        'surname': surnameController.text,
-        'mobile_number': mobileController.text,
-        'email': eMailController.text,
-        'district': districSelect ,
-        'taluka': talukaSelect ,
-        'village':  villageSelect,
-        'address': addressController.text,
-      });
-      await Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+      if(nameController.text.isEmpty){
+        errorSnackBar(context, AppString.pleaseName);
+        }else if(surnameController.text.isEmpty){
+        errorSnackBar(context,AppString.pleaseSurName);
+      }else if(eMailController.text.isEmpty){
+        errorSnackBar(context,AppString.pleaseEMail);
+      }else if(addressController.text.isEmpty){
+        errorSnackBar(context,AppString.pleaseAdd);
+      }else{
+        storeData('users', {
+          'name': nameController.text,
+          'surname': surnameController.text,
+          'mobile_number': mobileController.text,
+          'email': eMailController.text,
+          'district': districSelect ,
+          'taluka': talukaSelect ,
+          'village':  villageSelect,
+          'address': addressController.text,
+        });
+        await Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+      }
+
     } catch (e) {
       print(e);
       // TODO
@@ -234,30 +246,9 @@ class _NotedScreenState extends State<NotedScreen> {
                           maxLines: 4,
                           preIcon: false),
                       const SizedBox(height: 20),
-                      InkWell(
-                          onTap: () {
-                            setData();
-                            /* if (RegExp(
-                                    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                .hasMatch(eMailController.text)) {
-                           */ /*   setlogedin();
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => HomeScreen()));*/ /*
-                            } else {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(
-                                content: Text("Invalid Email"),
-                                backgroundColor: AppColor.iconColor,
-                                elevation: 10,
-                                behavior: SnackBarBehavior.floating,
-                                margin: EdgeInsets.all(5),
-                              ));
-                            }
-*/
-                          },
-                          child: AppButton(height: 60, width: double.infinity, buttontxt: AppString.noteText)),
+                      AppButton(height: 60, width: double.infinity, buttontxt: AppString.noteText,onTap: (){
+                        setData();
+                      },),
                     ],
                   ),
                 ),

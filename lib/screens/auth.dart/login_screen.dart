@@ -53,13 +53,7 @@ class _LoginSCreenState extends State<LoginSCreen> {
               progressvalue = true;
               isLoading = false;
             });
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                backgroundColor: Colors.red,
-                content: Center(
-                    child: Text(
-                  error.code,
-                  style: const TextStyle(color: Colors.black),
-                ))));
+            errorSnackBar(context, error.code);
             print('error1002 ${error.message}');
           },
           codeSent: (String verificationId, int? resendToken) async {

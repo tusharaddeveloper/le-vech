@@ -18,13 +18,17 @@ class AppString {
 
   static String noteText = "નોંધણી";
   static String name = "નામ";
+  static String pleaseName = "કૃપા કરી તમારું નામ ઉમેરો";
   static String surName = "અટક";
+  static String pleaseSurName = "કૃપા કરી તમારી અટક ઉમેરો";
   static String eMail = "ઇ-મેઇલ ";
+  static String pleaseEMail = "કૃપા કરી તમારી ઇ-મેઇલ ઉમેરો";
   static String state = "રાજ્ય ";
   static String dis = "જીલ્લો ";
   static String taluka = "તાલુકો ";
   static String village = "ગામ ";
   static String add = "સરમાનમું ";
+  static String pleaseAdd = "કૃપા કરી તમારું સરમાનમું ઉમેરો";
   static String guj = "ગુજરાત";
   static String searchBar = "શોધો";
 
