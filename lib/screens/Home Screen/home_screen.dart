@@ -13,7 +13,6 @@ import 'package:le_vech/widgets.dart/color_const.dart';
 import 'package:le_vech/widgets.dart/image_const.dart';
 import 'package:le_vech/widgets.dart/string_const.dart';
 
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -228,7 +227,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       SizedBox(
                         width: 200,
-                        child: Text("abhishekm977@gmail.com", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 14)),
+                        child: Text("abhishekm064@gmail.com", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 14)),
                       ),
                       SizedBox(width: 20),
                       Icon(
@@ -239,12 +238,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                   currentAccountPictureSize: Size.square(40),
-                  currentAccountPicture: CircleAvatar(
-                      backgroundColor: AppColor.primarycolor,
-                      child: Image.asset(
-                        AppImage.imglogo,
-                        fit: BoxFit.cover,
-                      )), //circleAvatar
+
+                  currentAccountPicture:Container(
+                    margin: const EdgeInsets.only(bottom: 40.0),
+                    width: 100,
+                    height: 100,
+                    decoration: new BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: new DecorationImage(
+                        fit: BoxFit.fill,
+                        image:AssetImage(AppImage.imglogo)
+                      ),
+                    ),
+                  ),
                 ), //UserAccountDrawerHeader
               ),
             ),

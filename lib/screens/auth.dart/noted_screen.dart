@@ -9,9 +9,7 @@ import 'package:le_vech/widgets.dart/app_button.dart';
 import 'package:le_vech/widgets.dart/app_textfieled.dart';
 import 'package:le_vech/widgets.dart/drop_down.dart';
 
-
 import 'package:le_vech/widgets.dart/string_const.dart';
-
 
 class NotedScreen extends StatefulWidget {
   String Mobile;
@@ -46,9 +44,7 @@ class _NotedScreenState extends State<NotedScreen> {
   String villageSelect = '';
   String villageSelectId = '';
   bool isFirst = true;
-  final _formKey = GlobalKey<FormState>();
-
-  @override
+ @override
   void initState() {
     mobileController.text = widget.Mobile;
     getDis();
@@ -57,28 +53,27 @@ class _NotedScreenState extends State<NotedScreen> {
 
   void setData() async {
     try {
-      if(nameController.text.isEmpty){
+      if (nameController.text.isEmpty) {
         errorSnackBar(context, AppString.pleaseName);
-        }else if(surnameController.text.isEmpty){
-        errorSnackBar(context,AppString.pleaseSurName);
-      }else if(eMailController.text.isEmpty){
-        errorSnackBar(context,AppString.pleaseEMail);
-      }else if(addressController.text.isEmpty){
-        errorSnackBar(context,AppString.pleaseAdd);
-      }else{
+      } else if (surnameController.text.isEmpty) {
+        errorSnackBar(context, AppString.pleaseSurName);
+      } else if (eMailController.text.isEmpty) {
+        errorSnackBar(context, AppString.pleaseEMail);
+      } else if (addressController.text.isEmpty) {
+        errorSnackBar(context, AppString.pleaseAdd);
+      } else {
         storeData('users', {
           'name': nameController.text,
           'surname': surnameController.text,
           'mobile_number': mobileController.text,
           'email': eMailController.text,
-          'district': districSelect ,
-          'taluka': talukaSelect ,
-          'village':  villageSelect,
+          'district': districSelect,
+          'taluka': talukaSelect,
+          'village': villageSelect,
           'address': addressController.text,
         });
         await Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
       }
-
     } catch (e) {
       print(e);
       // TODO
@@ -111,7 +106,7 @@ class _NotedScreenState extends State<NotedScreen> {
     talukaSelect = '';
     talukaSelectId = '';
 
-   // var storeData = await FirebaseFirestore.instance.collection("taluka").where("district_id", isEqualTo: districSelectId).get();
+    // var storeData = await FirebaseFirestore.instance.collection("taluka").where("district_id", isEqualTo: districSelectId).get();
     listOfTaluka = await firebaseGetwhere('taluka', 'district_id', districSelectId);
 
     for (int i = 0; i < listOfTaluka.length; i++) {
@@ -129,7 +124,7 @@ class _NotedScreenState extends State<NotedScreen> {
     villageListId.clear();
     villageSelect = '';
     villageSelectId = '';
-  //  var storeData = await FirebaseFirestore.instance.collection("village").where("taluka_id", isEqualTo: talukaSelectId).get();
+    //  var storeData = await FirebaseFirestore.instance.collection("village").where("taluka_id", isEqualTo: talukaSelectId).get();
     listOfVillage = await firebaseGetwhere('village', 'taluka_id', talukaSelectId);
 
     for (int i = 0; i < listOfVillage.length; i++) {
@@ -160,28 +155,11 @@ class _NotedScreenState extends State<NotedScreen> {
                   child: Column(
                     children: [
                       AppTextField(
-                        /*validator: (value) {
-                          if (widget.errorMsg != null) {
-                            if (value!.isEmpty) {
-                              setState(() {});
-                              return widget.errorMsg;
-                            }
-                          }
-                          return null;
-                        }*/
                         txtValue: AppString.name,
                         controller: nameController,
                         isIcon: false,
-                        preIcon: false, /*//lableValue: AppString.name*/
-
-                        validator: (value){
-                          if(value!.isEmpty){
-                            return 'wronggggggggggggg';
-                          }
-                          return null;
-                        },
+                        preIcon: false,
                       ),
-
                       const SizedBox(height: 10),
                       AppTextField(
                         txtValue: AppString.surName,
@@ -219,14 +197,12 @@ class _NotedScreenState extends State<NotedScreen> {
                         items: districList,
                         dropdownvalue: districSelect,
                         onTap: (String value) {
-
-                            setState(() {
-                              districSelect = value;
-                              districSelectId = districListId[districList.indexOf(districSelect)];
-                              isFirst = false;
-                              getTaluka();
-                            });
-
+                          setState(() {
+                            districSelect = value;
+                            districSelectId = districListId[districList.indexOf(districSelect)];
+                            isFirst = false;
+                            getTaluka();
+                          });
                         },
                       ),
                       const SizedBox(height: 10),
@@ -234,13 +210,11 @@ class _NotedScreenState extends State<NotedScreen> {
                         items: talukaList,
                         dropdownvalue: talukaSelect,
                         onTap: (String value) {
-
-                            setState(() {
-                              talukaSelect = value;
-                              talukaSelectId = talukaListId[talukaList.indexOf(talukaSelect)];
-                              getVillage();
-                            });
-
+                          setState(() {
+                            talukaSelect = value;
+                            talukaSelectId = talukaListId[talukaList.indexOf(talukaSelect)];
+                            getVillage();
+                          });
                         },
                       ),
                       const SizedBox(height: 10),
@@ -248,12 +222,10 @@ class _NotedScreenState extends State<NotedScreen> {
                           items: villageList,
                           dropdownvalue: villageSelect,
                           onTap: (String value) {
-
-                              setState(() {
-                                villageSelect = value;
-                                villageSelectId = villageListId[villageList.indexOf(villageSelect)];
-                              });
-
+                            setState(() {
+                              villageSelect = value;
+                              villageSelectId = villageListId[villageList.indexOf(villageSelect)];
+                            });
                           }),
                       const SizedBox(height: 10),
                       AppTextField(
@@ -264,14 +236,14 @@ class _NotedScreenState extends State<NotedScreen> {
                           maxLines: 4,
                           preIcon: false),
                       const SizedBox(height: 20),
-                      AppButton(height: 60, width: double.infinity, buttontxt: AppString.noteText,onTap: (){
-                          if(_formKey.currentState!.validate()){
-                            setData();
-                            print("sdfjhhgg");
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("sddddddddddddddddddddddddddddf")));
-                          }
-
-                      },),
+                      AppButton(
+                        height: 60,
+                        width: double.infinity,
+                        buttontxt: AppString.noteText,
+                        onTap: () {
+                          setData();
+                        },
+                      ),
                     ],
                   ),
                 ),
