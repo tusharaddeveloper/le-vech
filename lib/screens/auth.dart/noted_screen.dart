@@ -46,6 +46,7 @@ class _NotedScreenState extends State<NotedScreen> {
   String villageSelect = '';
   String villageSelectId = '';
   bool isFirst = true;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -159,11 +160,19 @@ class _NotedScreenState extends State<NotedScreen> {
                   child: Column(
                     children: [
                       AppTextField(
+
                         txtValue: AppString.name,
                         controller: nameController,
                         isIcon: false,
                         preIcon: false, /*//lableValue: AppString.name*/
+                        validator: (String){
+                          if(nameController.text.isEmpty){
+                            return 'wronggggggggggggg';
+                          }
+                          return null;
+                        },
                       ),
+
                       const SizedBox(height: 10),
                       AppTextField(
                         txtValue: AppString.surName,

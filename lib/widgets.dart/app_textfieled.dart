@@ -16,9 +16,10 @@ class AppTextField extends StatefulWidget {
   String? counterTxt;
   bool? readOnly;
   TextEditingController? controller;
+  Function? validator;
 
   AppTextField(
-      {Key? key, required this.txtValue, this.isIcon, this.preIcon, this.maxLines, this.maxLength, this.keytype, this.counterTxt, this.lableValue, this.preIconData, this.readOnly, this.controller})
+      {Key? key, required this.txtValue, this.isIcon, this.preIcon, this.maxLines, this.maxLength, this.keytype, this.counterTxt, this.lableValue, this.preIconData, this.readOnly, this.controller, this.validator})
       : super(key: key);
 
   @override
@@ -37,7 +38,7 @@ class _AppTextFieldState extends State<AppTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       controller: widget.controller,
       cursorColor: AppColor.primarycolorblack,
       maxLength: widget.maxLength,
@@ -63,13 +64,18 @@ class _AppTextFieldState extends State<AppTextField> {
         labelText: widget.lableValue,
         labelStyle: TextStyle(fontSize: 18, color: AppColor.primarycolorblack),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColor.iconColor),
+          borderSide: BorderSide(color: AppColor.themecolor),
           borderRadius: BorderRadius.circular(30),
         ),
+
       ),
       onChanged: (a) {
         setState(() {});
-      },
+      }
     );
+
+      }
+   //   validator: (value) => value!.isEmpty ? 'Password cannot be blank':null
+
   }
-}
+
