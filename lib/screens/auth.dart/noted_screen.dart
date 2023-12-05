@@ -160,13 +160,22 @@ class _NotedScreenState extends State<NotedScreen> {
                   child: Column(
                     children: [
                       AppTextField(
-
+                        /*validator: (value) {
+                          if (widget.errorMsg != null) {
+                            if (value!.isEmpty) {
+                              setState(() {});
+                              return widget.errorMsg;
+                            }
+                          }
+                          return null;
+                        }*/
                         txtValue: AppString.name,
                         controller: nameController,
                         isIcon: false,
                         preIcon: false, /*//lableValue: AppString.name*/
-                        validator: (String){
-                          if(nameController.text.isEmpty){
+
+                        validator: (value){
+                          if(value!.isEmpty){
                             return 'wronggggggggggggg';
                           }
                           return null;
@@ -256,7 +265,12 @@ class _NotedScreenState extends State<NotedScreen> {
                           preIcon: false),
                       const SizedBox(height: 20),
                       AppButton(height: 60, width: double.infinity, buttontxt: AppString.noteText,onTap: (){
-                        setData();
+                          if(_formKey.currentState!.validate()){
+                            setData();
+                            print("sdfjhhgg");
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("sddddddddddddddddddddddddddddf")));
+                          }
+
                       },),
                     ],
                   ),
