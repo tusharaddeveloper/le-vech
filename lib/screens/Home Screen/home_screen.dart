@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
@@ -8,6 +9,7 @@ import 'package:le_vech/screens/Like%20Screen/like_screen.dart';
 import 'package:le_vech/screens/Profile%20Screen/profile_screen.dart';
 import 'package:le_vech/screens/Tractor%20Screen/tractor_screen.dart';
 import 'package:le_vech/screens/auth.dart/login_screen.dart';
+import 'package:le_vech/utils/firebase_get.dart';
 
 import 'package:le_vech/widgets.dart/color_const.dart';
 import 'package:le_vech/widgets.dart/image_const.dart';
@@ -24,6 +26,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late SharedPreferences prefs;
+  List<QueryDocumentSnapshot> firebasedata = <QueryDocumentSnapshot>[];
 
   List<Icon> drowerIcon = [
     Icon(
@@ -61,6 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     setLogin();
+    getData();
     super.initState();
   }
 
@@ -68,6 +72,9 @@ class _HomeScreenState extends State<HomeScreen> {
     prefs = await SharedPreferences.getInstance();
     prefs.setBool("isLogin", true);
   }
+
+  void getData() async {
+    firebasedata=await firebaseGetwhere('users','email','asp27052002');}
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -211,8 +218,44 @@ class _HomeScreenState extends State<HomeScreen> {
               child: DrawerHeader(
                 decoration: BoxDecoration(
                   color: AppColor.themecolor,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      height: 80,
+                      width: 80,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            image: AssetImage(
+                              AppImage.imglogo,
+                            ),
+                            fit: BoxFit.cover,
+                          )),
+                    ),
+                    SizedBox(height: 16),
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 220,
+                          child: Text("abhishekm064@gmail.com", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 16, color: AppColor.primarycolor)),
+                        ),
+                        Spacer(),
+                        Icon(
+                          Icons.edit,
+                          color: AppColor.primarycolor,
+                          size: 22,
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    )
+                  ],
                 ), //BoxDecoration
-                child: UserAccountsDrawerHeader(
+                /* child: UserAccountsDrawerHeader(
                   decoration: BoxDecoration(color: AppColor.themecolor),
 
                   accountName: SizedBox(
@@ -238,20 +281,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                   currentAccountPictureSize: Size.square(40),
-
-                  currentAccountPicture:Container(
-                    margin: const EdgeInsets.only(bottom: 40.0),
-                    width: 100,
-                    height: 100,
-                    decoration: new BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: new DecorationImage(
-                        fit: BoxFit.fill,
-                        image:AssetImage(AppImage.imglogo)
-                      ),
-                    ),
-                  ),
-                ), //UserAccountDrawerHeader
+                  currentAccountPicture: CircleAvatar(
+                      backgroundColor: AppColor.primarycolor,
+                      child: Image.asset(
+                        AppImage.imglogo,
+                        fit: BoxFit.cover,
+                      )), //circleAvatar
+                ),*/ //UserAccountDrawerHeader
               ),
             ),
             ListTile(

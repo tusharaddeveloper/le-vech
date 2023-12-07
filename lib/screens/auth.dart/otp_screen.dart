@@ -67,8 +67,7 @@ class _OtpScreenState extends State<OtpScreen> {
 
   void getData() async {
     firebasedata=await firebaseGetwhere('users', 'mobile_number', 'widget.mo');
-    // var storeData = await FirebaseFirestore.instance.collection("users").where("mobile_number", isEqualTo: widget.mo).get();
-    //firebasedata = storeData.docs;
+
     if (firebasedata.isNotEmpty) {
       Navigator.push(
           context,
