@@ -1,14 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:le_vech/screens/auth.dart/otp_screen.dart';
 import 'package:le_vech/utils/snackbar.dart';
-import 'package:le_vech/widgets.dart/app_bar.dart';
-import 'package:le_vech/widgets.dart/app_button.dart';
-import 'package:le_vech/widgets.dart/app_textfieled.dart';
-
-import 'package:le_vech/widgets.dart/color_const.dart';
-
-import 'package:le_vech/widgets.dart/string_const.dart';
+import 'package:le_vech/Widgets/app_bar.dart';
+import 'package:le_vech/Widgets/app_button.dart';
+import 'package:le_vech/Widgets/app_textfieled.dart';
+import 'package:le_vech/Widgets/color_const.dart';
+import 'package:le_vech/Widgets/string_const.dart';
+import 'otp_screen.dart';
 
 class LoginSCreen extends StatefulWidget {
   const LoginSCreen({Key? key}) : super(key: key);
@@ -25,12 +23,6 @@ class _LoginSCreenState extends State<LoginSCreen> {
   bool showbutton = false;
   bool isLoading = false;
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
   void userlogin(BuildContext context) async {
     try {
       if (mobileNoController.text.isNotEmpty) {
@@ -38,7 +30,6 @@ class _LoginSCreenState extends State<LoginSCreen> {
           isLoading = true;
         });
         _auth = FirebaseAuth.instance;
-
         _auth!.verifyPhoneNumber(
           phoneNumber: '+91' + mobileNoController.text,
           timeout: const Duration(seconds: 60),
@@ -58,7 +49,6 @@ class _LoginSCreenState extends State<LoginSCreen> {
           },
           codeSent: (String verificationId, int? resendToken) async {
             varId = verificationId;
-
             setState(() {
               progressvalue = true;
               showbutton = true;
@@ -74,7 +64,7 @@ class _LoginSCreenState extends State<LoginSCreen> {
           },
           codeAutoRetrievalTimeout: (verificationId) {},
         );
-      }else{
+      } else {
         errorSnackBar(context, AppString.enterNum);
       }
     } catch (a) {
@@ -118,7 +108,7 @@ class _LoginSCreenState extends State<LoginSCreen> {
                       width: 170,
                       isLoad: isLoading,
                       buttontxt: AppString.getOtp,
-                      onTap: (){
+                      onTap: () {
                         userlogin(context);
                       },
                     ),

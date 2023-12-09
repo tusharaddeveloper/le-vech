@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:le_vech/widgets.dart/app_bar.dart';
-import 'package:le_vech/widgets.dart/app_textfieled.dart';
-import 'package:le_vech/widgets.dart/color_const.dart';
-import 'package:le_vech/widgets.dart/image_const.dart';
-import 'package:le_vech/widgets.dart/string_const.dart';
-
+import 'package:le_vech/Widgets/app_bar.dart';
+import 'package:le_vech/Widgets/app_textfieled.dart';
+import 'package:le_vech/Widgets/color_const.dart';
+import 'package:le_vech/Widgets/image_const.dart';
+import 'package:le_vech/Widgets/string_const.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -74,9 +73,7 @@ class _LeVechProfileState extends State<LeVechProfile> {
                                 child: Container(
                                   height: 80,
                                   width: 80,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(60),
-                                      image: DecorationImage(fit: BoxFit.cover, image: NetworkImage("https://t3.ftcdn.net/jpg/02/43/12/34/240_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg"))),
+                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(60), image: DecorationImage(fit: BoxFit.cover, image: NetworkImage("https://t3.ftcdn.net/jpg/02/43/12/34/240_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg"))),
                                 ),
                               ),
                               SizedBox(width: 20),

@@ -1,21 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-
-import 'package:le_vech/screens/auth.dart/login_screen.dart';
-import 'package:le_vech/screens/auth.dart/noted_screen.dart';
 import 'package:le_vech/utils/firebase_get.dart';
 import 'package:le_vech/utils/snackbar.dart';
-import 'package:le_vech/widgets.dart/app_bar.dart';
-import 'package:le_vech/widgets.dart/app_textfieled.dart';
-
-import 'package:le_vech/widgets.dart/color_const.dart';
-
-import 'package:le_vech/widgets.dart/string_const.dart';
-
-
+import 'package:le_vech/Widgets/app_bar.dart';
+import 'package:le_vech/Widgets/app_textfieled.dart';
+import 'package:le_vech/Widgets/color_const.dart';
+import 'package:le_vech/Widgets/string_const.dart';
 import '../Home Screen/home_screen.dart';
+import 'login_screen.dart';
+import 'noted_screen.dart';
 
 class OtpScreen extends StatefulWidget {
   String varId;
@@ -38,7 +32,7 @@ class _OtpScreenState extends State<OtpScreen> {
     final code = verifyotp.text.trim();
     try {
       setState(() {
-        isLoading=true;
+        isLoading = true;
       });
       PhoneAuthCredential phonecredential = PhoneAuthProvider.credential(verificationId: widget.varId, smsCode: code);
       UserCredential result = await auth!.signInWithCredential(phonecredential);
@@ -48,7 +42,7 @@ class _OtpScreenState extends State<OtpScreen> {
         getData();
       } else {
         setState(() {
-          isLoading=false;
+          isLoading = false;
         });
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             backgroundColor: Colors.red,
@@ -58,15 +52,16 @@ class _OtpScreenState extends State<OtpScreen> {
               style: TextStyle(color: Colors.black),
             ))));
       }
-    } catch (e) {  setState(() {
-      isLoading=false;
-    });
-    errorSnackBar(context, AppString.enterRightOtp);
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
+      errorSnackBar(context, AppString.enterRightOtp);
     }
   }
 
   void getData() async {
-    firebasedata=await firebaseGetwhere('users', 'mobile_number', 'widget.mo');
+    firebasedata = await firebaseGetwhere('users', 'mobile_number', 'widget.mo');
 
     if (firebasedata.isNotEmpty) {
       Navigator.push(
@@ -82,7 +77,7 @@ class _OtpScreenState extends State<OtpScreen> {
           ));
     }
     setState(() {
-      isLoading=false;
+      isLoading = false;
     });
   }
 
@@ -125,14 +120,17 @@ class _OtpScreenState extends State<OtpScreen> {
                         width: 200,
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(25), color: AppColor.themecolor),
                         child: Center(
-                          child: isLoading?const Padding(
-                            padding: EdgeInsets.all(3.0),
-                            child: CircularProgressIndicator(color: Colors.white,),
-                          )
-                              :Text(
-                            AppString.nextPage,
-                            style: TextStyle(color: AppColor.primarycolor, fontSize: 20, fontWeight: FontWeight.w500),
-                          ),
+                          child: isLoading
+                              ? const Padding(
+                                  padding: EdgeInsets.all(3.0),
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                  ),
+                                )
+                              : Text(
+                                  AppString.nextPage,
+                                  style: TextStyle(color: AppColor.primarycolor, fontSize: 20, fontWeight: FontWeight.w500),
+                                ),
                         ),
                       ),
                     ),
@@ -142,7 +140,6 @@ class _OtpScreenState extends State<OtpScreen> {
                         Navigator.push(context, MaterialPageRoute(builder: (context) => LoginSCreen()));
                       },
                       child: Text(
-
                         AppString.otpBack,
                         style: TextStyle(color: AppColor.themecolor, fontSize: 18, fontWeight: FontWeight.w600),
                       ),

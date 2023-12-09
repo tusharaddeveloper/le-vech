@@ -1,15 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:flutter/material.dart';
+import 'package:le_vech/Widgets/drop_down.dart';
 import 'package:le_vech/screens/Home%20Screen/home_screen.dart';
 import 'package:le_vech/utils/firebase_get.dart';
 import 'package:le_vech/utils/snackbar.dart';
-import 'package:le_vech/widgets.dart/app_bar.dart';
-import 'package:le_vech/widgets.dart/app_button.dart';
-import 'package:le_vech/widgets.dart/app_textfieled.dart';
-import 'package:le_vech/widgets.dart/drop_down.dart';
-
-import 'package:le_vech/widgets.dart/string_const.dart';
+import 'package:le_vech/Widgets/app_bar.dart';
+import 'package:le_vech/Widgets/app_button.dart';
+import 'package:le_vech/Widgets/app_textfieled.dart';
+import 'package:le_vech/Widgets/string_const.dart';
 
 class NotedScreen extends StatefulWidget {
   String Mobile;
@@ -44,7 +42,8 @@ class _NotedScreenState extends State<NotedScreen> {
   String villageSelect = '';
   String villageSelectId = '';
   bool isFirst = true;
- @override
+
+  @override
   void initState() {
     mobileController.text = widget.Mobile;
     getDis();

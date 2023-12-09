@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import 'package:le_vech/Widgets/app_button.dart';
+import 'package:le_vech/Widgets/app_textfieled.dart';
+import 'package:le_vech/Widgets/drop_down.dart';
 import 'package:le_vech/screens/Home%20Screen/home_screen.dart';
-import 'package:le_vech/widgets.dart/app_button.dart';
-import 'package:le_vech/widgets.dart/app_textfieled.dart';
-import 'package:le_vech/widgets.dart/color_const.dart';
-import 'package:le_vech/widgets.dart/drop_down.dart';
-import 'package:le_vech/widgets.dart/string_const.dart';
-
+import 'package:le_vech/Widgets/color_const.dart';
+import 'package:le_vech/Widgets/string_const.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -52,9 +51,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: Container(
                           height: 80,
                           width: 80,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(60),
-                              image: DecorationImage(fit: BoxFit.cover, image: NetworkImage("https://t3.ftcdn.net/jpg/02/43/12/34/240_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg"))),
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(60), image: DecorationImage(fit: BoxFit.cover, image: NetworkImage("https://t3.ftcdn.net/jpg/02/43/12/34/240_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg"))),
                         ),
                       ),
                       Expanded(

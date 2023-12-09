@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:le_vech/widgets.dart/color_const.dart';
-import 'package:le_vech/widgets.dart/image_const.dart';
-import 'package:le_vech/widgets.dart/string_const.dart';
-
-
-
-import '../Profile Screen/le_vech_profile.dart';
+import 'package:le_vech/Widgets/color_const.dart';
+import 'package:le_vech/Widgets/image_const.dart';
+import 'package:le_vech/Widgets/string_const.dart';
+import 'package:le_vech/screens/Profile%20Screen/le_vech_profile.dart';
 
 class OtherScreen extends StatefulWidget {
   const OtherScreen({Key? key}) : super(key: key);

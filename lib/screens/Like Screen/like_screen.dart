@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:le_vech/widgets.dart/app_bar.dart';
-import 'package:le_vech/widgets.dart/color_const.dart';
-import 'package:le_vech/widgets.dart/image_const.dart';
-import 'package:le_vech/widgets.dart/string_const.dart';
-
-
+import 'package:le_vech/Widgets/app_bar.dart';
+import 'package:le_vech/Widgets/color_const.dart';
+import 'package:le_vech/Widgets/image_const.dart';
+import 'package:le_vech/Widgets/string_const.dart';
 
 class LikeScreen extends StatefulWidget {
   const LikeScreen({Key? key}) : super(key: key);

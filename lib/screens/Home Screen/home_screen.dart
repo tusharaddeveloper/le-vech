@@ -3,19 +3,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/screens/Ad%20Screen/add_screen.dart';
 import 'package:le_vech/screens/Ad%20Screen/send_add.dart';
+import 'package:le_vech/screens/Auth/login_screen.dart';
 import 'package:le_vech/screens/Like%20Screen/like_screen.dart';
 import 'package:le_vech/screens/Profile%20Screen/profile_screen.dart';
 import 'package:le_vech/screens/Tractor%20Screen/tractor_screen.dart';
-import 'package:le_vech/screens/auth.dart/login_screen.dart';
 import 'package:le_vech/utils/firebase_get.dart';
-
-import 'package:le_vech/widgets.dart/color_const.dart';
-import 'package:le_vech/widgets.dart/image_const.dart';
-import 'package:le_vech/widgets.dart/string_const.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:le_vech/Widgets/color_const.dart';
+import 'package:le_vech/Widgets/string_const.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -74,7 +72,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void getData() async {
-    firebasedata=await firebaseGetwhere('users','email','asp27052002');}
+    firebasedata = await firebaseGetwhere('users', 'email', 'asp27052002');
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(

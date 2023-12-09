@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/screens/Home%20Screen/home_screen.dart';
-
-import 'package:le_vech/screens/auth.dart/login_screen.dart';
-
-import 'package:le_vech/widgets.dart/color_const.dart';
-import 'package:le_vech/widgets.dart/image_const.dart';
-
+import 'package:le_vech/Widgets/color_const.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

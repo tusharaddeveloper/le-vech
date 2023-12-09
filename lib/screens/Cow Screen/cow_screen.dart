@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/screens/Profile%20Screen/le_vech_profile.dart';
-
-
-import 'package:le_vech/widgets.dart/color_const.dart';
-import 'package:le_vech/widgets.dart/image_const.dart';
-
+import 'package:le_vech/Widgets/color_const.dart';
 
 class CowScreen extends StatefulWidget {
   const CowScreen({Key? key}) : super(key: key);

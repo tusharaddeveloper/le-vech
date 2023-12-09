@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'package:le_vech/screens/Cow%20Screen/cow_screen.dart';
 import 'package:le_vech/screens/Fourwheel%20Screen/four_wheel.dart';
 import 'package:le_vech/screens/Horse%20Screen/horse_screen.dart';
 import 'package:le_vech/screens/Profile%20Screen/le_vech_profile.dart';
 import 'package:le_vech/screens/Twowheel%20Screen/two_wheel.dart';
-import 'package:le_vech/widgets.dart/app_bar.dart';
-import 'package:le_vech/widgets.dart/color_const.dart';
-import 'package:le_vech/widgets.dart/image_const.dart';
-import 'package:le_vech/widgets.dart/string_const.dart';
-
+import 'package:le_vech/Widgets/app_bar.dart';
+import 'package:le_vech/Widgets/color_const.dart';
+import 'package:le_vech/Widgets/image_const.dart';
+import 'package:le_vech/Widgets/string_const.dart';
 
 import '../Other Screen/other_screen.dart';
 
@@ -66,10 +64,7 @@ class _TractorScreenState extends State<TractorScreen> {
                           elevation: 2,
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                           child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(6),
-                                border: Border.all(color: selectedItem == itemName[index] ? AppColor.themecolor : AppColor.primarycolor, width: 3),
-                                color: AppColor.primarycolor),
+                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), border: Border.all(color: selectedItem == itemName[index] ? AppColor.themecolor : AppColor.primarycolor, width: 3), color: AppColor.primarycolor),
                             child: Column(
                               children: [
                                 Card(
