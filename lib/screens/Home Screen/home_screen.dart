@@ -16,7 +16,9 @@ import 'package:le_vech/Widgets/color_const.dart';
 import 'package:le_vech/Widgets/string_const.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  String mobileNo;
+
+  HomeScreen({Key? key,required this.mobileNo}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -69,7 +71,9 @@ class _HomeScreenState extends State<HomeScreen> {
   setLogin() async {
     prefs = await SharedPreferences.getInstance();
     prefs.setBool("isLogin", true);
+    prefs.setString('mobile_number', widget.mobileNo);
   }
+
 
   void getData() async {
     firebasedata = await firebaseGetwhere('users', 'email', 'asp27052002');
@@ -301,11 +305,11 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               onTap: () {
                 Navigator.pop(context);
-                Timer(Duration(seconds: 1), () {
+              /*  Timer(Duration(seconds: 1), () {
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => HomeScreen()),
                   );
-                });
+                });*/
               },
             ),
             Divider(thickness: 2),
@@ -378,9 +382,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => HomeScreen()),
-                );
+
               },
             ),
             Divider(thickness: 2),

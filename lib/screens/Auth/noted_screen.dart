@@ -1,5 +1,9 @@
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:le_vech/Widgets/color_const.dart';
 import 'package:le_vech/Widgets/drop_down.dart';
 import 'package:le_vech/screens/Home%20Screen/home_screen.dart';
 import 'package:le_vech/utils/firebase_get.dart';
@@ -42,6 +46,7 @@ class _NotedScreenState extends State<NotedScreen> {
   String villageSelect = '';
   String villageSelectId = '';
   bool isFirst = true;
+  File selectedProfile = File("");
 
   @override
   void initState() {
@@ -52,7 +57,9 @@ class _NotedScreenState extends State<NotedScreen> {
 
   void setData() async {
     try {
-      if (nameController.text.isEmpty) {
+      if (selectedProfile.path.isEmpty) {
+        errorSnackBar(context, "Please Select image");
+      } else if (nameController.text.isEmpty) {
         errorSnackBar(context, AppString.pleaseName);
       } else if (surnameController.text.isEmpty) {
         errorSnackBar(context, AppString.pleaseSurName);
@@ -60,8 +67,11 @@ class _NotedScreenState extends State<NotedScreen> {
         errorSnackBar(context, AppString.pleaseEMail);
       } else if (addressController.text.isEmpty) {
         errorSnackBar(context, AppString.pleaseAdd);
+      } else if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(eMailController.text)) {
+        errorSnackBar(context, "Invalid E mail ID");
       } else {
         storeData('users', {
+          'image': selectedProfile.path,
           'name': nameController.text,
           'surname': surnameController.text,
           'mobile_number': mobileController.text,
@@ -71,11 +81,10 @@ class _NotedScreenState extends State<NotedScreen> {
           'village': villageSelect,
           'address': addressController.text,
         });
-        await Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+        await Navigator.push(context, MaterialPageRoute(builder: (context) =>  HomeScreen(mobileNo: widget.Mobile,)));
       }
     } catch (e) {
       print(e);
-      // TODO
     }
   }
 
@@ -135,6 +144,24 @@ class _NotedScreenState extends State<NotedScreen> {
     setState(() {});
   }
 
+  void selectImageFromGallery() async {
+    final pickedFile = await ImageHelper.pickImageFromGallery(context: context, cropStyle: CropStyle.rectangle, title: 'Profile Image');
+    if (pickedFile != null) {
+      setState(() {
+        selectedProfile = pickedFile;
+      });
+    } else {}
+  }
+
+  void selectImageFromCamera(context) async {
+    final pickedFile = await ImageHelper.pickImageFromCamera(context: context, cropStyle: CropStyle.rectangle, title: 'Profile Image');
+    if (pickedFile != null) {
+      setState(() {
+        selectedProfile = pickedFile;
+      });
+    } else {}
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -152,20 +179,28 @@ class _NotedScreenState extends State<NotedScreen> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      AppTextField(
-                        txtValue: AppString.name,
-                        controller: nameController,
-                        isIcon: false,
-                        preIcon: false,
-                      ),
+                      InkWell(
+                          onTap: () {
+                            selectImage();
+                          },
+                          child: Container(
+                              height: 120,
+                              width: 120,
+                              decoration: BoxDecoration(
+                                color: AppColor.primarycolor,
+                                border: Border.all(color: AppColor.themecolor, width: 2),
+                                borderRadius: BorderRadius.circular(80),
+                              ),
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(80),
+                                  child: selectedProfile.path.isEmpty ? const Image(image: AssetImage("assets/images/profileimg.png")) : Image.file(selectedProfile, fit: BoxFit.cover)))),
+                      SizedBox(height: 20),
+                      AppTextField(txtValue: AppString.name, controller: nameController, isIcon: false, preIcon: false),
                       const SizedBox(height: 10),
-                      AppTextField(
-                        txtValue: AppString.surName,
-                        controller: surnameController,
-                        isIcon: false,
-                        preIcon: false, /*lableValue: AppString.surName*/
-                      ),
+                      AppTextField(txtValue: AppString.surName, controller: surnameController, isIcon: false, preIcon: false /*lableValue: AppString.surName*/
+                          ),
                       const SizedBox(height: 10),
                       AppTextField(
                         txtValue: AppString.mobileNo,
@@ -252,5 +287,52 @@ class _NotedScreenState extends State<NotedScreen> {
         ),
       ),
     );
+  }
+
+  void selectImage() {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return SafeArea(
+              child: SizedBox(
+                  child: Wrap(children: [
+            ListTile(
+                leading: const Icon(Icons.photo_library),
+                title: const Text('Photo Library'),
+                onTap: () {
+                  selectImageFromGallery();
+                  Navigator.of(context).pop();
+                }),
+            ListTile(
+                leading: const Icon(Icons.photo_camera),
+                title: const Text('Camera'),
+                onTap: () {
+                  selectImageFromCamera(context);
+                  Navigator.of(context).pop();
+                })
+          ])));
+        });
+  }
+}
+
+class ImageHelper {
+  static Future<File?> pickImageFromGallery({
+    required BuildContext context,
+    required CropStyle cropStyle,
+    required String title,
+  }) async {
+    final pickedFile = await ImagePicker().getImage(source: ImageSource.gallery);
+    var file = File(pickedFile!.path);
+    return file;
+  }
+
+  static Future<File?> pickImageFromCamera({
+    required BuildContext context,
+    required CropStyle cropStyle,
+    required String title,
+  }) async {
+    final pickedFile = await ImagePicker().getImage(source: ImageSource.camera);
+    var file = File(pickedFile!.path);
+    return file;
   }
 }

@@ -23,11 +23,14 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void logedin() async {
     bool logedin = false;
+    String mo='';
     prefs = await SharedPreferences.getInstance();
     logedin = prefs.getBool("isLogin") ?? false;
+    mo = prefs.getString("mobile_number").toString() ?? '';
+
     if (logedin) {
       Future.delayed(Duration(seconds: 4), () {
-        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => HomeScreen()), (Route<dynamic> route) => false);
+        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => HomeScreen(mobileNo: mo,)), (Route<dynamic> route) => false);
       });
     } else {
       Future.delayed(Duration(seconds: 4), () {

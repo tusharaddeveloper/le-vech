@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:le_vech/screens/Auth/noted_screen.dart';
+import 'package:le_vech/screens/Auth/splash_screen.dart';
 import 'package:le_vech/screens/Home%20Screen/home_screen.dart';
 import 'Widgets/color_const.dart';
 import 'firebase_options.dart';
@@ -27,7 +29,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: HomeScreen(),
+      home: const SplashScreen(),
     );
   }
 }
