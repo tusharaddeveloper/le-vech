@@ -62,8 +62,7 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
     districSelect = '';
     districSelectId = '';
     try {
-      var storeData = await FirebaseFirestore.instance.collection("district").get();
-      listOfDistrict = storeData.docs;
+      listOfDistrict = await firebaseGet('district');
     } catch (e) {
       print(e);
     }
@@ -83,8 +82,8 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
     talukaSelect = '';
     talukaSelectId = '';
 
-    var storeData = await FirebaseFirestore.instance.collection("taluka").where("district_id", isEqualTo: districSelectId).get();
-    listOfTaluka = storeData.docs;
+    // var storeData = await FirebaseFirestore.instance.collection("taluka").where("district_id", isEqualTo: districSelectId).get();
+    listOfTaluka = await firebaseGetwhere('taluka', 'district_id', districSelectId);
 
     for (int i = 0; i < listOfTaluka.length; i++) {
       talukaList.add(listOfTaluka[i]["taluka_name"]);
@@ -101,8 +100,9 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
     villageListId.clear();
     villageSelect = '';
     villageSelectId = '';
-    var storeData = await FirebaseFirestore.instance.collection("village").where("taluka_id", isEqualTo: talukaSelectId).get();
-    listOfVillage = storeData.docs;
+    //  var storeData = await FirebaseFirestore.instance.collection("village").where("taluka_id", isEqualTo: talukaSelectId).get();
+    listOfVillage = await firebaseGetwhere('village', 'taluka_id', talukaSelectId);
+
     for (int i = 0; i < listOfVillage.length; i++) {
       villageList.add(listOfVillage[i]["village_name"]);
       villageListId.add(listOfVillage[i].id);
@@ -122,7 +122,6 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
           for (var i = 0; i < xfilePick.length; i++) {
             selectedImages.add(File(xfilePick[i].path));
           }
-
           //    getUrl();
         } else {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("AppString.nothingSelected")));
@@ -139,7 +138,17 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
     for (int i = 0; i < selectedImages.length; i++) {
       tempImg.add(selectedImages[i].path);
     }
-    storeData('advertise', {'item_img': tempImg, 'item_type': selectItem, 'price': priceController.text, 'detail': detailsController.text, 'district': districSelect, 'taluka': talukaSelect, 'village': villageSelect, 'mobile_number': mobileController.text, 'address': addressController.text});
+    storeData('advertise', {
+      'item_img': tempImg,
+      'item_type': selectItem,
+      'price': priceController.text,
+      'detail': detailsController.text,
+      'district': districSelect,
+      'taluka': talukaSelect,
+      'village': villageSelect,
+      'mobile_number': mobileController.text,
+      'address': addressController.text
+    });
     setState(() {
       isLoading = false;
     });
@@ -149,201 +158,137 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
+        body: SafeArea(
+            child: SingleChildScrollView(
+                child: Column(children: [
+      AppBarWidget(isLogo: false, height: 130, width: double.infinity, info: AppString.addItem),
+      SizedBox(height: 10),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        child: InkWell(
+          onTap: () {
+            getImages();
+          },
+          child: Row(
             children: [
-              AppBarWidget(isLogo: false, height: 130, width: double.infinity, info: AppString.addItem),
-              SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                child: InkWell(
-                  onTap: () {
-                    getImages();
-                  },
-                  child: Row(
-                    children: [
-                      Text(
-                        AppString.addPhoto,
-                        style: TextStyle(color: Color(0xff000000), fontSize: 20, fontWeight: FontWeight.w500),
-                      ),
-                      SizedBox(width: 8),
-                      Icon(
-                        Icons.add_circle_outline,
-                        size: 28,
-                        color: AppColor.themecolor,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              CarouselSlider(
-                options: CarouselOptions(height: 190, autoPlay: true, autoPlayInterval: Duration(seconds: 2), aspectRatio: 16 / 9, viewportFraction: 1),
-                items: selectedImages.isEmpty
-                    ? imageList.map((i) {
-                        return Builder(
-                          builder: (BuildContext context) {
-                            return Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                                  child: Container(
-                                    height: 190,
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(30),
-                                      image: DecorationImage(image: AssetImage(i), fit: BoxFit.cover),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      }).toList()
-                    : selectedImages.map((i) {
-                        return Builder(
-                          builder: (BuildContext context) {
-                            return Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                                  child: Container(
-                                    height: 190,
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(30),
-                                    ),
-                                    child: Image.file(i, fit: BoxFit.cover),
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      }).toList(),
-              ),
-              SizedBox(height: 20),
-              Text(
-                AppString.sellingItem,
-                style: TextStyle(color: AppColor.primarycolorblack, fontWeight: FontWeight.w400, fontSize: 18),
-              ),
-              SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                child: Column(
-                  children: [
-                    DropDown(
-                        items: [AppString.tractor, AppString.cow, AppString.horse, AppString.twoWheel, AppString.fourWheel, AppString.others],
-                        dropdownvalue: selectItem,
-                        onTap: (String value) {
-                          setState(() {
-                            selectItem = value;
-                          });
-                        }),
-                    SizedBox(height: 10),
-                    AppTextField(
-                      controller: priceController,
-                      txtValue: AppString.price,
-                      keytype: TextInputType.number,
-                    ),
-                    SizedBox(height: 20),
-                    Text(
-                      AppString.sellingInfo,
-                      style: TextStyle(color: AppColor.primarycolorblack, fontWeight: FontWeight.w400, fontSize: 18),
-                    ),
-                    SizedBox(height: 20),
-                    AppTextField(controller: detailsController, txtValue: AppString.infoSend, isIcon: false, maxLines: 4, counterTxt: "", preIcon: false),
-                    SizedBox(height: 20),
-                    Text(
-                      AppString.sellingplace,
-                      style: TextStyle(color: AppColor.primarycolorblack, fontWeight: FontWeight.w400, fontSize: 18),
-                    ),
-                    SizedBox(height: 20),
-                    AppTextField(
-                      txtValue: AppString.guj,
-                      readOnly: true,
-                    ),
-                    SizedBox(height: 10),
-                    DropDown(
-                      items: districList,
-                      dropdownvalue: districSelect,
-                      onTap: (String value) {
-                        setState(() {
-                          districSelect = value;
-                          districSelectId = districListId[districList.indexOf(districSelect)];
-                          isFirst = false;
-                          getTaluka();
-                        });
-                      },
-                    ),
-                    SizedBox(height: 10),
-                    DropDown(
-                      items: talukaList,
-                      dropdownvalue: talukaSelect,
-                      onTap: (String value) {
-                        setState(() {
-                          talukaSelect = value;
-                          talukaSelectId = talukaListId[talukaList.indexOf(talukaSelect)];
-                          getVillage();
-                        });
-                      },
-                    ),
-                    SizedBox(height: 10),
-                    DropDown(
-                        items: villageList,
-                        dropdownvalue: villageSelect,
-                        onTap: (String value) {
-                          setState(() {
-                            villageSelect = value;
-                            villageSelectId = villageListId[villageList.indexOf(villageSelect)];
-                          });
-                        }),
-                    SizedBox(height: 10),
-                    AppTextField(
-                      controller: mobileController,
-                      txtValue: AppString.mobileNo,
-                      keytype: TextInputType.number,
-                      lableValue: AppString.mobileNo,
-                      maxLength: 10,
-                      counterTxt: '',
-                    ),
-                    SizedBox(height: 10),
-                    AppTextField(controller: addressController, txtValue: AppString.add, isIcon: false, lableValue: AppString.add, maxLines: 4, counterTxt: "", preIcon: false),
-                    SizedBox(height: 20),
-                    AppButton(
-                      height: 60,
-                      width: double.infinity,
-                      isLoad: isLoading,
-                      buttontxt: AppString.send,
-                      onTap: () {
-                        if (imageList.isEmpty) {
-                          errorSnackBar(context, "PLEASE SELECT IMAGE");
-                        } else if (selectItem.isEmpty) {
-                          errorSnackBar(context, "PLEASE SELECT ITEM");
-                        } else if (priceController.text.isEmpty) {
-                          errorSnackBar(context, "PLEASE ENTER PRICE");
-                        } else if (detailsController.text.isEmpty) {
-                          errorSnackBar(context, "PLEASE ENTER DETAILS");
-                        } else if (talukaSelect.isEmpty) {
-                          errorSnackBar(context, "PLEASE SELECT TALUKA");
-                        } else if (villageSelect.isEmpty) {
-                          errorSnackBar(context, "PLEASE SELECT VILLAGE");
-                        } else if (mobileController.text.isEmpty) {
-                          errorSnackBar(context, "PLEASE ENTER MOBILE NO");
-                        } else if (addressController.text.isEmpty) {
-                          errorSnackBar(context, "PLEASE ENTER ADDRESS");
-                        }
-                        setItemData();
-                      },
-                    )
-                  ],
-                ),
-              )
+              Text(AppString.addPhoto, style: TextStyle(color: Color(0xff000000), fontSize: 20, fontWeight: FontWeight.w500)),
+              SizedBox(width: 8),
+              Icon(Icons.add_circle_outline, size: 28, color: AppColor.themecolor),
             ],
           ),
         ),
       ),
-    );
+      CarouselSlider(
+        options: CarouselOptions(height: 190, autoPlay: true, autoPlayInterval: Duration(seconds: 2), aspectRatio: 16 / 9, viewportFraction: 1),
+        items: selectedImages.isEmpty
+            ? imageList.map((i) {
+                return Builder(builder: (BuildContext context) {
+                  return Column(children: [
+                    Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Container(
+                            height: 190, width: double.infinity, decoration: BoxDecoration(borderRadius: BorderRadius.circular(30), image: DecorationImage(image: AssetImage(i), fit: BoxFit.cover))))
+                  ]);
+                });
+              }).toList()
+            : selectedImages.map((i) {
+                return Builder(builder: (BuildContext context) {
+                  return Column(children: [
+                    Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Container(height: 190, width: double.infinity, decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)), child: Image.file(i, fit: BoxFit.cover)))
+                  ]);
+                });
+              }).toList(),
+      ),
+      SizedBox(height: 20),
+      Text(AppString.sellingItem, style: TextStyle(color: AppColor.primarycolorblack, fontWeight: FontWeight.w400, fontSize: 18)),
+      SizedBox(height: 20),
+      Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          child: Column(children: [
+            DropDown(
+                items: [AppString.tractor, AppString.cow, AppString.horse, AppString.twoWheel, AppString.fourWheel, AppString.others],
+                dropdownvalue: selectItem,
+                onTap: (String value) {
+                  setState(() {
+                    selectItem = value;
+                  });
+                }),
+            SizedBox(height: 10),
+            AppTextField(controller: priceController, txtValue: AppString.price, keytype: TextInputType.number),
+            SizedBox(height: 20),
+            Text(AppString.sellingInfo, style: TextStyle(color: AppColor.primarycolorblack, fontWeight: FontWeight.w400, fontSize: 18)),
+            SizedBox(height: 20),
+            AppTextField(controller: detailsController, txtValue: AppString.infoSend, isIcon: false, maxLines: 4, counterTxt: "", preIcon: false),
+            SizedBox(height: 20),
+            Text(AppString.sellingplace, style: TextStyle(color: AppColor.primarycolorblack, fontWeight: FontWeight.w400, fontSize: 18)),
+            SizedBox(height: 20),
+            AppTextField(txtValue: AppString.guj, readOnly: true),
+            SizedBox(height: 10),
+            DropDown(
+                items: districList,
+                dropdownvalue: districSelect,
+                onTap: (String value) {
+                  setState(() {
+                    districSelect = value;
+                    districSelectId = districListId[districList.indexOf(districSelect)];
+                    isFirst = false;
+                    getTaluka();
+                  });
+                }),
+            SizedBox(height: 10),
+            DropDown(
+                items: talukaList,
+                dropdownvalue: talukaSelect,
+                onTap: (String value) {
+                  setState(() {
+                    talukaSelect = value;
+                    talukaSelectId = talukaListId[talukaList.indexOf(talukaSelect)];
+                    getVillage();
+                  });
+                }),
+            SizedBox(height: 10),
+            DropDown(
+                items: villageList,
+                dropdownvalue: villageSelect,
+                onTap: (String value) {
+                  setState(() {
+                    villageSelect = value;
+                    villageSelectId = villageListId[villageList.indexOf(villageSelect)];
+                  });
+                }),
+            SizedBox(height: 10),
+            AppTextField(controller: mobileController, txtValue: AppString.mobileNo, keytype: TextInputType.number, lableValue: AppString.mobileNo, counterTxt: '', maxLength: 10),
+            SizedBox(height: 10),
+            AppTextField(controller: addressController, txtValue: AppString.add, isIcon: false, lableValue: AppString.add, maxLines: 4, counterTxt: "", preIcon: false),
+            SizedBox(height: 20),
+            AppButton(
+                height: 60,
+                width: double.infinity,
+                isLoad: isLoading,
+                buttontxt: AppString.send,
+                onTap: () {
+                  if (imageList.isEmpty) {
+                    errorSnackBar(context, "PLEASE SELECT IMAGE");
+                  } else if (selectItem.isEmpty) {
+                    errorSnackBar(context, "PLEASE SELECT ITEM");
+                  } else if (priceController.text.isEmpty) {
+                    errorSnackBar(context, "PLEASE ENTER PRICE");
+                  } else if (detailsController.text.isEmpty) {
+                    errorSnackBar(context, "PLEASE ENTER DETAILS");
+                  } else if (talukaSelect.isEmpty) {
+                    errorSnackBar(context, "PLEASE SELECT TALUKA");
+                  } else if (villageSelect.isEmpty) {
+                    errorSnackBar(context, "PLEASE SELECT VILLAGE");
+                  } else if (mobileController.text.isEmpty) {
+                    errorSnackBar(context, "PLEASE ENTER MOBILE NO");
+                  } else if (addressController.text.isEmpty) {
+                    errorSnackBar(context, "PLEASE ENTER ADDRESS");
+                  }
+                  setItemData();
+                })
+          ]))
+    ]))));
   }
 }

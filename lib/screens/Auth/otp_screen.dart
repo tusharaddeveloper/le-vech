@@ -44,13 +44,7 @@ class _OtpScreenState extends State<OtpScreen> {
         setState(() {
           isLoading = false;
         });
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            backgroundColor: Colors.red,
-            content: Center(
-                child: Text(
-              'Invalid Otp',
-              style: TextStyle(color: Colors.black),
-            ))));
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(backgroundColor: Colors.red, content: Center(child: Text('Invalid Otp', style: TextStyle(color: Colors.black)))));
       }
     } catch (e) {
       setState(() {
@@ -61,14 +55,10 @@ class _OtpScreenState extends State<OtpScreen> {
   }
 
   void getData() async {
-    firebasedata = await firebaseGetwhere('users', 'mobile_number', 'widget.mo');
+    firebasedata = await firebaseGetwhere('users', 'mobile_number', widget.mo);
 
     if (firebasedata.isNotEmpty) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => HomeScreen(mobileNo: widget.mo),
-          ));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen(mobileNo: widget.mo)));
     } else {
       Navigator.push(
           context,
@@ -85,72 +75,39 @@ class _OtpScreenState extends State<OtpScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              AppBarWidget(isLogo: true, height: size.height * 0.38, width: double.infinity, logoHeight: size.height * 0.18, logoWidth: size.height * 0.18),
-              Padding(
-                padding: const EdgeInsets.only(left: 16, right: 16, top: 30),
-                child: Column(
-                  children: [
-                    Text(
-                      AppString.enterOtp,
-                      style: TextStyle(color: AppColor.themecolor, fontSize: 18, fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(height: 24),
-                    AppTextField(
-                      controller: verifyotp,
-                      txtValue: AppString.otpCode,
-                      lableValue: AppString.otpText,
-                      keytype: TextInputType.number,
-                      isIcon: false,
-                      preIcon: true,
-                      maxLength: 6,
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        verifyOtp();
-                      },
-                      child: Container(
-                        height: 50,
-                        width: 200,
-                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(25), color: AppColor.themecolor),
-                        child: Center(
-                          child: isLoading
-                              ? const Padding(
-                                  padding: EdgeInsets.all(3.0),
-                                  child: CircularProgressIndicator(
-                                    color: Colors.white,
-                                  ),
-                                )
-                              : Text(
-                                  AppString.nextPage,
-                                  style: TextStyle(color: AppColor.primarycolor, fontSize: 20, fontWeight: FontWeight.w500),
-                                ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 26),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => LoginSCreen()));
-                      },
-                      child: Text(
-                        AppString.otpBack,
-                        style: TextStyle(color: AppColor.themecolor, fontSize: 18, fontWeight: FontWeight.w600),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+        body: SafeArea(
+            child: SingleChildScrollView(
+                child: Column(children: [
+      AppBarWidget(isLogo: true, height: size.height * 0.38, width: double.infinity, logoHeight: size.height * 0.18, logoWidth: size.height * 0.18),
+      Padding(
+          padding: const EdgeInsets.only(left: 16, right: 16, top: 30),
+          child: Column(children: [
+            Text(AppString.enterOtp, style: TextStyle(color: AppColor.themecolor, fontSize: 18, fontWeight: FontWeight.w600)),
+            SizedBox(height: 24),
+            AppTextField(controller: verifyotp, txtValue: AppString.otpCode, lableValue: AppString.otpText, keytype: TextInputType.number, isIcon: false, preIcon: true, maxLength: 6),
+            SizedBox(height: 10),
+            InkWell(
+                onTap: () {
+                  verifyOtp();
+                },
+                child: Container(
+                    height: 50,
+                    width: 200,
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(25), color: AppColor.themecolor),
+                    child: Center(
+                        child: isLoading
+                            ? const Padding(padding: EdgeInsets.all(3.0), child: CircularProgressIndicator(color: Colors.white))
+                            : Text(AppString.nextPage, style: TextStyle(color: AppColor.primarycolor, fontSize: 20, fontWeight: FontWeight.w500))))),
+            SizedBox(height: 26),
+            InkWell(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => LoginSCreen()));
+                },
+                child: Text(
+                  AppString.otpBack,
+                  style: TextStyle(color: AppColor.themecolor, fontSize: 18, fontWeight: FontWeight.w600),
+                ))
+          ]))
+    ]))));
   }
 }

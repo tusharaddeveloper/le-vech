@@ -26,9 +26,9 @@ class _AppButtonState extends State<AppButton> {
         width: widget.width,
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(30), color: AppColor.themecolor),
         child: Center(
-          child: widget.isLoad??false?const Padding(
+          child: widget.isLoad??false? Padding(
             padding: EdgeInsets.all(3.0),
-            child: CircularProgressIndicator(color: Colors.white,),
+            child: CircularProgressIndicator(color:AppColor.primarycolor,),
           )
               :Text(
             widget.buttontxt,

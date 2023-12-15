@@ -18,7 +18,7 @@ import 'package:le_vech/Widgets/string_const.dart';
 class HomeScreen extends StatefulWidget {
   String mobileNo;
 
-  HomeScreen({Key? key,required this.mobileNo}) : super(key: key);
+  HomeScreen({Key? key, required this.mobileNo}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -27,6 +27,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late SharedPreferences prefs;
   List<QueryDocumentSnapshot> firebasedata = <QueryDocumentSnapshot>[];
+  List<QueryDocumentSnapshot> profileData = <QueryDocumentSnapshot>[];
+  String profilePic = '';
 
   List<Icon> drowerIcon = [
     Icon(
@@ -64,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     setLogin();
-    getData();
+    getProfileData();
     super.initState();
   }
 
@@ -74,335 +76,289 @@ class _HomeScreenState extends State<HomeScreen> {
     prefs.setString('mobile_number', widget.mobileNo);
   }
 
-
-  void getData() async {
-    firebasedata = await firebaseGetwhere('users', 'email', 'asp27052002');
-  }
-
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.txtfilled,
-      key: scaffoldKey,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              ClipPath(
-                clipper: WaveClipperTwo(),
-                child: Container(
-                  height: 130,
-                  width: double.infinity,
-                  color: AppColor.themecolor,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 28, bottom: 26),
-                    child: Row(
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            scaffoldKey.currentState!.openDrawer();
-                          },
-                          child: Icon(
-                            Icons.list,
-                            color: AppColor.primarycolor,
-                            size: 32,
+        backgroundColor: AppColor.txtfilled,
+        key: scaffoldKey,
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                ClipPath(
+                  clipper: WaveClipperTwo(),
+                  child: Container(
+                    height: 130,
+                    width: double.infinity,
+                    color: AppColor.themecolor,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 28, bottom: 26),
+                      child: Row(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              scaffoldKey.currentState!.openDrawer();
+                            },
+                            child: Icon(
+                              Icons.list,
+                              color: AppColor.primarycolor,
+                              size: 32,
+                            ),
                           ),
-                        ),
-                        Spacer(),
-                        Text(
-                          AppString.appName,
-                          style: TextStyle(color: AppColor.primarycolor, fontSize: 26),
-                        ),
-                        Spacer(),
-                        Spacer(),
-                      ],
+                          Spacer(),
+                          Text(
+                            AppString.appName,
+                            style: TextStyle(color: AppColor.primarycolor, fontSize: 26),
+                          ),
+                          Spacer(),
+                          Spacer(),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-              SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Column(
-                  children: [
-                    CarouselSlider(
-                      options: CarouselOptions(height: 190, autoPlay: true, autoPlayInterval: Duration(seconds: 2), aspectRatio: 16 / 9, viewportFraction: 1),
-                      items: imageList.map((i) {
-                        return Builder(
-                          builder: (BuildContext context) {
-                            return Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                                  child: Container(
-                                    height: 190,
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(30),
-                                      image: DecorationImage(image: AssetImage(i), fit: BoxFit.cover),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      }).toList(),
-                    ),
-                    SizedBox(height: 26),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                child: GridView.builder(
-                    itemCount: itemName.length,
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 5.2 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => TractorScreen(itemName: itemName[index]),
-                          ));
-                        },
-                        child: Card(
-                          elevation: 2,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-                          child: Container(
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), color: AppColor.primarycolor),
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: 8,
-                                ),
-                                Expanded(
-                                  child: Card(
-                                    elevation: 3,
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Column(
+                    children: [
+                      CarouselSlider(
+                        options: CarouselOptions(height: 190, autoPlay: true, autoPlayInterval: Duration(seconds: 2), aspectRatio: 16 / 9, viewportFraction: 1),
+                        items: imageList.map((i) {
+                          return Builder(
+                            builder: (BuildContext context) {
+                              return Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 8),
                                     child: Container(
-                                      width: 140,
+                                      height: 190,
+                                      width: double.infinity,
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(6),
-                                        image: DecorationImage(image: AssetImage(imageList[index]), fit: BoxFit.cover),
+                                        borderRadius: BorderRadius.circular(30),
+                                        image: DecorationImage(image: AssetImage(i), fit: BoxFit.cover),
                                       ),
                                     ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    itemName[index],
-                                    style: TextStyle(color: AppColor.primarycolorblack, fontSize: 16, fontWeight: FontWeight.w600),
-                                    textAlign: TextAlign.center,
+                                ],
+                              );
+                            },
+                          );
+                        }).toList(),
+                      ),
+                      SizedBox(height: 26),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  child: GridView.builder(
+                      itemCount: itemName.length,
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 5.2 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => TractorScreen(itemName: itemName[index]),
+                            ));
+                          },
+                          child: Card(
+                            elevation: 2,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                            child: Container(
+                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), color: AppColor.primarycolor),
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 8,
                                   ),
-                                ),
-                              ],
+                                  Expanded(
+                                    child: Card(
+                                      elevation: 3,
+                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                                      child: Container(
+                                        width: 140,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(6),
+                                          image: DecorationImage(image: AssetImage(imageList[index]), fit: BoxFit.cover),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      itemName[index],
+                                      style: TextStyle(color: AppColor.primarycolorblack, fontSize: 16, fontWeight: FontWeight.w600),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    }),
-              )
-            ],
+                        );
+                      }),
+                )
+              ],
+            ),
           ),
         ),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            InkWell(
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => ProfileScreen(),
-                ));
-              },
-              child: DrawerHeader(
-                decoration: BoxDecoration(
-                  color: AppColor.themecolor,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Container(
-                      height: 80,
-                      width: 80,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                            image: AssetImage(
-                              AppImage.imglogo,
-                            ),
-                            fit: BoxFit.cover,
-                          )),
-                    ),
-                    SizedBox(height: 16),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: 220,
-                          child: Text("abhishekm064@gmail.com", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 16, color: AppColor.primarycolor)),
-                        ),
-                        Spacer(),
-                        Icon(
-                          Icons.edit,
-                          color: AppColor.primarycolor,
-                          size: 22,
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    )
-                  ],
-                ), //BoxDecoration
-                /* child: UserAccountsDrawerHeader(
-                  decoration: BoxDecoration(color: AppColor.themecolor),
-
-                  accountName: SizedBox(
-                    width: 200,
-                    child: Text(
-                      "Abhishek Mishra",
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ),
-                  accountEmail: Row(
+        drawer: Drawer(
+            child: ListView(children: [
+          InkWell(
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => ProfileScreen(),
+              ));
+            },
+            child: DrawerHeader(
+              decoration: BoxDecoration(
+                color: AppColor.themecolor,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
                     children: [
-                      SizedBox(
-                        width: 200,
-                        child: Text("abhishekm064@gmail.com", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 14)),
+                      Container(
+                          height: 90,
+                          width: 90,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(80),
+                            child: profilePic != '' ? Image(image: NetworkImage(profilePic), fit: BoxFit.cover) : Image(image: AssetImage(AppImage.imglogo), fit: BoxFit.cover),
+                          )),
+                          SizedBox(width: 18),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("+91 ${widget.mobileNo}", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 18, color: AppColor.primarycolor)),
+                          SizedBox(height: 8),
+                          Text("+91 ${widget.mobileNo}", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 18, color: AppColor.primarycolor)),
+                        ],
                       ),
-                      SizedBox(width: 20),
+                    ],
+                  ),
+                  Spacer(),
+                  Row(
+                    children: [
+                      Spacer(),
+                      Text("Edit", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 18, color: AppColor.primarycolor)),
+                      SizedBox(width: 10),
                       Icon(
                         Icons.edit,
                         color: AppColor.primarycolor,
                         size: 22,
-                      )
+                      ),
+                      SizedBox(width: 20)
+
                     ],
                   ),
-                  currentAccountPictureSize: Size.square(40),
-                  currentAccountPicture: CircleAvatar(
-                      backgroundColor: AppColor.primarycolor,
-                      child: Image.asset(
-                        AppImage.imglogo,
-                        fit: BoxFit.cover,
-                      )), //circleAvatar
-                ),*/ //UserAccountDrawerHeader
-              ),
+                  SizedBox(height: 10)
+                ],
+              ), //BoxDecoration
             ),
-            ListTile(
-              leading: Icon(
-                Icons.home_outlined,
-                size: 28,
-                color: AppColor.themecolor,
-              ),
-              title: Text(
-                drowerName[0],
-                style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w500),
-              ),
-              onTap: () {
-                Navigator.pop(context);
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.home_outlined,
+              size: 28,
+              color: AppColor.themecolor,
+            ),
+            title: Text(
+              drowerName[0],
+              style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w500),
+            ),
+            onTap: () {
+              Navigator.pop(context);
               /*  Timer(Duration(seconds: 1), () {
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => HomeScreen()),
                   );
                 });*/
-              },
+            },
+          ),
+          Divider(thickness: 2),
+          ListTile(
+            leading: Icon(
+              Icons.add_circle_outline,
+              size: 28,
+              color: AppColor.themecolor,
             ),
-            Divider(thickness: 2),
-            ListTile(
-              leading: Icon(
-                Icons.add_circle_outline,
-                size: 28,
-                color: AppColor.themecolor,
-              ),
-              title: Text(
-                drowerName[1],
-                style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w500),
-              ),
-              onTap: () {
-                Navigator.pop(context);
-                Timer(Duration(microseconds: 500), () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => AddItemsScreen()),
-                  );
-                });
-              },
+            title: Text(
+              drowerName[1],
+              style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w500),
             ),
-            Divider(thickness: 2),
-            ListTile(
+            onTap: () {
+              Navigator.pop(context);
+              Timer(Duration(microseconds: 500), () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => AddItemsScreen()),
+                );
+              });
+            },
+          ),
+          Divider(thickness: 2),
+          ListTile(
               leading: Icon(
                 Icons.favorite_border,
                 size: 28,
                 color: AppColor.themecolor,
               ),
-              title: Text(
-                drowerName[2],
-                style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w500),
-              ),
+              title: Text(drowerName[2], style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w500)),
               onTap: () {
                 Navigator.pop(context);
                 Future.delayed(const Duration(microseconds: 500));
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => LikeScreen()),
-                );
-              },
-            ),
-            Divider(thickness: 2),
-            ListTile(
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => LikeScreen()));
+              }),
+          Divider(thickness: 2),
+          ListTile(
               leading: Icon(
                 Icons.save,
                 size: 28,
                 color: AppColor.themecolor,
               ),
-              title: Text(
-                drowerName[3],
-                style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w500),
-              ),
+              title: Text(drowerName[3], style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w500)),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => SendAdd()),
-                );
-              },
-            ),
-            Divider(thickness: 2),
-            ListTile(
-              leading: Icon(
-                Icons.share,
-                size: 28,
-                color: AppColor.themecolor,
-              ),
-              title: Text(
-                drowerName[4],
-                style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w500),
-              ),
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => SendAdd()));
+              }),
+          Divider(thickness: 2),
+          ListTile(
+              leading: Icon(Icons.share, size: 28, color: AppColor.themecolor),
+              title: Text(drowerName[4], style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w500)),
               onTap: () {
                 Navigator.pop(context);
+              }),
+          Divider(thickness: 2),
+          ListTile(
+              leading: Icon(Icons.logout, size: 28, color: AppColor.themecolor),
+              title: Text(AppString.logOut, style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w500)),
+              onTap: () {
+                logOut();
+              })
+        ])) //Drawer
+        );
+  }
 
-              },
-            ),
-            Divider(thickness: 2),
-            ListTile(
-              leading: Icon(
-                Icons.logout,
-                size: 28,
-                color: AppColor.themecolor,
-              ),
-              title: Text(
-                AppString.logOut,
-                style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w500),
-              ),
-              onTap: () {
-                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => LoginSCreen()), (Route<dynamic> route) => false);
-              },
-            ),
-          ],
-        ),
-      ), //Drawer
-    );
+  getProfileData() async {
+    var store = await FirebaseFirestore.instance.collection("le-vech_config").doc('developer').collection("users").where("mobile_number", isEqualTo: widget.mobileNo).get();
+    setState(() {
+      profileData = store.docs;
+      if (profileData.isNotEmpty) {
+        profilePic = profileData[0]['image'];
+      }
+    });
+  }
+
+  void logOut() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.clear();
+    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => LoginSCreen()), (Route<dynamic> route) => false);
   }
 }

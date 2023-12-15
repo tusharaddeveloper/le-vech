@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -12,6 +13,8 @@ import 'package:le_vech/Widgets/app_bar.dart';
 import 'package:le_vech/Widgets/app_button.dart';
 import 'package:le_vech/Widgets/app_textfieled.dart';
 import 'package:le_vech/Widgets/string_const.dart';
+import 'package:le_vech/utils/storage_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NotedScreen extends StatefulWidget {
   String Mobile;
@@ -47,6 +50,8 @@ class _NotedScreenState extends State<NotedScreen> {
   String villageSelectId = '';
   bool isFirst = true;
   File selectedProfile = File("");
+  bool isLoading = false;
+  String profileUrl = '';
 
   @override
   void initState() {
@@ -57,32 +62,37 @@ class _NotedScreenState extends State<NotedScreen> {
 
   void setData() async {
     try {
-      if (selectedProfile.path.isEmpty) {
-        errorSnackBar(context, "Please Select image");
-      } else if (nameController.text.isEmpty) {
-        errorSnackBar(context, AppString.pleaseName);
-      } else if (surnameController.text.isEmpty) {
-        errorSnackBar(context, AppString.pleaseSurName);
-      } else if (eMailController.text.isEmpty) {
-        errorSnackBar(context, AppString.pleaseEMail);
-      } else if (addressController.text.isEmpty) {
-        errorSnackBar(context, AppString.pleaseAdd);
-      } else if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(eMailController.text)) {
-        errorSnackBar(context, "Invalid E mail ID");
-      } else {
-        storeData('users', {
-          'image': selectedProfile.path,
-          'name': nameController.text,
-          'surname': surnameController.text,
-          'mobile_number': mobileController.text,
-          'email': eMailController.text,
-          'district': districSelect,
-          'taluka': talukaSelect,
-          'village': villageSelect,
-          'address': addressController.text,
-        });
-        await Navigator.push(context, MaterialPageRoute(builder: (context) =>  HomeScreen(mobileNo: widget.Mobile,)));
+      setState(() {
+        isLoading = true;
+      });
+      FirebaseStorage firebasestorage = FirebaseStorage.instance;
+      if (selectedProfile.path.isNotEmpty) {
+        try {
+          StorageProvider storageProvider = StorageProvider(firebaseStorage: firebasestorage);
+          profileUrl = await storageProvider.uploadUserProfile(image: selectedProfile);
+        } catch (e) {
+          print(e);
+        }
       }
+
+      storeDataDocs('users', mobileController.text, {
+        'image': profileUrl,
+        'name': nameController.text,
+        'surname': surnameController.text,
+        'mobile_number': mobileController.text,
+        'district': districSelect,
+        'taluka': talukaSelect,
+        'village': villageSelect,
+        'address': addressController.text
+      });
+      setState(() {
+        isLoading = false;
+      });
+      Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen(mobileNo: widget.Mobile)));
+
+      setState(() {
+        isLoading = false;
+      });
     } catch (e) {
       print(e);
     }
@@ -165,69 +175,38 @@ class _NotedScreenState extends State<NotedScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            AppBarWidget(
-              height: 130,
-              width: double.infinity,
-              isLogo: false,
-              info: AppString.noteText,
-            ),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Padding(
+        body: SafeArea(
+            child: Column(children: [
+      AppBarWidget(height: 130, width: double.infinity, isLogo: false, info: AppString.noteText),
+      Expanded(
+          child: SingleChildScrollView(
+              child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      InkWell(
-                          onTap: () {
-                            selectImage();
-                          },
-                          child: Container(
+                  child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    InkWell(
+                        onTap: () {
+                          selectImage();
+                        },
+                        child: Stack(children: [
+                          Container(
                               height: 120,
                               width: 120,
-                              decoration: BoxDecoration(
-                                color: AppColor.primarycolor,
-                                border: Border.all(color: AppColor.themecolor, width: 2),
-                                borderRadius: BorderRadius.circular(80),
-                              ),
+                              decoration: BoxDecoration(color: AppColor.primarycolor, border: Border.all(color: AppColor.themecolor, width: 2), borderRadius: BorderRadius.circular(80)),
                               child: ClipRRect(
                                   borderRadius: BorderRadius.circular(80),
-                                  child: selectedProfile.path.isEmpty ? const Image(image: AssetImage("assets/images/profileimg.png")) : Image.file(selectedProfile, fit: BoxFit.cover)))),
-                      SizedBox(height: 20),
-                      AppTextField(txtValue: AppString.name, controller: nameController, isIcon: false, preIcon: false),
-                      const SizedBox(height: 10),
-                      AppTextField(txtValue: AppString.surName, controller: surnameController, isIcon: false, preIcon: false /*lableValue: AppString.surName*/
-                          ),
-                      const SizedBox(height: 10),
-                      AppTextField(
-                        txtValue: AppString.mobileNo,
-                        controller: mobileController,
-                        preIcon: true,
-                        keytype: TextInputType.number,
-                        //lableValue: AppString.mobileNo,
-                        maxLength: 10,
-                        counterTxt: '',
-                        readOnly: true,
-                      ),
-                      const SizedBox(height: 10),
-                      AppTextField(
-                        controller: eMailController,
-                        txtValue: AppString.eMail,
-                        isIcon: false,
-                        preIcon: true,
-                        preIconData: Icons.email,
-                        //lableValue: AppString.eMail,
-                      ),
-                      const SizedBox(height: 10),
-                      AppTextField(
-                        txtValue: AppString.guj,
-                        readOnly: true,
-                      ),
-                      const SizedBox(height: 10),
-                      DropDown(
+                                  child: selectedProfile.path.isEmpty ? const Image(image: AssetImage("assets/images/profileimg.png")) : Image.file(selectedProfile, fit: BoxFit.cover))),
+                          Positioned(bottom: 0, right: 10, child: CircleAvatar(backgroundColor: AppColor.themecolor, radius: 14, child: Icon(Icons.camera_alt, color: AppColor.primarycolor, size: 16)))
+                        ])),
+                    SizedBox(height: 20),
+                    AppTextField(txtValue: AppString.name, controller: nameController, isIcon: false, preIcon: false),
+                    const SizedBox(height: 10),
+                    AppTextField(txtValue: AppString.surName, controller: surnameController, isIcon: false, preIcon: false),
+                    const SizedBox(height: 10),
+                    AppTextField(txtValue: AppString.mobileNo, controller: mobileController, preIcon: true, keytype: TextInputType.number, maxLength: 10, readOnly: true, counterTxt: ''),
+                    const SizedBox(height: 10),
+                    AppTextField(txtValue: AppString.guj, readOnly: true),
+                    const SizedBox(height: 10),
+                    DropDown(
                         items: districList,
                         dropdownvalue: districSelect,
                         onTap: (String value) {
@@ -237,10 +216,9 @@ class _NotedScreenState extends State<NotedScreen> {
                             isFirst = false;
                             getTaluka();
                           });
-                        },
-                      ),
-                      const SizedBox(height: 10),
-                      DropDown(
+                        }),
+                    const SizedBox(height: 10),
+                    DropDown(
                         items: talukaList,
                         dropdownvalue: talukaSelect,
                         onTap: (String value) {
@@ -249,44 +227,45 @@ class _NotedScreenState extends State<NotedScreen> {
                             talukaSelectId = talukaListId[talukaList.indexOf(talukaSelect)];
                             getVillage();
                           });
-                        },
-                      ),
-                      const SizedBox(height: 10),
-                      DropDown(
-                          items: villageList,
-                          dropdownvalue: villageSelect,
-                          onTap: (String value) {
-                            setState(() {
-                              villageSelect = value;
-                              villageSelectId = villageListId[villageList.indexOf(villageSelect)];
-                            });
-                          }),
-                      const SizedBox(height: 10),
-                      AppTextField(
-                          txtValue: AppString.add,
-                          controller: addressController,
-                          isIcon: false,
-                          /*lableValue: AppString.add*/
-                          maxLines: 4,
-                          preIcon: false),
-                      const SizedBox(height: 20),
-                      AppButton(
+                        }),
+                    const SizedBox(height: 10),
+                    DropDown(
+                        items: villageList,
+                        dropdownvalue: villageSelect,
+                        onTap: (String value) {
+                          setState(() {
+                            villageSelect = value;
+                            villageSelectId = villageListId[villageList.indexOf(villageSelect)];
+                          });
+                        }),
+                    const SizedBox(height: 10),
+                    AppTextField(
+                        txtValue: AppString.add,
+                        controller: addressController,
+                        isIcon: false,
+                        maxLines: 4,
+                        preIcon: false),
+                    const SizedBox(height: 20),
+                    AppButton(
                         height: 60,
                         width: double.infinity,
                         buttontxt: AppString.noteText,
+                        isLoad: isLoading,
                         onTap: () {
-                          setData();
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+                          if (selectedProfile.path.isEmpty) {
+                            errorSnackBar(context, "Please Select image");
+                          } else if (nameController.text.isEmpty) {
+                            errorSnackBar(context, AppString.pleaseName);
+                          } else if (surnameController.text.isEmpty) {
+                            errorSnackBar(context, AppString.pleaseSurName);
+                          } else if (addressController.text.isEmpty) {
+                            errorSnackBar(context, AppString.pleaseAdd);
+                          } else {
+                            setData();
+                          }
+                        })
+                  ]))))
+    ])));
   }
 
   void selectImage() {

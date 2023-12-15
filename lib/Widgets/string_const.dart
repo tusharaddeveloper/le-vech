@@ -17,6 +17,7 @@ class AppString {
   // Noted Screen
 
   static String noteText = "નોંધણી";
+  static String noteAddText = "નોંધણી  સુધારો";
   static String name = "નામ";
   static String pleaseName = "કૃપા કરી તમારું નામ ઉમેરો";
   static String surName = "અટક";

@@ -49,9 +49,10 @@ class _TractorScreenState extends State<TractorScreen> {
               ),
               SizedBox(height: 20),
               SizedBox(
-                height: 130,
+                height: 132,
                 child: ListView.builder(
                     itemCount: imageList.length,
+                    shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
                       return InkWell(
