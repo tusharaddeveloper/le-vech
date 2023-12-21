@@ -26,6 +26,7 @@ class NotedScreen extends StatefulWidget {
 }
 
 class _NotedScreenState extends State<NotedScreen> {
+  String name = "";
   List<QueryDocumentSnapshot> listOfDistrict = <QueryDocumentSnapshot>[];
   List<QueryDocumentSnapshot> listOfTaluka = <QueryDocumentSnapshot>[];
   List<QueryDocumentSnapshot> listOfVillage = <QueryDocumentSnapshot>[];
@@ -88,7 +89,7 @@ class _NotedScreenState extends State<NotedScreen> {
       setState(() {
         isLoading = false;
       });
-      Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen(mobileNo: widget.Mobile)));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen(mobileNo: widget.Mobile,)));
 
       setState(() {
         isLoading = false;
@@ -198,11 +199,11 @@ class _NotedScreenState extends State<NotedScreen> {
                           Positioned(bottom: 0, right: 10, child: CircleAvatar(backgroundColor: AppColor.themecolor, radius: 14, child: Icon(Icons.camera_alt, color: AppColor.primarycolor, size: 16)))
                         ])),
                     SizedBox(height: 20),
-                    AppTextField(txtValue: AppString.name, controller: nameController, isIcon: false, preIcon: false),
+                    AppTextField(txtValue: AppString.name, controller: nameController),
                     const SizedBox(height: 10),
-                    AppTextField(txtValue: AppString.surName, controller: surnameController, isIcon: false, preIcon: false),
+                    AppTextField(txtValue: AppString.surName, controller: surnameController),
                     const SizedBox(height: 10),
-                    AppTextField(txtValue: AppString.mobileNo, controller: mobileController, preIcon: true, keytype: TextInputType.number, maxLength: 10, readOnly: true, counterTxt: ''),
+                    AppTextField(txtValue: AppString.mobileNo, controller: mobileController, keytype: TextInputType.number, maxLength: 10, readOnly: true, counterTxt: ''),
                     const SizedBox(height: 10),
                     AppTextField(txtValue: AppString.guj, readOnly: true),
                     const SizedBox(height: 10),
@@ -239,12 +240,7 @@ class _NotedScreenState extends State<NotedScreen> {
                           });
                         }),
                     const SizedBox(height: 10),
-                    AppTextField(
-                        txtValue: AppString.add,
-                        controller: addressController,
-                        isIcon: false,
-                        maxLines: 4,
-                        preIcon: false),
+                    AppTextField(txtValue: AppString.add, controller: addressController, maxLines: 4),
                     const SizedBox(height: 20),
                     AppButton(
                         height: 60,
@@ -253,7 +249,7 @@ class _NotedScreenState extends State<NotedScreen> {
                         isLoad: isLoading,
                         onTap: () {
                           if (selectedProfile.path.isEmpty) {
-                            errorSnackBar(context, "Please Select image");
+                            errorSnackBar(context, AppString.pleaseAddImage);
                           } else if (nameController.text.isEmpty) {
                             errorSnackBar(context, AppString.pleaseName);
                           } else if (surnameController.text.isEmpty) {
@@ -295,21 +291,13 @@ class _NotedScreenState extends State<NotedScreen> {
 }
 
 class ImageHelper {
-  static Future<File?> pickImageFromGallery({
-    required BuildContext context,
-    required CropStyle cropStyle,
-    required String title,
-  }) async {
+  static Future<File?> pickImageFromGallery({required BuildContext context, required CropStyle cropStyle, required String title}) async {
     final pickedFile = await ImagePicker().getImage(source: ImageSource.gallery);
     var file = File(pickedFile!.path);
     return file;
   }
 
-  static Future<File?> pickImageFromCamera({
-    required BuildContext context,
-    required CropStyle cropStyle,
-    required String title,
-  }) async {
+  static Future<File?> pickImageFromCamera({required BuildContext context, required CropStyle cropStyle, required String title}) async {
     final pickedFile = await ImagePicker().getImage(source: ImageSource.camera);
     var file = File(pickedFile!.path);
     return file;

@@ -28,8 +28,9 @@ class AppString {
   static String dis = "જીલ્લો ";
   static String taluka = "તાલુકો ";
   static String village = "ગામ ";
-  static String add = "સરમાનમું ";
+  static String add = "સરનામું...";
   static String pleaseAdd = "કૃપા કરી તમારું સરમાનમું ઉમેરો";
+  static String pleaseAddImage = "કૃપા કરી તમારો ફોટો ઉમેરો";
   static String guj = "ગુજરાત";
   static String searchBar = "શોધો";
 
@@ -52,6 +53,7 @@ class AppString {
   static String twoWheel = "ટુ - વ્હીલ લે - વેચ ";
   static String fourWheel = "ફોર - વ્હીલ લે - વેચ";
   static String tractorName = "ટ્રેક્ટર આઇસર ";
+  static String edit = "Edit";
 
   // Add Screen
 
@@ -68,9 +70,11 @@ class AppString {
 
   static String itemInfo = "માહિતી";
   static String detail = "વિગત";
+  static String noItemAdd = "તમે કોઈ જાહેરાત ઉમેરેલ નથી";
 
   //Profile Screen
   static String update = "સુધારો";
+  static String updateProfile = "પ્રોફાઇલ સફળતાપૂર્વક અપડેટ થઈ ગઈ છે.";
 
   //send Info
 

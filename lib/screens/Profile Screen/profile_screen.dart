@@ -159,12 +159,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         body: SafeArea(
             child: SingleChildScrollView(
                 child: Column(children: [
-      AppBarWidget(
-        height: 130,
-        width: double.infinity,
-        isLogo: false,
-        info: AppString.noteAddText,
-      ),
+      AppBarWidget(height: 130, width: double.infinity, isLogo: false, info: AppString.noteAddText),
       const SizedBox(height: 10),
       Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -178,11 +173,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Container(
                         height: 120,
                         width: 120,
-                        decoration: BoxDecoration(
-                          color: AppColor.primarycolor,
-                          border: Border.all(color: AppColor.themecolor, width: 2),
-                          borderRadius: BorderRadius.circular(80),
-                        ),
+                        decoration: BoxDecoration(color: AppColor.primarycolor, border: Border.all(color: AppColor.themecolor, width: 2), borderRadius: BorderRadius.circular(80)),
                         child: ClipRRect(
                             borderRadius: BorderRadius.circular(80),
                             child: selectedProfile.path.isEmpty
@@ -207,11 +198,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ],
                 )),
             SizedBox(height: 20),
-            AppTextField(txtValue: AppString.name, isIcon: false, preIcon: false, controller: nameController),
+            AppTextField(txtValue: AppString.name, controller: nameController),
             const SizedBox(height: 10),
-            AppTextField(txtValue: AppString.surName, isIcon: false, preIcon: false, controller: surnameController),
+            AppTextField(txtValue: AppString.surName, controller: surnameController),
             const SizedBox(height: 10),
-            AppTextField(txtValue: AppString.mobileNo, preIcon: true, keytype: TextInputType.number, controller: mobileController, maxLength: 10, counterTxt: ''),
+            AppTextField(txtValue: AppString.mobileNo, keytype: TextInputType.number, controller: mobileController, maxLength: 10, counterTxt: ''),
             const SizedBox(height: 10),
             AppTextField(txtValue: AppString.guj, readOnly: true),
             const SizedBox(height: 10),
@@ -256,7 +247,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 : SizedBox(),
             const SizedBox(height: 10),
             const SizedBox(height: 10),
-            AppTextField(txtValue: AppString.add, isIcon: false, maxLines: 4, preIcon: false, controller: addressController),
+            AppTextField(txtValue: AppString.add, maxLines: 4, controller: addressController),
             const SizedBox(height: 20),
             AppButton(
                 height: 54,
@@ -285,7 +276,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         'village': villageSelect,
         'address': addressController.text
       });
-      succesSnackBar(context, 'Update profile successfully.');
+      succesSnackBar(context, AppString.updateProfile);
       Navigator.pop(context);
       setState(() {
         isLoader = false;

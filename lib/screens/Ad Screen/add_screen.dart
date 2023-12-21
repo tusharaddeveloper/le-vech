@@ -12,6 +12,7 @@ import 'package:le_vech/Widgets/string_const.dart';
 import 'package:le_vech/utils/firebase_get.dart';
 import 'package:le_vech/utils/snackbar.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AddItemsScreen extends StatefulWidget {
   const AddItemsScreen({Key? key}) : super(key: key);
@@ -27,6 +28,7 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
   TextEditingController detailsController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
   bool isLoading = false;
   final picker = ImagePicker();
   List<File> selectedImages = [];
@@ -48,11 +50,14 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
   String villageSelectId = '';
   String selectItem = AppString.tractor;
   bool isFirst = true;
+  late SharedPreferences prefs;
+  String mo = '';
   List<String> imageList = [AppImage.tractorEicher, AppImage.cow, AppImage.horse, AppImage.bike, AppImage.car, AppImage.imglogo];
 
   @override
   void initState() {
     getDis();
+    mobileNo();
     super.initState();
   }
 
@@ -130,6 +135,16 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
     );
   }
 
+
+  void mobileNo() async {
+
+    prefs = await SharedPreferences.getInstance();
+    mo = prefs.getString("mobile_number").toString();
+
+
+  }
+
+  
   setItemData() async {
     setState(() {
       isLoading = true;
@@ -138,8 +153,10 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
     for (int i = 0; i < selectedImages.length; i++) {
       tempImg.add(selectedImages[i].path);
     }
-    storeData('advertise', {
+
+    storeDataDocs('advertise', mo,{
       'item_img': tempImg,
+      'name': nameController.text,
       'item_type': selectItem,
       'price': priceController.text,
       'detail': detailsController.text,
@@ -152,7 +169,8 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
     setState(() {
       isLoading = false;
     });
-    // Navigator.pop(context);
+     //Navigator.pop(context);
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("data add")));
   }
 
   @override
@@ -216,11 +234,13 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                   });
                 }),
             SizedBox(height: 10),
+            AppTextField(controller: nameController, txtValue: AppString.name, ),
+             SizedBox(height: 20),
             AppTextField(controller: priceController, txtValue: AppString.price, keytype: TextInputType.number),
             SizedBox(height: 20),
             Text(AppString.sellingInfo, style: TextStyle(color: AppColor.primarycolorblack, fontWeight: FontWeight.w400, fontSize: 18)),
             SizedBox(height: 20),
-            AppTextField(controller: detailsController, txtValue: AppString.infoSend, isIcon: false, maxLines: 4, counterTxt: "", preIcon: false),
+            AppTextField(controller: detailsController, txtValue: AppString.infoSend,maxLines: 4, counterTxt: ""),
             SizedBox(height: 20),
             Text(AppString.sellingplace, style: TextStyle(color: AppColor.primarycolorblack, fontWeight: FontWeight.w400, fontSize: 18)),
             SizedBox(height: 20),
@@ -261,7 +281,7 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
             SizedBox(height: 10),
             AppTextField(controller: mobileController, txtValue: AppString.mobileNo, keytype: TextInputType.number, lableValue: AppString.mobileNo, counterTxt: '', maxLength: 10),
             SizedBox(height: 10),
-            AppTextField(controller: addressController, txtValue: AppString.add, isIcon: false, lableValue: AppString.add, maxLines: 4, counterTxt: "", preIcon: false),
+            AppTextField(controller: addressController, txtValue: AppString.add,maxLines: 4, counterTxt: ""),
             SizedBox(height: 20),
             AppButton(
                 height: 60,

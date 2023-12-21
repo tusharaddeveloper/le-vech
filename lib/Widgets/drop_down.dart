@@ -26,9 +26,9 @@ class _DropDownState extends State<DropDown> {
     return Container(
       height: 54,
       width: double.infinity,
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(28), border: Border.all(color: AppColor.sttclr, width: 0.6), color: AppColor.txtfilled),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(28), border: Border.all(color: AppColor.primarycolorblack, width: 0.9), color: AppColor.primarycolor),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 38),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: DropdownButton(
           isExpanded: true,
 
@@ -39,8 +39,10 @@ class _DropDownState extends State<DropDown> {
           icon: const Icon(Icons.keyboard_arrow_down),
 
           // Array list of items
+          underline:SizedBox(),
           items: widget.items.map((String items) {
             return DropdownMenuItem(
+
               value: items,
               child: Text(
                 items,

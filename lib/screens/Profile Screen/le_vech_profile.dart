@@ -1,14 +1,19 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:le_vech/Widgets/app_bar.dart';
 import 'package:le_vech/Widgets/app_textfieled.dart';
 import 'package:le_vech/Widgets/color_const.dart';
 import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/Widgets/string_const.dart';
+import 'package:le_vech/utils/firebase_get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 class LeVechProfile extends StatefulWidget {
-  const LeVechProfile({Key? key}) : super(key: key);
+  QueryDocumentSnapshot? detail;
+
+  LeVechProfile({Key? key, this.detail}) : super(key: key);
 
   @override
   State<LeVechProfile> createState() => _LeVechProfileState();
@@ -16,6 +21,17 @@ class LeVechProfile extends StatefulWidget {
 
 class _LeVechProfileState extends State<LeVechProfile> {
   List<String> imageList = [AppImage.tractorEicher, AppImage.cow, AppImage.horse, AppImage.bike, AppImage.car, AppImage.imglogo];
+
+/*  List imageListget=[];
+void data(){
+  imageListget = widget.detail!['item_img'];
+  print(imageListget);
+}
+  @override
+  void initState() {
+    data();
+    super.initState();
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -26,36 +42,30 @@ class _LeVechProfileState extends State<LeVechProfile> {
           child: Column(
             children: [
               AppBarWidget(isLogo: false, height: 124, width: double.infinity, info: AppString.detail),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 child: Column(
                   children: [
                     CarouselSlider(
-                      options: CarouselOptions(height: 190, autoPlay: true, autoPlayInterval: Duration(seconds: 2), aspectRatio: 16 / 9, viewportFraction: 1),
+                      options: CarouselOptions(height: 190, autoPlay: true, autoPlayInterval: const Duration(seconds: 2), aspectRatio: 16 / 9, viewportFraction: 1),
                       items: imageList.map((i) {
-                        return Builder(
-                          builder: (BuildContext context) {
-                            return Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                                  child: Container(
+                        return Builder(builder: (BuildContext context) {
+                          return Column(children: [
+                            Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 8),
+                                child: Container(
                                     height: 190,
                                     width: double.infinity,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(30),
                                       image: DecorationImage(image: AssetImage(i), fit: BoxFit.cover),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                        );
+                                    )))
+                          ]);
+                        });
                       }).toList(),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Card(
                       elevation: 3,
                       shape: RoundedRectangleBorder(
@@ -73,24 +83,27 @@ class _LeVechProfileState extends State<LeVechProfile> {
                                 child: Container(
                                   height: 80,
                                   width: 80,
-                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(60), image: DecorationImage(fit: BoxFit.cover, image: NetworkImage("https://t3.ftcdn.net/jpg/02/43/12/34/240_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg"))),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(60),
+                                      image:
+                                          const DecorationImage(fit: BoxFit.cover, image: NetworkImage("https://t3.ftcdn.net/jpg/02/43/12/34/240_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg"))),
                                 ),
                               ),
-                              SizedBox(width: 20),
+                              const SizedBox(width: 20),
                               Expanded(
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "Person Name",
+                                      widget.detail!['name'],
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 3,
                                       style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w600),
                                     ),
-                                    SizedBox(height: 10),
+                                    const SizedBox(height: 10),
                                     Text(
-                                      "₹ 2,50,000",
+                                      widget.detail!['price'],
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(color: AppColor.themecolor, fontSize: 20, fontWeight: FontWeight.w500),
                                     ),
@@ -102,7 +115,7 @@ class _LeVechProfileState extends State<LeVechProfile> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Card(
                       elevation: 3,
                       shape: RoundedRectangleBorder(
@@ -116,7 +129,7 @@ class _LeVechProfileState extends State<LeVechProfile> {
                             Padding(
                               padding: const EdgeInsets.symmetric(vertical: 8),
                               child: Text(
-                                AppString.add,
+                                widget.detail!['address'],
                                 style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w600),
                               ),
                             ),
@@ -124,64 +137,47 @@ class _LeVechProfileState extends State<LeVechProfile> {
                               color: AppColor.txtfilled,
                               thickness: 2,
                             ),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 8),
                               child: Column(
                                 children: [
                                   AppTextField(
-                                    txtValue: AppString.dis,
+                                    txtValue: widget.detail!['district'],
                                     readOnly: true,
                                   ),
-                                  SizedBox(height: 10),
+                                  const SizedBox(height: 10),
                                   AppTextField(
-                                    txtValue: AppString.taluka,
+                                    txtValue: widget.detail!['taluka'],
                                     readOnly: true,
                                   ),
-                                  SizedBox(height: 10),
+                                  const SizedBox(height: 10),
                                   AppTextField(
-                                    txtValue: AppString.village,
+                                    txtValue: widget.detail!['village'],
                                     readOnly: true,
                                   ),
-                                  SizedBox(height: 10),
+                                  const SizedBox(height: 10),
                                   InkWell(
                                     onTap: () {
                                       launchUrl(Uri(scheme: 'tel', path: "9825695210"));
                                     },
-                                    child: AppTextField(
-                                      txtValue: "+91 9825695210",
-                                      readOnly: true,
-                                    ),
+                                    child: AppTextField(txtValue: '+91 ${widget.detail!['mobile_number']}', maxLength: 10, readOnly: true),
                                   ),
                                 ],
                               ),
                             ),
-                            SizedBox(height: 10),
-                            Divider(
-                              color: AppColor.txtfilled,
-                              thickness: 2,
-                            ),
-                            Text(
-                              AppString.itemInfo,
-                              style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w600),
-                            ),
-                            Divider(
-                              color: AppColor.txtfilled,
-                              thickness: 2,
-                            ),
+                            const SizedBox(height: 10),
+                            Divider(color: AppColor.txtfilled, thickness: 2),
+                            Text(widget.detail!['item_type'], style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w600)),
+                            Divider(color: AppColor.txtfilled, thickness: 2),
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: AppColor.txtfilled),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(20),
-                                    child: Text(
-                                      "પાવર સ્ટેરીંગ  1995 નું મોડલ   ટાયર નવા નાખેલ છે",
-                                      style: TextStyle(color: AppColor.primarycolorblack, fontSize: 18, fontWeight: FontWeight.w500),
-                                    ),
-                                  )),
-                            ),
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: AppColor.txtfilled),
+                                    child: Padding(
+                                        padding: const EdgeInsets.all(20),
+                                        child: Text(widget.detail!['detail'], style: TextStyle(color: AppColor.primarycolorblack, fontSize: 18, fontWeight: FontWeight.w500))))),
                           ],
                         ),
                       ),

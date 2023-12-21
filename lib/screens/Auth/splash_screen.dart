@@ -30,12 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     if (logedin) {
       Future.delayed(Duration(seconds: 4), () {
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(
-                builder: (context) => HomeScreen(
-                      mobileNo: mo,
-                    )),
-            (Route<dynamic> route) => false);
+        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => HomeScreen(mobileNo: mo)), (Route<dynamic> route) => false);
       });
     } else {
       Future.delayed(Duration(seconds: 4), () {
@@ -56,9 +51,9 @@ class _SplashScreenState extends State<SplashScreen> {
                     child: Container(
                         height: size.width * 0.60,
                         width: size.width * 0.60,
-                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(200), image: DecorationImage(image: AssetImage(AppImage.imglogo), fit: BoxFit.cover), boxShadow: [
-                          BoxShadow(color: AppColor.shadow.withOpacity(0.5), spreadRadius: 7, blurRadius: 7, offset: Offset(0, 3) // changes position of shadow
-                              )
-                        ]))))));
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(200),
+                            image: DecorationImage(image: AssetImage(AppImage.imglogo), fit: BoxFit.cover),
+                            boxShadow: [BoxShadow(color: AppColor.shadow.withOpacity(0.5), spreadRadius: 7, blurRadius: 7, offset: Offset(0, 3))]))))));
   }
 }

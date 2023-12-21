@@ -21,8 +21,6 @@ class AppTextField extends StatefulWidget {
   AppTextField(
       {Key? key,
       required this.txtValue,
-      this.isIcon,
-      this.preIcon,
       this.maxLines,
       this.maxLength,
       this.keytype,
@@ -53,26 +51,23 @@ class _AppTextFieldState extends State<AppTextField> {
     return TextField(
         controller: widget.controller,
         cursorColor: AppColor.primarycolorblack,
+
         maxLength: widget.maxLength,
         maxLines: widget.maxLines,
         keyboardType: widget.keytype ?? TextInputType.streetAddress,
         readOnly: widget.readOnly ?? false,
         decoration: InputDecoration(
           filled: true,
+
           counterText: widget.counterTxt,
-          fillColor: AppColor.txtfilled,
+          fillColor: AppColor.primarycolor,
           focusColor: AppColor.primarycolorblack,
-          prefixIcon: widget.preIcon ?? false ? Icon(widget.preIconData ?? Icons.person) : SizedBox(),
-          suffixIcon: widget.isIcon ?? false
-              ? Padding(
-                  padding: const EdgeInsets.only(right: 8),
-                )
-              : SizedBox(),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(30),
           ),
           hintText: widget.txtValue,
           hintStyle: TextStyle(fontSize: 18),
+          contentPadding: EdgeInsets.symmetric(vertical: 12,horizontal: 20),
           labelText: widget.lableValue,
           labelStyle: TextStyle(fontSize: 18, color: AppColor.primarycolorblack),
           focusedBorder: OutlineInputBorder(
@@ -85,3 +80,5 @@ class _AppTextFieldState extends State<AppTextField> {
         });
   }
 }
+
+
