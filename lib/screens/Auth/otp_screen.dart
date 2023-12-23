@@ -18,44 +18,41 @@ class OtpScreen extends StatefulWidget {
 }
 
 class _OtpScreenState extends State<OtpScreen> {
-  OTPController otpController=Get.put(OTPController());
+  OTPController otpController = Get.put(OTPController());
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
-        body: SafeArea(
-            child: SingleChildScrollView(
-                child: Obx(() {
-                  return Column(children: [
-                    AppBarWidget(isLogo: true, height: size.height * 0.38, width: double.infinity, logoHeight: size.height * 0.18, logoWidth: size.height * 0.18),
-                    Padding(
-                        padding: const EdgeInsets.only(left: 16, right: 16, top: 30),
-                        child: Column(children: [
-                          Text(AppString.enterOtp, style: TextStyle(color: AppColor.themecolor, fontSize: 18, fontWeight: FontWeight.w600)),
-                          SizedBox(height: 24),
-                          AppTextField(controller: otpController.verifyotp.value, txtValue: AppString.otpCode, lableValue: AppString.otpText, keytype: TextInputType.number, maxLength: 6),
-                          SizedBox(height: 10),
-                          InkWell(
-                              onTap: () {
-                                otpController.verifyOtp(context,widget.varId,widget.mo);
-                              },
-                              child: Container(
-                                  height: 50,
-                                  width: 200,
-                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(25), color: AppColor.themecolor),
-                                  child: Center(
-                                      child: otpController.isLoading.value
-                                          ? const Padding(padding: EdgeInsets.all(3.0), child: CircularProgressIndicator(color: Colors.white))
-                                          : Text(AppString.nextPage, style: TextStyle(color: AppColor.primarycolor, fontSize: 20, fontWeight: FontWeight.w500))))),
-                          SizedBox(height: 26),
-                          InkWell(
-                              onTap: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => LoginSCreen()));
-                              },
-                              child: Text(AppString.otpBack, style: TextStyle(color: AppColor.themecolor, fontSize: 18, fontWeight: FontWeight.w600)))
-                        ]))
-                  ]);
-                }))));
+    return Scaffold(body: SafeArea(child: SingleChildScrollView(child: Obx(() {
+      return Column(children: [
+        AppBarWidget(isLogo: true, height: size.height * 0.38, width: double.infinity, logoHeight: size.height * 0.18, logoWidth: size.height * 0.18),
+        Padding(
+            padding: const EdgeInsets.only(left: 16, right: 16, top: 30),
+            child: Column(children: [
+              Text(AppString.enterOtp, style: TextStyle(color: AppColor.themecolor, fontSize: 18, fontWeight: FontWeight.w600)),
+              SizedBox(height: 24),
+              AppTextField(controller: otpController.verifyotp.value, txtValue: AppString.otpCode, lableValue: AppString.otpText, keytype: TextInputType.number, maxLength: 6),
+              SizedBox(height: 10),
+              InkWell(
+                  onTap: () {
+                    otpController.verifyOtp(context, widget.varId, widget.mo);
+                  },
+                  child: Container(
+                      height: 50,
+                      width: 200,
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(25), color: AppColor.themecolor),
+                      child: Center(
+                          child: otpController.isLoading.value
+                              ? const Padding(padding: EdgeInsets.all(3.0), child: CircularProgressIndicator(color: Colors.white))
+                              : Text(AppString.nextPage, style: TextStyle(color: AppColor.primarycolor, fontSize: 20, fontWeight: FontWeight.w500))))),
+              SizedBox(height: 26),
+              InkWell(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => LoginSCreen()));
+                  },
+                  child: Text(AppString.otpBack, style: TextStyle(color: AppColor.themecolor, fontSize: 18, fontWeight: FontWeight.w600)))
+            ]))
+      ]);
+    }))));
   }
 }

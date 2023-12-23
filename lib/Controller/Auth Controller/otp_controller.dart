@@ -15,7 +15,7 @@ class OTPController extends GetxController {
   FirebaseAuth? auth;
   RxList<QueryDocumentSnapshot> firebasedata = <QueryDocumentSnapshot>[].obs;
 
-  void verifyOtp(BuildContext context, String varId,String mo) async {
+  void verifyOtp(BuildContext context, String varId, String mo) async {
     auth = FirebaseAuth.instance;
     final code = verifyotp.value.text.trim();
     try {
@@ -26,7 +26,7 @@ class OTPController extends GetxController {
 
       print('OTP CODE ${phonecredential}');
       if (result.user != null) {
-        getData(context,mo);
+        getData(context, mo);
       } else {
         isLoading.value = false;
 
@@ -37,25 +37,14 @@ class OTPController extends GetxController {
       errorSnackBar(context, AppString.enterRightOtp);
     }
   }
-
-  void getData(BuildContext context,String mo) async {
+  void getData(BuildContext context, String mo) async {
     firebasedata.value = await firebaseGetwhere('users', 'mobile_number', mo);
 
     if (firebasedata.isNotEmpty) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => HomeScreen(
-                    mobileNo: mo,
-                  )));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen(mobileNo: mo)));
     } else {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => NotedScreen(Mobile: mo),
-          ));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => NotedScreen(Mobile: mo)));
     }
-
     isLoading.value = false;
   }
 }

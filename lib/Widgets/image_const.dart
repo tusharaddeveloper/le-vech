@@ -8,4 +8,5 @@ class AppImage {
   static String horse = "assets/images/Horse.png";
   static String bike = "assets/images/Bike.jpg";
   static String car = "assets/images/Car.jpg";
+  static String profileImage = "assets/images/profileimg.png";
 }

@@ -1,9 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:le_vech/Controller/Auth%20Controller/login_controller.dart';
-import 'package:le_vech/screens/Auth/otp_screen.dart';
-import 'package:le_vech/utils/snackbar.dart';
 import 'package:le_vech/Widgets/app_bar.dart';
 import 'package:le_vech/Widgets/app_button.dart';
 import 'package:le_vech/Widgets/app_textfieled.dart';

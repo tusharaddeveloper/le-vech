@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:le_vech/Widgets/image_const.dart';
-import 'package:le_vech/screens/Home%20Screen/home_screen.dart';
+import 'package:get/get.dart';
+import 'package:le_vech/Controller/Auth%20Controller/splash_controller.dart';
 import 'package:le_vech/Widgets/color_const.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'login_screen.dart';
+import 'package:le_vech/Widgets/image_const.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -13,34 +12,18 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  late SharedPreferences prefs;
+  SplashController splashController = Get.put(SplashController());
 
   @override
   void initState() {
-    logedin();
+    splashController.logedin(context);
     super.initState();
   }
 
-  void logedin() async {
-    bool logedin = false;
-    String mo = '';
-    prefs = await SharedPreferences.getInstance();
-    logedin = prefs.getBool("isLogin") ?? false;
-    mo = prefs.getString("mobile_number").toString() ?? '';
-
-    if (logedin) {
-      Future.delayed(Duration(seconds: 4), () {
-        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => HomeScreen(mobileNo: mo)), (Route<dynamic> route) => false);
-      });
-    } else {
-      Future.delayed(Duration(seconds: 4), () {
-        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => LoginSCreen()), (Route<dynamic> route) => false);
-      });
-    }
-  }
-
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     return Scaffold(
         body: SafeArea(
             child: Container(
