@@ -39,6 +39,7 @@ class NotedController extends GetxController {
   RxBool isLoading = false.obs;
   RxString profileUrl = ''.obs;
 
+  // Set Data in Firebase
   void setData(BuildContext context, String Mobile) async {
     try {
       isLoading.value = true;

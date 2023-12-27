@@ -58,6 +58,8 @@ class AppString {
   // Add Screen
 
   static String addItem = "તમારી જાહેરાત ઉમેરો";
+  static String pleaseAddprice = "કૃપા કરી વસ્તુ ની કિમંત ઉમેરો";
+  static String pleaseAddinfo = "કૃપા કરી તમારી વસ્તુ ની માહિતી ઉમેરો";
   static String price = "કિંમત ₹ ";
   static String addPhoto = "ફોટો  ઉમેરો";
   static String sellingInfo = "જે વેચવું છે તેમની માહિતી : ";

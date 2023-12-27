@@ -59,6 +59,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     super.initState();
   }
 
+  // Get ProfileData in Firebase
   getProfileData() async {
     var store = await FirebaseFirestore.instance.collection("le-vech_config").doc('developer').collection("users").where("mobile_number", isEqualTo: mo).get();
     setState(() {
@@ -73,11 +74,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
+  // Get MobileNo. in SharedPreferences
   getMobileNumber() async {
     prefs = await SharedPreferences.getInstance();
     mo = prefs.getString("mobile_number").toString();
     getProfileData();
   }
+
+  // Get Data In firebase ( get dis. , get taluka , get village )
 
   void getDis() async {
     districList.clear();
@@ -123,7 +127,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     villageListId.clear();
     villageSelect = '';
     villageSelectId = '';
-    //  var storeData = await FirebaseFirestore.instance.collection("village").where("taluka_id", isEqualTo: talukaSelectId).get();
     listOfVillage = await firebaseGetwhere('village', 'taluka_id', talukaSelectId);
 
     for (int i = 0; i < listOfVillage.length; i++) {
@@ -178,23 +181,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             borderRadius: BorderRadius.circular(80),
                             child: selectedProfile.path.isEmpty
                                 ? profileUrl != ''
-                                    ? Image(
-                                        image: NetworkImage(profileUrl),
-                                        fit: BoxFit.cover,
-                                      )
+                                    ? Image(image: NetworkImage(profileUrl), fit: BoxFit.cover)
                                     : Image(image: AssetImage('assets/images/logops.jpg'))
                                 : Image.file(selectedProfile, fit: BoxFit.cover))),
-                    Positioned(
-                        bottom: 0,
-                        right: 10,
-                        child: CircleAvatar(
-                            backgroundColor: AppColor.themecolor,
-                            radius: 14,
-                            child: Icon(
-                              Icons.camera_alt,
-                              color: AppColor.primarycolor,
-                              size: 16,
-                            )))
+                    Positioned(bottom: 0, right: 10, child: CircleAvatar(backgroundColor: AppColor.themecolor, radius: 14, child: Icon(Icons.camera_alt, color: AppColor.primarycolor, size: 16)))
                   ],
                 )),
             SizedBox(height: 20),

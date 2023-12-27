@@ -24,6 +24,7 @@ class HomeController extends GetxController {
   RxList itemName = [AppString.tractor, AppString.cow, AppString.horse, AppString.twoWheel, AppString.fourWheel, AppString.others].obs;
   RxList<String> imageList = [AppImage.tractorEicher, AppImage.cow, AppImage.horse, AppImage.bike, AppImage.car, AppImage.imglogo].obs;
 
+  // get MobileNo. in firebase
   setLogin(String mobileNo) async {
     prefs = await SharedPreferences.getInstance();
     prefs.setBool("isLogin", true);
@@ -31,6 +32,7 @@ class HomeController extends GetxController {
     getProfileData(mobileNo);
   }
 
+  // Firebase get profile & where condition
   getProfileData(String mobileNo) async {
     profileData.value = await firebaseGetwhere('users', 'mobile_number', mobileNo);
     if (profileData.isNotEmpty) {
@@ -38,6 +40,7 @@ class HomeController extends GetxController {
     }
   }
 
+  // logout profile
   void logOut(BuildContext context) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.clear();

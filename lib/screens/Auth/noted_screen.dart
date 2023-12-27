@@ -68,7 +68,7 @@ class _NotedScreenState extends State<NotedScreen> {
                       AppTextField(txtValue: AppString.guj, readOnly: true),
                       const SizedBox(height: 10),
                       DropDown(
-                          items: notedController.districList.value,
+                          items: notedController.districList,
                           dropdownvalue: notedController.districSelect.value,
                           onTap: (String value) {
                             setState(() {

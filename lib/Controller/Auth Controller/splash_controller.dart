@@ -8,6 +8,7 @@ class SplashController extends GetxController{
 
   late SharedPreferences prefs;
 
+  // MobileNo. get in SharedPreferences & Navigate
   void logedin(BuildContext context) async {
     RxBool logedin = false.obs;
     String mo = '';
