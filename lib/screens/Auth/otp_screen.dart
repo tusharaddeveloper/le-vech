@@ -30,9 +30,9 @@ class _OtpScreenState extends State<OtpScreen> {
             padding: const EdgeInsets.only(left: 16, right: 16, top: 30),
             child: Column(children: [
               Text(AppString.enterOtp, style: TextStyle(color: AppColor.themecolor, fontSize: 18, fontWeight: FontWeight.w600)),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               AppTextField(controller: otpController.verifyotp.value, txtValue: AppString.otpCode, lableValue: AppString.otpText, keytype: TextInputType.number, maxLength: 6),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               InkWell(
                   onTap: () {
                     otpController.verifyOtp(context, widget.varId, widget.mo);
@@ -45,10 +45,10 @@ class _OtpScreenState extends State<OtpScreen> {
                           child: otpController.isLoading.value
                               ? const Padding(padding: EdgeInsets.all(3.0), child: CircularProgressIndicator(color: Colors.white))
                               : Text(AppString.nextPage, style: TextStyle(color: AppColor.primarycolor, fontSize: 20, fontWeight: FontWeight.w500))))),
-              SizedBox(height: 26),
+              const SizedBox(height: 26),
               InkWell(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => LoginSCreen()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginSCreen()));
                   },
                   child: Text(AppString.otpBack, style: TextStyle(color: AppColor.themecolor, fontSize: 18, fontWeight: FontWeight.w600)))
             ]))

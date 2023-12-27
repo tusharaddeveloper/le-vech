@@ -129,7 +129,7 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
           }
           //    getUrl();
         } else {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("AppString.nothingSelected")));
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("AppString.nothingSelected")));
         }
       },
     );
@@ -170,7 +170,7 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
       isLoading = false;
     });
      //Navigator.pop(context);
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("data add")));
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("data add")));
   }
 
   @override
@@ -180,7 +180,7 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
             child: SingleChildScrollView(
                 child: Column(children: [
       AppBarWidget(isLogo: false, height: 130, width: double.infinity, info: AppString.addItem),
-      SizedBox(height: 10),
+      const SizedBox(height: 10),
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: InkWell(
@@ -189,15 +189,15 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
           },
           child: Row(
             children: [
-              Text(AppString.addPhoto, style: TextStyle(color: Color(0xff000000), fontSize: 20, fontWeight: FontWeight.w500)),
-              SizedBox(width: 8),
+              Text(AppString.addPhoto, style: const TextStyle(color: Color(0xff000000), fontSize: 20, fontWeight: FontWeight.w500)),
+              const SizedBox(width: 8),
               Icon(Icons.add_circle_outline, size: 28, color: AppColor.themecolor),
             ],
           ),
         ),
       ),
       CarouselSlider(
-        options: CarouselOptions(height: 190, autoPlay: true, autoPlayInterval: Duration(seconds: 2), aspectRatio: 16 / 9, viewportFraction: 1),
+        options: CarouselOptions(height: 190, autoPlay: true, autoPlayInterval: const Duration(seconds: 2), aspectRatio: 16 / 9, viewportFraction: 1),
         items: selectedImages.isEmpty
             ? imageList.map((i) {
                 return Builder(builder: (BuildContext context) {
@@ -219,9 +219,9 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                 });
               }).toList(),
       ),
-      SizedBox(height: 20),
+      const SizedBox(height: 20),
       Text(AppString.sellingItem, style: TextStyle(color: AppColor.primarycolorblack, fontWeight: FontWeight.w400, fontSize: 18)),
-      SizedBox(height: 20),
+      const SizedBox(height: 20),
       Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           child: Column(children: [
@@ -233,19 +233,19 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                     selectItem = value;
                   });
                 }),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             AppTextField(controller: nameController, txtValue: AppString.name, ),
-             SizedBox(height: 20),
+             const SizedBox(height: 20),
             AppTextField(controller: priceController, txtValue: AppString.price, keytype: TextInputType.number),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Text(AppString.sellingInfo, style: TextStyle(color: AppColor.primarycolorblack, fontWeight: FontWeight.w400, fontSize: 18)),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             AppTextField(controller: detailsController, txtValue: AppString.infoSend,maxLines: 4, counterTxt: ""),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Text(AppString.sellingplace, style: TextStyle(color: AppColor.primarycolorblack, fontWeight: FontWeight.w400, fontSize: 18)),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             AppTextField(txtValue: AppString.guj, readOnly: true),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             DropDown(
                 items: districList,
                 dropdownvalue: districSelect,
@@ -257,7 +257,7 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                     getTaluka();
                   });
                 }),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             DropDown(
                 items: talukaList,
                 dropdownvalue: talukaSelect,
@@ -268,7 +268,7 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                     getVillage();
                   });
                 }),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             DropDown(
                 items: villageList,
                 dropdownvalue: villageSelect,
@@ -278,36 +278,65 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                     villageSelectId = villageListId[villageList.indexOf(villageSelect)];
                   });
                 }),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             AppTextField(controller: mobileController, txtValue: AppString.mobileNo, keytype: TextInputType.number, lableValue: AppString.mobileNo, counterTxt: '', maxLength: 10),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             AppTextField(controller: addressController, txtValue: AppString.add,maxLines: 4, counterTxt: ""),
-            SizedBox(height: 20),
-            AppButton(
-                height: 60,
-                width: double.infinity,
-                isLoad: isLoading,
-                buttontxt: AppString.send,
-                onTap: () {
-                  if (imageList.isEmpty) {
-                    errorSnackBar(context, "PLEASE SELECT IMAGE");
-                  } else if (selectItem.isEmpty) {
-                    errorSnackBar(context, "PLEASE SELECT ITEM");
-                  } else if (priceController.text.isEmpty) {
-                    errorSnackBar(context, "PLEASE ENTER PRICE");
-                  } else if (detailsController.text.isEmpty) {
-                    errorSnackBar(context, "PLEASE ENTER DETAILS");
-                  } else if (talukaSelect.isEmpty) {
-                    errorSnackBar(context, "PLEASE SELECT TALUKA");
-                  } else if (villageSelect.isEmpty) {
-                    errorSnackBar(context, "PLEASE SELECT VILLAGE");
-                  } else if (mobileController.text.isEmpty) {
-                    errorSnackBar(context, "PLEASE ENTER MOBILE NO");
-                  } else if (addressController.text.isEmpty) {
-                    errorSnackBar(context, "PLEASE ENTER ADDRESS");
-                  }
-                  setItemData();
-                })
+            const SizedBox(height: 20),
+           /* isLoading? const Center(child:  CircularProgressIndicator()):InkWell(onTap: (){
+              if (imageList.isEmpty) {
+                errorSnackBar(context, "PLEASE SELECT IMAGE");
+              } else if (selectItem.isEmpty) {
+                errorSnackBar(context, "PLEASE SELECT ITEM");
+              } else if (priceController.text.isEmpty) {
+                errorSnackBar(context, "PLEASE ENTER PRICE");
+              } else if (detailsController.text.isEmpty) {
+                errorSnackBar(context, "PLEASE ENTER DETAILS");
+              } else if (talukaSelect.isEmpty) {
+                errorSnackBar(context, "PLEASE SELECT TALUKA");
+              } else if (villageSelect.isEmpty) {
+                errorSnackBar(context, "PLEASE SELECT VILLAGE");
+              } else if (mobileController.text.isEmpty) {
+                errorSnackBar(context, "PLEASE ENTER MOBILE NO");
+              } else if (addressController.text.isEmpty) {
+                errorSnackBar(context, "PLEASE ENTER ADDRESS");
+              }
+              setItemData();
+            },
+              child: AppButton(
+                  height: 60,
+                  width: double.infinity,
+
+                  buttontxt: AppString.send,
+                 ),
+            )*/
+            AppButton(height: 60,
+              width: double.infinity,
+
+              buttontxt: AppString.send,
+            isLoad: isLoading,
+            onTap: (){
+              if (imageList.isEmpty) {
+                errorSnackBar(context, "PLEASE SELECT IMAGE");
+              } else if (selectItem.isEmpty) {
+                errorSnackBar(context, "PLEASE SELECT ITEM");
+              } else if (priceController.text.isEmpty) {
+                errorSnackBar(context, "PLEASE ENTER PRICE");
+              } else if (detailsController.text.isEmpty) {
+                errorSnackBar(context, "PLEASE ENTER DETAILS");
+              } else if (talukaSelect.isEmpty) {
+                errorSnackBar(context, "PLEASE SELECT TALUKA");
+              } else if (villageSelect.isEmpty) {
+                errorSnackBar(context, "PLEASE SELECT VILLAGE");
+              } else if (mobileController.text.isEmpty) {
+                errorSnackBar(context, "PLEASE ENTER MOBILE NO");
+              } else if (addressController.text.isEmpty) {
+                errorSnackBar(context, "PLEASE ENTER ADDRESS");
+              }
+              setItemData();
+            },)
+
+
           ]))
     ]))));
   }

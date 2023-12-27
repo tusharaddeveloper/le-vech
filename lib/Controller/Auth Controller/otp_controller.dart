@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +11,7 @@ import 'package:le_vech/Widgets/string_const.dart';
 class OTPController extends GetxController {
   RxBool isLoading = false.obs;
   Rx<TextEditingController> verifyotp = TextEditingController().obs;
+
   FirebaseAuth? auth;
   RxList<QueryDocumentSnapshot> firebasedata = <QueryDocumentSnapshot>[].obs;
 
@@ -20,10 +20,8 @@ class OTPController extends GetxController {
     final code = verifyotp.value.text.trim();
     try {
       isLoading.value = true;
-
       PhoneAuthCredential phonecredential = PhoneAuthProvider.credential(verificationId: varId, smsCode: code);
       UserCredential result = await auth!.signInWithCredential(phonecredential);
-
       print('OTP CODE ${phonecredential}');
       if (result.user != null) {
         getData(context, mo);

@@ -8,6 +8,7 @@ import 'package:le_vech/Controller/Auth%20Controller/login_controller.dart';
 import 'package:le_vech/screens/Home%20Screen/home_screen.dart';
 import 'package:le_vech/screens/Profile%20Screen/profile_screen.dart';
 import 'package:le_vech/utils/firebase_get.dart';
+import 'package:le_vech/utils/image_helper.dart';
 import 'package:le_vech/utils/storage_provider.dart';
 
 class NotedController extends GetxController {
@@ -17,6 +18,7 @@ class NotedController extends GetxController {
   RxList<QueryDocumentSnapshot> listOfDistrict = <QueryDocumentSnapshot>[].obs;
   RxList<QueryDocumentSnapshot> listOfTaluka = <QueryDocumentSnapshot>[].obs;
   RxList<QueryDocumentSnapshot> listOfVillage = <QueryDocumentSnapshot>[].obs;
+
   Rx<TextEditingController> nameController = TextEditingController().obs;
   Rx<TextEditingController> surnameController = TextEditingController().obs;
   Rx<TextEditingController> addressController = TextEditingController().obs;
@@ -39,7 +41,7 @@ class NotedController extends GetxController {
   RxBool isLoading = false.obs;
   RxString profileUrl = ''.obs;
 
-  void setData(BuildContext context, String Mobile) async {
+  void setData(BuildContext context, String mobile) async {
     try {
       isLoading.value = true;
       FirebaseStorage firebasestorage = FirebaseStorage.instance;
@@ -63,7 +65,7 @@ class NotedController extends GetxController {
         'address': addressController.value.text
       });
       isLoading.value = false;
-      Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen(mobileNo: Mobile)));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen(mobileNo: mobile)));
       isLoading.value = false;
     } catch (e) {
       print(e);

@@ -17,32 +17,28 @@ class LoginSCreen extends StatefulWidget {
 class _LoginSCreenState extends State<LoginSCreen> {
   LoginController loginController = Get.put(LoginController());
 
-
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
-        body: SafeArea(
-            child: SingleChildScrollView(
-                child: Obx(() {
-                  return Column(children: [
-                    AppBarWidget(isLogo: true, height: size.height * 0.5, width: double.infinity, logoHeight: size.height * 0.28, logoWidth: size.height * 0.28),
-                    Padding(
-                        padding: const EdgeInsets.only(left: 16, right: 16, top: 30),
-                        child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                          Text(AppString.enterNum, style: TextStyle(color: AppColor.themecolor, fontSize: 18, fontWeight: FontWeight.w600)),
-                          SizedBox(height: 24),
-                          AppTextField(txtValue: AppString.mobileNo, lableValue: AppString.mobileNo, controller: loginController.mobileNoController.value, maxLength: 10, keytype: TextInputType.number),
-                          SizedBox(height: 10),
-                          AppButton(
-                              height: 50,
-                              width: 170,
-                              isLoad: loginController.isLoading.value,
-                              buttontxt: AppString.getOtp,
-                              onTap: () {
-                                loginController.userlogin(context);
-                              })
-                        ]))
-                  ]);
-                }))));
+    return Scaffold(body: SafeArea(child: SingleChildScrollView(child: Obx(() {
+      return Column(children: [
+        AppBarWidget(isLogo: true, height: size.height * 0.5, width: double.infinity, logoHeight: size.height * 0.28, logoWidth: size.height * 0.28),
+        Padding(
+            padding: const EdgeInsets.only(left: 16, right: 16, top: 30),
+            child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+              Text(AppString.enterNum, style: TextStyle(color: AppColor.themecolor, fontSize: 18, fontWeight: FontWeight.w600)),
+              const SizedBox(height: 24),
+              AppTextField(txtValue: AppString.mobileNo, lableValue: AppString.mobileNo, controller: loginController.mobileNoController.value, maxLength: 10, keytype: TextInputType.number),
+              const SizedBox(height: 10),
+              AppButton(
+                  height: 50,
+                  width: 170,
+                  isLoad: loginController.isLoading.value,
+                  buttontxt: AppString.getOtp,
+                  onTap: () {
+                    loginController.userlogin(context);
+                  })
+            ]))
+      ]);
+    }))));
   }
 }

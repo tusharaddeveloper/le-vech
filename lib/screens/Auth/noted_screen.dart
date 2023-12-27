@@ -58,7 +58,7 @@ class _NotedScreenState extends State<NotedScreen> {
                             Positioned(
                                 bottom: 0, right: 10, child: CircleAvatar(backgroundColor: AppColor.themecolor, radius: 14, child: Icon(Icons.camera_alt, color: AppColor.primarycolor, size: 16)))
                           ])),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       AppTextField(txtValue: AppString.name, controller: notedController.nameController.value),
                       const SizedBox(height: 10),
                       AppTextField(txtValue: AppString.surName, controller: notedController.surnameController.value),
@@ -68,7 +68,7 @@ class _NotedScreenState extends State<NotedScreen> {
                       AppTextField(txtValue: AppString.guj, readOnly: true),
                       const SizedBox(height: 10),
                       DropDown(
-                          items: notedController.districList.value,
+                          items: notedController.districList,
                           dropdownvalue: notedController.districSelect.value,
                           onTap: (String value) {
                             setState(() {

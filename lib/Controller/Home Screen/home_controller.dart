@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:le_vech/Controller/Auth%20Controller/profile_controller.dart';
 import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/screens/Auth/login_screen.dart';
 import 'package:le_vech/utils/firebase_get.dart';
@@ -9,8 +10,11 @@ import 'package:le_vech/Widgets/color_const.dart';
 import 'package:le_vech/Widgets/string_const.dart';
 
 class HomeController extends GetxController {
+
+
   late SharedPreferences prefs;
   RxList<QueryDocumentSnapshot> profileData = <QueryDocumentSnapshot>[].obs;
+  var scaffoldKey = GlobalKey<ScaffoldState>();
   RxString profilePic = ''.obs;
 
   RxList<Icon> drowerIcon = [
@@ -28,15 +32,16 @@ class HomeController extends GetxController {
     prefs = await SharedPreferences.getInstance();
     prefs.setBool("isLogin", true);
     prefs.setString('mobile_number', mobileNo);
-    getProfileData(mobileNo);
+    //getProfileData(mobileNo);
   }
 
-  getProfileData(String mobileNo) async {
+
+  /*getProfileData(String mobileNo) async {
     profileData.value = await firebaseGetwhere('users', 'mobile_number', mobileNo);
     if (profileData.isNotEmpty) {
-      profilePic = profileData[0]['image'];
+      profilePic.value = profileData[0]['image'];
     }
-  }
+  }*/
 
   void logOut(BuildContext context) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();

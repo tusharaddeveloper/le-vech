@@ -58,7 +58,6 @@ class _AppTextFieldState extends State<AppTextField> {
         readOnly: widget.readOnly ?? false,
         decoration: InputDecoration(
           filled: true,
-
           counterText: widget.counterTxt,
           fillColor: AppColor.primarycolor,
           focusColor: AppColor.primarycolorblack,
