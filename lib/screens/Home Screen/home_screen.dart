@@ -4,7 +4,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:get/get.dart';
 import 'package:le_vech/Controller/Auth%20Controller/profile_controller.dart';
-import 'package:le_vech/Controller/Home%20Screen/home_controller.dart';
 import 'package:le_vech/Controller/Home%20Controller/home_controller.dart';
 import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/screens/Ad%20Screen/add_screen.dart';

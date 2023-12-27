@@ -44,10 +44,12 @@ class HomeController extends GetxController {
     }
   }*/
 
+}
+
   // logout profile
+
   void logOut(BuildContext context) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.clear();
     Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const LoginSCreen()), (Route<dynamic> route) => false);
-  }
-}
+  }}
