@@ -32,8 +32,8 @@ class MyApp extends StatelessWidget {
         ),
      //  home: LeVechProfile());
      //   home: HomeScreen(mobileNo: "9824685852"));
-         home: SplashScreen());
-    //home: AddItemsScreen());
+      //   home: SplashScreen());
+    home: AddItemsScreen());
          //home: NotedScreen(Mobile: '8469497184',));
   }
 }

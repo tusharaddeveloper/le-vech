@@ -62,9 +62,65 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
 
   @override
   void initState() {
-    notedController.getDis();
+    getDis();
     mobileNo();
     super.initState();
+  }
+
+  void getDis() async {
+    districList.clear();
+    districListId.clear();
+    districSelect = '';
+    districSelectId = '';
+    try {
+      listOfDistrict = await firebaseGet('district');
+    } catch (e) {
+      print(e);
+    }
+    for (int i = 0; i < listOfDistrict.length; i++) {
+      districList.add(listOfDistrict[i]["district_name"]);
+      districListId.add(listOfDistrict[i].id);
+    }
+    districSelect = districList.first;
+    districSelectId = districListId.first;
+    setState(() {});
+    getTaluka();
+  }
+
+  void getTaluka() async {
+    talukaList.clear();
+    talukaListId.clear();
+    talukaSelect = '';
+    talukaSelectId = '';
+
+    // var storeData = await FirebaseFirestore.instance.collection("taluka").where("district_id", isEqualTo: districSelectId).get();
+    listOfTaluka = await firebaseGetwhere('taluka', 'district_id', districSelectId);
+
+    for (int i = 0; i < listOfTaluka.length; i++) {
+      talukaList.add(listOfTaluka[i]["taluka_name"]);
+      talukaListId.add(listOfTaluka[i].id);
+    }
+    talukaSelect = talukaList.first;
+    talukaSelectId = talukaListId.first;
+    setState(() {});
+    getVillage();
+  }
+
+  void getVillage() async {
+    villageList.clear();
+    villageListId.clear();
+    villageSelect = '';
+    villageSelectId = '';
+    //  var storeData = await FirebaseFirestore.instance.collection("village").where("taluka_id", isEqualTo: talukaSelectId).get();
+    listOfVillage = await firebaseGetwhere('village', 'taluka_id', talukaSelectId);
+
+    for (int i = 0; i < listOfVillage.length; i++) {
+      villageList.add(listOfVillage[i]["village_name"]);
+      villageListId.add(listOfVillage[i].id);
+    }
+    villageSelect = villageList.first;
+    villageSelectId = villageListId.first;
+    setState(() {});
   }
 
   Future getImages() async {
@@ -127,16 +183,20 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
       AppBarWidget(isLogo: false, height: 130, width: double.infinity, info: AppString.addItem),
       SizedBox(height: 10),
       Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-          child: InkWell(
-              onTap: () {
-                getImages();
-              },
-              child: Row(children: [
-                Text(AppString.addPhoto, style: TextStyle(color: Color(0xff000000), fontSize: 20, fontWeight: FontWeight.w500)),
-                SizedBox(width: 8),
-                Icon(Icons.add_circle_outline, size: 28, color: AppColor.themecolor)
-              ]))),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        child: InkWell(
+          onTap: () {
+            getImages();
+          },
+          child: Row(
+            children: [
+              Text(AppString.addPhoto, style: TextStyle(color: Color(0xff000000), fontSize: 20, fontWeight: FontWeight.w500)),
+              SizedBox(width: 8),
+              Icon(Icons.add_circle_outline, size: 28, color: AppColor.themecolor),
+            ],
+          ),
+        ),
+      ),
       CarouselSlider(
         options: CarouselOptions(height: 190, autoPlay: true, autoPlayInterval: Duration(seconds: 2), aspectRatio: 16 / 9, viewportFraction: 1),
         items: selectedImages.isEmpty
@@ -175,7 +235,10 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                   });
                 }),
             SizedBox(height: 10),
-            AppTextField(controller: nameController, txtValue: AppString.name),
+            AppTextField(
+              controller: nameController,
+              txtValue: AppString.name,
+            ),
             SizedBox(height: 20),
             AppTextField(controller: priceController, txtValue: AppString.price, keytype: TextInputType.number),
             SizedBox(height: 20),
@@ -188,35 +251,35 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
             AppTextField(txtValue: AppString.guj, readOnly: true),
             SizedBox(height: 10),
             DropDown(
-                items: notedController.districList.value,
-                dropdownvalue: notedController.districSelect.value,
+                items: districList,
+                dropdownvalue: districSelect,
                 onTap: (String value) {
                   setState(() {
-                    notedController.districSelect.value = value;
-                    notedController.districSelectId.value = notedController.districListId[notedController.districList.indexOf(notedController.districSelect.value)];
-                    notedController.isFirst.value = false;
-                    notedController.getTaluka();
+                    districSelect = value;
+                    districSelectId = districListId[districList.indexOf(districSelect)];
+                    isFirst = false;
+                    getTaluka();
                   });
                 }),
             SizedBox(height: 10),
             DropDown(
-                items: notedController.talukaList,
-                dropdownvalue: notedController.talukaSelect.value,
+                items: talukaList,
+                dropdownvalue: talukaSelect,
                 onTap: (String value) {
                   setState(() {
-                    notedController.talukaSelect.value = value;
-                    notedController.talukaSelectId.value = notedController.talukaListId[notedController.talukaList.indexOf(notedController.talukaSelect.value)];
-                    notedController.getVillage();
+                    talukaSelect = value;
+                    talukaSelectId = talukaListId[talukaList.indexOf(talukaSelect)];
+                    getVillage();
                   });
                 }),
             SizedBox(height: 10),
             DropDown(
-                items: notedController.villageList,
-                dropdownvalue: notedController.villageSelect.value,
+                items: villageList,
+                dropdownvalue: villageSelect,
                 onTap: (String value) {
                   setState(() {
-                    notedController.villageSelect.value = value;
-                    notedController.villageSelectId.value = notedController.villageListId[notedController.villageList.indexOf(notedController.villageSelect.value)];
+                    villageSelect = value;
+                    villageSelectId = villageListId[villageList.indexOf(villageSelect)];
                   });
                 }),
             SizedBox(height: 10),
