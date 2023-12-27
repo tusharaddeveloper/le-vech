@@ -10,8 +10,6 @@ import 'package:le_vech/Widgets/color_const.dart';
 import 'package:le_vech/Widgets/string_const.dart';
 
 class HomeController extends GetxController {
-
-
   late SharedPreferences prefs;
   RxList<QueryDocumentSnapshot> profileData = <QueryDocumentSnapshot>[].obs;
   var scaffoldKey = GlobalKey<ScaffoldState>();
@@ -28,13 +26,16 @@ class HomeController extends GetxController {
   RxList itemName = [AppString.tractor, AppString.cow, AppString.horse, AppString.twoWheel, AppString.fourWheel, AppString.others].obs;
   RxList<String> imageList = [AppImage.tractorEicher, AppImage.cow, AppImage.horse, AppImage.bike, AppImage.car, AppImage.imglogo].obs;
 
+  // get MobileNo. in firebase
   setLogin(String mobileNo) async {
     prefs = await SharedPreferences.getInstance();
     prefs.setBool("isLogin", true);
     prefs.setString('mobile_number', mobileNo);
-    //getProfileData(mobileNo);
+    getProfileData(mobileNo);
   }
 
+  // Firebase get profile & where condition
+  getProfileData(String mobileNo) async {
 
   /*getProfileData(String mobileNo) async {
     profileData.value = await firebaseGetwhere('users', 'mobile_number', mobileNo);
@@ -43,6 +44,7 @@ class HomeController extends GetxController {
     }
   }*/
 
+  // logout profile
   void logOut(BuildContext context) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.clear();

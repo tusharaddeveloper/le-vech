@@ -35,6 +35,8 @@ class OTPController extends GetxController {
       errorSnackBar(context, AppString.enterRightOtp);
     }
   }
+
+  // getData / MobileNo. in Firebase
   void getData(BuildContext context, String mo) async {
     firebasedata.value = await firebaseGetwhere('users', 'mobile_number', mo);
 

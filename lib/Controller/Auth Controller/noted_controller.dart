@@ -18,7 +18,6 @@ class NotedController extends GetxController {
   RxList<QueryDocumentSnapshot> listOfDistrict = <QueryDocumentSnapshot>[].obs;
   RxList<QueryDocumentSnapshot> listOfTaluka = <QueryDocumentSnapshot>[].obs;
   RxList<QueryDocumentSnapshot> listOfVillage = <QueryDocumentSnapshot>[].obs;
-
   Rx<TextEditingController> nameController = TextEditingController().obs;
   Rx<TextEditingController> surnameController = TextEditingController().obs;
   Rx<TextEditingController> addressController = TextEditingController().obs;
@@ -41,6 +40,7 @@ class NotedController extends GetxController {
   RxBool isLoading = false.obs;
   RxString profileUrl = ''.obs;
 
+  // Set Data in Firebase
   void setData(BuildContext context, String mobile) async {
     try {
       isLoading.value = true;

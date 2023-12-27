@@ -24,6 +24,8 @@ class AddItemsScreen extends StatefulWidget {
 String leVech = "LeVech";
 
 class _AddItemsScreenState extends State<AddItemsScreen> {
+  NotedController notedController = Get.put(NotedController());
+
   TextEditingController priceController = TextEditingController();
   TextEditingController detailsController = TextEditingController();
   TextEditingController addressController = TextEditingController();
@@ -135,16 +137,11 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
     );
   }
 
-
   void mobileNo() async {
-
     prefs = await SharedPreferences.getInstance();
     mo = prefs.getString("mobile_number").toString();
-
-
   }
 
-  
   setItemData() async {
     setState(() {
       isLoading = true;
@@ -280,63 +277,31 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                 }),
             const SizedBox(height: 10),
             AppTextField(controller: mobileController, txtValue: AppString.mobileNo, keytype: TextInputType.number, lableValue: AppString.mobileNo, counterTxt: '', maxLength: 10),
-            const SizedBox(height: 10),
-            AppTextField(controller: addressController, txtValue: AppString.add,maxLines: 4, counterTxt: ""),
-            const SizedBox(height: 20),
-           /* isLoading? const Center(child:  CircularProgressIndicator()):InkWell(onTap: (){
-              if (imageList.isEmpty) {
-                errorSnackBar(context, "PLEASE SELECT IMAGE");
-              } else if (selectItem.isEmpty) {
-                errorSnackBar(context, "PLEASE SELECT ITEM");
-              } else if (priceController.text.isEmpty) {
-                errorSnackBar(context, "PLEASE ENTER PRICE");
-              } else if (detailsController.text.isEmpty) {
-                errorSnackBar(context, "PLEASE ENTER DETAILS");
-              } else if (talukaSelect.isEmpty) {
-                errorSnackBar(context, "PLEASE SELECT TALUKA");
-              } else if (villageSelect.isEmpty) {
-                errorSnackBar(context, "PLEASE SELECT VILLAGE");
-              } else if (mobileController.text.isEmpty) {
-                errorSnackBar(context, "PLEASE ENTER MOBILE NO");
-              } else if (addressController.text.isEmpty) {
-                errorSnackBar(context, "PLEASE ENTER ADDRESS");
-              }
-              setItemData();
-            },
-              child: AppButton(
-                  height: 60,
-                  width: double.infinity,
-
-                  buttontxt: AppString.send,
-                 ),
-            )*/
-            AppButton(height: 60,
-              width: double.infinity,
-
-              buttontxt: AppString.send,
-            isLoad: isLoading,
-            onTap: (){
-              if (imageList.isEmpty) {
-                errorSnackBar(context, "PLEASE SELECT IMAGE");
-              } else if (selectItem.isEmpty) {
-                errorSnackBar(context, "PLEASE SELECT ITEM");
-              } else if (priceController.text.isEmpty) {
-                errorSnackBar(context, "PLEASE ENTER PRICE");
-              } else if (detailsController.text.isEmpty) {
-                errorSnackBar(context, "PLEASE ENTER DETAILS");
-              } else if (talukaSelect.isEmpty) {
-                errorSnackBar(context, "PLEASE SELECT TALUKA");
-              } else if (villageSelect.isEmpty) {
-                errorSnackBar(context, "PLEASE SELECT VILLAGE");
-              } else if (mobileController.text.isEmpty) {
-                errorSnackBar(context, "PLEASE ENTER MOBILE NO");
-              } else if (addressController.text.isEmpty) {
-                errorSnackBar(context, "PLEASE ENTER ADDRESS");
-              }
-              setItemData();
-            },)
-
-
+            SizedBox(height: 10),
+            AppTextField(controller: addressController, txtValue: AppString.add, maxLines: 4, counterTxt: ""),
+            SizedBox(height: 20),
+            AppButton(
+                height: 60,
+                width: double.infinity,
+                isLoad: isLoading,
+                buttontxt: AppString.send,
+                onTap: () {
+                  if (notedController.selectedProfile.value.path.isEmpty) {
+                    errorSnackBar(context, AppString.pleaseAddImage);
+                  } else if (notedController.nameController.value.text.isEmpty) {
+                    errorSnackBar(context, AppString.pleaseName);
+                  } else if (priceController.text.isEmpty) {
+                    errorSnackBar(context, AppString.pleaseAddprice);
+                  } else if (detailsController.text.isEmpty) {
+                    errorSnackBar(context, AppString.pleaseAddinfo);
+                  } else if (mobileController.text.isEmpty) {
+                    errorSnackBar(context, AppString.enterNum);
+                  } else if (notedController.addressController.value.text.isEmpty) {
+                    errorSnackBar(context, AppString.pleaseAdd);
+                  } else {
+                    setItemData();
+                  }
+                })
           ]))
     ]))));
   }
