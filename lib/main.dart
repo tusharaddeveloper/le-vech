@@ -2,8 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:le_vech/screens/Ad%20Screen/add_screen.dart';
 import 'package:le_vech/screens/Auth/splash_screen.dart';
+import 'package:le_vech/screens/Home%20Screen/home_screen.dart';
 import 'Widgets/color_const.dart';
 import 'firebase_options.dart';
 
@@ -26,9 +26,9 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
      //  home: LeVechProfile());
-     //   home: HomeScreen(mobileNo: "9824685852"));
-         home: AddItemsScreen());
-   // home: SplashScreen());
+    //    home: AddItemsScreen());
+  //  home: SplashScreen());
+    home: HomeScreen(mobileNo:'9824685851'));
        //  home: NotedScreen(Mobile: '8469497184',));
   }
 }

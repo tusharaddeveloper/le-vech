@@ -7,9 +7,9 @@ import 'package:le_vech/Controller/Auth%20Controller/profile_controller.dart';
 import 'package:le_vech/Controller/Home%20Controller/home_controller.dart';
 import 'package:le_vech/screens/Ad%20Screen/add_screen.dart';
 import 'package:le_vech/screens/Ad%20Screen/send_add.dart';
+import 'package:le_vech/screens/All%20Category%20Screen/Tractor%20Screen/tractor_screen.dart';
 import 'package:le_vech/screens/Like%20Screen/like_screen.dart';
 import 'package:le_vech/screens/Profile%20Screen/profile_screen.dart';
-import 'package:le_vech/screens/Tractor%20Screen/tractor_screen.dart';
 import 'package:le_vech/Widgets/color_const.dart';
 import 'package:le_vech/Widgets/string_const.dart';
 
