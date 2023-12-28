@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:le_vech/Controller/Auth%20Controller/noted_controller.dart';
 import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/Widgets/string_const.dart';
 import 'package:image_picker/image_picker.dart';
@@ -9,15 +10,18 @@ import 'package:le_vech/utils/firebase_get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AddController extends GetxController {
-  Rx<TextEditingController> priceController = TextEditingController().obs;
-  Rx<TextEditingController> detailsController = TextEditingController().obs;
-  Rx<TextEditingController> addressController = TextEditingController().obs;
-  Rx<TextEditingController> mobileController = TextEditingController().obs;
+  NotedController notedController = Get.put(NotedController());
+
+  TextEditingController addNameController = TextEditingController();
+  TextEditingController priceController = TextEditingController();
+  TextEditingController detailsController = TextEditingController();
+  TextEditingController addMobileController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+
 
   RxBool isLoading = false.obs;
   final picker = ImagePicker();
   RxList<File> selectedImages = [File('')].obs;
-
 
   String selectItem = AppString.tractor;
   RxBool isFirst = true.obs;
@@ -40,6 +44,7 @@ class AddController extends GetxController {
     }
   }
 
+
   // MobileNo. get in SharedPreferences
 
   void mobileNo() async {
@@ -49,17 +54,22 @@ class AddController extends GetxController {
 
 // Setdata in firebase
   setItemData(BuildContext context) async {
-     List<String> tempImg = [];
+    List<String> tempImg = [];
     for (int i = 0; i < selectedImages.length; i++) {
       tempImg.add(selectedImages[i].path);
     }
 
     storeDataDocs('advertise', mo.value, {
       'item_img': tempImg,
+      'name': addNameController.text,
       'item_type': selectItem,
-      'price': priceController.value.text,
-      'detail': detailsController.value.text,
-      'mobile_number': mobileController.value.text,
+      'price': priceController.text,
+      'detail': detailsController.text,
+      'district': notedController.districSelect.value,
+      'taluka': notedController.talukaSelect.value,
+      'village': notedController.villageSelect.value,
+      'mobile_number': addMobileController.text,
+      'address': addressController.text
     });
     isLoading.value = false;
     //Navigator.pop(context);

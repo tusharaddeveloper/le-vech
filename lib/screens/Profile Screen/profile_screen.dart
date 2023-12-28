@@ -1,8 +1,5 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_cropper/image_cropper.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:le_vech/Controller/Auth%20Controller/noted_controller.dart';
 import 'package:le_vech/Controller/Auth%20Controller/profile_controller.dart';
 import 'package:le_vech/Widgets/app_bar.dart';
@@ -30,7 +27,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     profileController.getMobileNumber(context);
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -86,45 +82,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
               const SizedBox(height: 10),
               AppTextField(txtValue: AppString.guj, readOnly: true),
               const SizedBox(height: 10),
-              /* profileController.districSelect != ''
-                  ? DropDown(
-                  items: notedController.districList,
-                  dropdownvalue: profileController.districSelect.value,
-                  onTap: (String value) {
-                    setState(() {
-                      notedController.districSelect.value = value;
-                      notedController.districSelectId = notedController.districListId[profileController.districList.indexOf(profileController.districSelect)];
-                      notedController.isFirst.value = false;
-                      notedController.getTaluka();
-                    });
-                  })
-                  : const SizedBox(),
-              const SizedBox(height: 10),
-              profileController.talukaSelect != ''
-                  ? DropDown(
-                items: profileController.talukaList,
-                dropdownvalue: profileController.talukaSelect,
-                onTap: (String value) {
-                  setState(() {
-                    profileController.talukaSelect = value;
-                    profileController.talukaSelectId = profileController.talukaListId[profileController.talukaList.indexOf(profileController.talukaSelect)];
-                    profileController.getVillage();
-                  });
-                },
-              )
-                  : const SizedBox(),
-              const SizedBox(height: 10),
-              profileController.villageSelect != ''
-                  ? DropDown(
-                  items: profileController.villageList,
-                  dropdownvalue: profileController.villageSelect,
-                  onTap: (String value) {
-                    setState(() {
-                      profileController.villageSelect = value;
-                      profileController.villageSelectId = profileController.villageListId[profileController.villageList.indexOf(profileController.villageSelect)];
-                    });
-                  })
-                  : const SizedBox(),*/
               DropDown(
                   items: notedController.districList,
                   dropdownvalue: notedController.districSelect.value,
@@ -161,21 +118,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
               const SizedBox(height: 10),
               AppTextField(txtValue: AppString.add, maxLines: 4, controller: profileController.addressController),
               const SizedBox(height: 20),
-              /*profileController.isUpdateLoding.value
-                  ? const Center(child: CircularProgressIndicator())
-                  : InkWell(
-                      onTap: () async {
-                        print(profileController.profileData[0].id);
-                        profileController.updateProfile(context, profileController.profileData[0].id);
-                       //await profileController.getMobileNumber(context);
-                      },
-                      child: AppButton(height: 54, width: double.infinity, buttontxt: AppString.update))*/
               AppButton(
                   height: 54,
                   width: double.infinity,
                   buttontxt: AppString.update,
                   onTap: () {
-                    if (profileController.selectedProfile.value.path.isEmpty) {
+                    if (profileController.profileUrl.value.isEmpty) {
                       errorSnackBar(context, AppString.pleaseAddImage);
                     } else if (profileController.nameController.text.isEmpty) {
                       errorSnackBar(context, AppString.pleaseName);
