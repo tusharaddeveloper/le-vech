@@ -18,11 +18,11 @@ class SplashController extends GetxController{
 
     if (logedin.value) {
       Future.delayed(Duration(seconds: 4), () {
-       // Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => HomeScreen(mobileNo: mo)), (Route<dynamic> route) => false);
+        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => HomeScreen(mobileNo: mo)), (Route<dynamic> route) => false);
       });
     } else {
       Future.delayed(Duration(seconds: 4), () {
-     //   Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => LoginSCreen()), (Route<dynamic> route) => false);
+        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => LoginSCreen()), (Route<dynamic> route) => false);
       });
     }
   }
