@@ -22,8 +22,6 @@ class ProfileController extends GetxController {
   List<QueryDocumentSnapshot> listOfVillage = <QueryDocumentSnapshot>[];
   List<QueryDocumentSnapshot> profileData = <QueryDocumentSnapshot>[];
 
-  //TextEditingController disController = TextEditingController();
-  //TextEditingController eMailController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
   TextEditingController surnameController = TextEditingController();
