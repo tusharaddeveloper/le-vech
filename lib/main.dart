@@ -26,9 +26,9 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
      //  home: LeVechProfile());
-    //    home: AddItemsScreen());
-  //  home: SplashScreen());
-    home: HomeScreen(mobileNo:'9824685851'));
+     //   home: HomeScreen(mobileNo: "9824685852"));
+       //  home: AddItemsScreen());
+    home: SplashScreen());
        //  home: NotedScreen(Mobile: '8469497184',));
   }
 }

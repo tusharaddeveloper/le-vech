@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:le_vech/Controller/Auth%20Controller/noted_controller.dart';
-import 'package:le_vech/Controller/Auth%20Controller/profile_controller.dart';
+import 'package:le_vech/Controller/Profile%20Controller/profile_controller.dart';
 import 'package:le_vech/Widgets/app_bar.dart';
 import 'package:le_vech/Widgets/app_button.dart';
 import 'package:le_vech/Widgets/app_textfieled.dart';

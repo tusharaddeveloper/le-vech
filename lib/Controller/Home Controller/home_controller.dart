@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:le_vech/Controller/Auth%20Controller/profile_controller.dart';
+import 'package:le_vech/Controller/Profile%20Controller/profile_controller.dart';
 import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/screens/Auth/login_screen.dart';
 import 'package:le_vech/utils/firebase_get.dart';
