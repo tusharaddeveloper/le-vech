@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:le_vech/Controller/Auth%20Controller/login_controller.dart';
 import 'package:le_vech/screens/Home%20Screen/home_screen.dart';
-import 'package:le_vech/screens/Profile%20Screen/profile_screen.dart';
 import 'package:le_vech/utils/firebase_get.dart';
 import 'package:le_vech/utils/image_helper.dart';
 import 'package:le_vech/utils/storage_provider.dart';
@@ -65,7 +64,7 @@ class NotedController extends GetxController {
         'address': addressController.value.text
       });
       isLoading.value = false;
-      Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen(mobileNo: mobile)));
+      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => HomeScreen(mobileNo: mobile)), (Route<dynamic> route) => false);
       isLoading.value = false;
     } catch (e) {
       print(e);

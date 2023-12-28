@@ -71,33 +71,27 @@ class _NotedScreenState extends State<NotedScreen> {
                           items: notedController.districList,
                           dropdownvalue: notedController.districSelect.value,
                           onTap: (String value) {
-                            setState(() {
-                              notedController.districSelect.value = value;
-                              notedController.districSelectId.value = notedController.districListId[notedController.districList.indexOf(notedController.districSelect.value)];
-                              notedController.isFirst.value = false;
-                              notedController.getTaluka();
-                            });
+                            notedController.districSelect.value = value;
+                            notedController.districSelectId.value = notedController.districListId[notedController.districList.indexOf(notedController.districSelect.value)];
+                            notedController.isFirst.value = false;
+                            notedController.getTaluka();
                           }),
                       const SizedBox(height: 10),
                       DropDown(
                           items: notedController.talukaList,
                           dropdownvalue: notedController.talukaSelect.value,
                           onTap: (String value) {
-                            setState(() {
-                              notedController.talukaSelect.value = value;
-                              notedController.talukaSelectId.value = notedController.talukaListId[notedController.talukaList.indexOf(notedController.talukaSelect.value)];
-                              notedController.getVillage();
-                            });
+                            notedController.talukaSelect.value = value;
+                            notedController.talukaSelectId.value = notedController.talukaListId[notedController.talukaList.indexOf(notedController.talukaSelect.value)];
+                            notedController.getVillage();
                           }),
                       const SizedBox(height: 10),
                       DropDown(
                           items: notedController.villageList,
                           dropdownvalue: notedController.villageSelect.value,
                           onTap: (String value) {
-                            setState(() {
-                              notedController.villageSelect.value = value;
-                              notedController.villageSelectId.value = notedController.villageListId[notedController.villageList.indexOf(notedController.villageSelect.value)];
-                            });
+                            notedController.villageSelect.value = value;
+                            notedController.villageSelectId.value = notedController.villageListId[notedController.villageList.indexOf(notedController.villageSelect.value)];
                           }),
                       const SizedBox(height: 10),
                       AppTextField(txtValue: AppString.add, controller: notedController.addressController.value, maxLines: 4),

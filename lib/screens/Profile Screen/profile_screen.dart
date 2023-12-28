@@ -31,7 +31,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,17 +63,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         )
                                       : const Image(image: AssetImage('assets/images/logops.jpg'))
                                   : Image.file(profileController.selectedProfile.value, fit: BoxFit.cover))),
-                      Positioned(
-                          bottom: 0,
-                          right: 10,
-                          child: CircleAvatar(
-                              backgroundColor: AppColor.themecolor,
-                              radius: 14,
-                              child: Icon(
-                                Icons.camera_alt,
-                                color: AppColor.primarycolor,
-                                size: 16,
-                              )))
+                      Positioned(bottom: 0, right: 10, child: CircleAvatar(backgroundColor: AppColor.themecolor, radius: 14, child: Icon(Icons.camera_alt, color: AppColor.primarycolor, size: 16)))
                     ],
                   )),
               const SizedBox(height: 20),
@@ -175,7 +164,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   width: double.infinity,
                   buttontxt: AppString.update,
                   onTap: () {
-                    if (profileController.selectedProfile.value.path.isEmpty) {
+                    if (profileController.profileUrl.value.isEmpty) {
                       errorSnackBar(context, AppString.pleaseAddImage);
                     } else if (profileController.nameController.text.isEmpty) {
                       errorSnackBar(context, AppString.pleaseName);
