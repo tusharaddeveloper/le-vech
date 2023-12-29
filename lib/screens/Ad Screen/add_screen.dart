@@ -35,8 +35,9 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
   @override
   void initState() {
     addController.selectedImages.clear();
+    addController.url.clear();
     notedController.getDis();
-    addController.mobileNo();
+    //addController.mobileNo();
     super.initState();
   }
   @override
@@ -50,7 +51,8 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: InkWell(
             onTap: () {
-              addController.getImages(context);
+             // addController.getImages(context);
+              addController.getFromGallery(context);
               },
             child: Row(
               children: [
@@ -62,7 +64,7 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
           ),
         ),
         addController.selectedImages.isEmpty
-            ? SizedBox()
+            ? const SizedBox()
             : CarouselSlider(
                 options: CarouselOptions(height: 190, autoPlay: false, autoPlayInterval: const Duration(seconds: 2), aspectRatio: 16 / 9, viewportFraction: 1, enableInfiniteScroll: false),
                 items: addController.selectedImages.map((i) {
@@ -150,9 +152,9 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                   }),
               const SizedBox(height: 10),
               AppTextField(controller: addController.addMobileController, txtValue: AppString.mobileNo, keytype: TextInputType.number, lableValue: AppString.mobileNo, counterTxt: '', maxLength: 10),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               AppTextField(controller: addController.addressController, txtValue: AppString.add, maxLines: 4, counterTxt: ""),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               AppButton(
                   height: 60,
                   width: double.infinity,
