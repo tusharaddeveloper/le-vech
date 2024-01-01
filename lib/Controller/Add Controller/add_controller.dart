@@ -1,7 +1,7 @@
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:le_vech/Controller/Auth%20Controller/noted_controller.dart';
 import 'package:le_vech/Controller/Profile%20Controller/profile_controller.dart';
@@ -23,23 +23,33 @@ class AddController extends GetxController {
   TextEditingController addressController = TextEditingController();
 
   List<String> tempImg = [];
+  final ImagePicker _picker = ImagePicker();
+  List<Uint8List> images = [];
+  List<String> imagePath = [];
+  List<String> url = [];
 
   //RxBool isLoading = false.obs;
   final picker = ImagePicker();
 
+  RxList<File> selectedImages = [File('')].obs;
+ //  List<String> selectedImages=[];
+
   // RxList<File> selectedImages = [File('')].obs;
-  List<File> selectedImages = [];
+  //List<File> selectedImages = [];
   String selectItem = AppString.tractor;
 
   // RxBool isFirst = true.obs;
   late SharedPreferences prefs;
+ // RxString mo = ''.obs;
+  List<String> imageList = [AppImage.tractorEicher, AppImage.cow, AppImage.horse, AppImage.bike, AppImage.car, AppImage.imglogo];
+ // List<String> productPhotos = [];
   RxString mo = ''.obs;
 
   // List<String> imageList = [AppImage.tractorEicher, AppImage.cow, AppImage.horse, AppImage.bike, AppImage.car, AppImage.imglogo];
   // List<String> productPhotos = [];
 
   // Image Picker
-  Future getImages(BuildContext context) async {
+ /* Future getImages(BuildContext context) async {
     selectedImages.clear();
     final pickedFile = await picker.pickMultiImage(imageQuality: 100, maxHeight: 1920, maxWidth: 1080);
     List<XFile> xfilePick = pickedFile;
@@ -50,7 +60,7 @@ class AddController extends GetxController {
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("AppString.nothingSelected")));
     }
-  }
+  }*/
 
   // MobileNo. get in SharedPreferences
 
