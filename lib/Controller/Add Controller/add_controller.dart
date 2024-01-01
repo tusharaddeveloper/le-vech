@@ -26,7 +26,7 @@ class AddController extends GetxController {
   List<String> imagePath = [];
   List<String> url = [];
 
-  RxBool isLoading = false.obs;
+  RxBool isAddJaherat = false.obs;
   final picker = ImagePicker();
 
   RxList<File> selectedImages = [File('')].obs;
@@ -98,7 +98,8 @@ class AddController extends GetxController {
       editProjects(url);
     } else {
       addProjects(url);
-    }*//*
+    }*/
+  /*
   }*/
   generateId(){
     DateTime now = DateTime.now();
@@ -107,6 +108,7 @@ class AddController extends GetxController {
   }
 // Setdata in firebase
   setItemData(BuildContext context) async {
+    isAddJaherat.value = true;
     try {
       //isUpdateLoding.value=true;
      /* FirebaseStorage firebasestorage = FirebaseStorage.instance;
@@ -150,8 +152,9 @@ class AddController extends GetxController {
       'mobile_number': addMobileController.text,
       'address': addressController.text
     });
+      isAddJaherat.value = false;
     } catch (e) {
-      isLoading.value = false;
+      isAddJaherat.value = false;
     }
 
     Navigator.pop(context);
