@@ -12,6 +12,7 @@ import 'package:le_vech/screens/Like%20Screen/like_screen.dart';
 import 'package:le_vech/screens/Profile%20Screen/profile_screen.dart';
 import 'package:le_vech/Widgets/color_const.dart';
 import 'package:le_vech/Widgets/string_const.dart';
+import 'package:share_plus/share_plus.dart';
 
 class HomeScreen extends StatefulWidget {
   String? mobileNo;
@@ -199,7 +200,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 leading: Icon(Icons.share, size: 28, color: AppColor.themecolor),
                 title: Text(homeController.drowerName[4], style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w500)),
                 onTap: () {
-                  Navigator.pop(context);
+                  //Navigator.pop(context);
+                  Share.share("com.example.le_vech");
                 }),
             const Divider(thickness: 2),
             ListTile(

@@ -5,6 +5,7 @@ import 'package:le_vech/Widgets/app_textfieled.dart';
 import 'package:le_vech/Widgets/color_const.dart';
 import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/Widgets/string_const.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 class LeVechProfile extends StatefulWidget {
@@ -28,8 +29,8 @@ class _LeVechProfileState extends State<LeVechProfile> {
   }
 
   void data() {
-    //  imageListget = widget.detail!['item_img'];
-    // print(imageListget);
+    // imageListget = widget.detail!['item_img'];
+    //  print(imageListget);
   }
 
   @override
@@ -113,7 +114,7 @@ class _LeVechProfileState extends State<LeVechProfile> {
                                 const SizedBox(height: 10),
                                 AppTextField(txtValue: widget.detail!['village'], readOnly: true),
                                 const SizedBox(height: 10),
-                                AppTextField(txtValue: '+91 ${widget.detail!['mobile_number']}', maxLength: 10, readOnly: true, counterTxt: "")
+                                AppTextField(txtValue: '+91 ${"widget.detail!['mobile_number']"}', maxLength: 10, readOnly: true, counterTxt: "")
                                 /*InkWell(
                                     onTap: () {
                                       launchUrl(Uri(scheme: 'tel', path: "9825695210"));

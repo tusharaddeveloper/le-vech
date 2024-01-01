@@ -31,8 +31,12 @@ class AddController extends GetxController {
 
   RxList<File> selectedImages = [File('')].obs;
  //  List<String> selectedImages=[];
+
+  // RxList<File> selectedImages = [File('')].obs;
+  //List<File> selectedImages = [];
   String selectItem = AppString.tractor;
-  RxBool isFirst = true.obs;
+
+  // RxBool isFirst = true.obs;
   late SharedPreferences prefs;
  // RxString mo = ''.obs;
   List<String> imageList = [AppImage.tractorEicher, AppImage.cow, AppImage.horse, AppImage.bike, AppImage.car, AppImage.imglogo];
@@ -98,8 +102,7 @@ class AddController extends GetxController {
       editProjects(url);
     } else {
       addProjects(url);
-    }*/
-  /*
+    }*//*
   }*/
   generateId(){
     DateTime now = DateTime.now();

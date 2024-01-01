@@ -10,12 +10,7 @@ import 'package:le_vech/Widgets/app_button.dart';
 import 'package:le_vech/Widgets/app_textfieled.dart';
 import 'package:le_vech/Widgets/color_const.dart';
 import 'package:le_vech/Widgets/drop_down.dart';
-import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/Widgets/string_const.dart';
-import 'package:le_vech/utils/firebase_get.dart';
-import 'package:le_vech/utils/snackbar.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AddItemsScreen extends StatefulWidget {
   const AddItemsScreen({Key? key}) : super(key: key);
@@ -35,9 +30,9 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
   @override
   void initState() {
     addController.selectedImages.clear();
-    addController.url.clear();
+    addController.tempImg.clear();
     notedController.getDis();
-    //addController.mobileNo();
+   // addController.mobileNo();
     super.initState();
   }
   @override
@@ -51,8 +46,7 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: InkWell(
             onTap: () {
-             // addController.getImages(context);
-              addController.getFromGallery(context);
+              addController.getImages(context);
               },
             child: Row(
               children: [
@@ -64,7 +58,7 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
           ),
         ),
         addController.selectedImages.isEmpty
-            ? const SizedBox()
+            ? SizedBox()
             : CarouselSlider(
                 options: CarouselOptions(height: 190, autoPlay: false, autoPlayInterval: const Duration(seconds: 2), aspectRatio: 16 / 9, viewportFraction: 1, enableInfiniteScroll: false),
                 items: addController.selectedImages.map((i) {
@@ -152,9 +146,9 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                   }),
               const SizedBox(height: 10),
               AppTextField(controller: addController.addMobileController, txtValue: AppString.mobileNo, keytype: TextInputType.number, lableValue: AppString.mobileNo, counterTxt: '', maxLength: 10),
-              const SizedBox(height: 10),
+              SizedBox(height: 10),
               AppTextField(controller: addController.addressController, txtValue: AppString.add, maxLines: 4, counterTxt: ""),
-              const SizedBox(height: 20),
+              SizedBox(height: 20),
               AppButton(
                   height: 60,
                   width: double.infinity,
