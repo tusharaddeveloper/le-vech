@@ -1,5 +1,3 @@
-import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
@@ -10,12 +8,7 @@ import 'package:le_vech/Widgets/app_button.dart';
 import 'package:le_vech/Widgets/app_textfieled.dart';
 import 'package:le_vech/Widgets/color_const.dart';
 import 'package:le_vech/Widgets/drop_down.dart';
-import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/Widgets/string_const.dart';
-import 'package:le_vech/utils/firebase_get.dart';
-import 'package:le_vech/utils/snackbar.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AddItemsScreen extends StatefulWidget {
   const AddItemsScreen({Key? key}) : super(key: key);
@@ -35,8 +28,9 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
   @override
   void initState() {
     addController.selectedImages.clear();
+    addController.tempImg.clear();
     notedController.getDis();
-    addController.mobileNo();
+   // addController.mobileNo();
     super.initState();
   }
   @override

@@ -5,7 +5,6 @@ import 'package:le_vech/Widgets/app_textfieled.dart';
 import 'package:le_vech/Widgets/color_const.dart';
 import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/Widgets/string_const.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 class LeVechProfile extends StatefulWidget {
@@ -20,7 +19,7 @@ class LeVechProfile extends StatefulWidget {
 class _LeVechProfileState extends State<LeVechProfile> {
   List<String> imageList = [AppImage.tractorEicher, AppImage.cow, AppImage.horse, AppImage.bike, AppImage.car, AppImage.imglogo];
 
-//  List imageListget = [];
+  List imageListget = [];
 
   @override
   void initState() {
@@ -29,8 +28,12 @@ class _LeVechProfileState extends State<LeVechProfile> {
   }
 
   void data() {
-    // imageListget = widget.detail!['item_img'];
-    //  print(imageListget);
+     try {
+       imageListget = widget.detail!['item_img'];
+        print(imageListget);
+     } catch (e) {
+       print(e);
+     }
   }
 
   @override
@@ -81,10 +84,10 @@ class _LeVechProfileState extends State<LeVechProfile> {
                               const SizedBox(width: 20),
                               Expanded(
                                   child: Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.start, children: [
-                                Text("widget.detail!['name']",
+                                Text(widget.detail!['name'],
                                     overflow: TextOverflow.ellipsis, maxLines: 3, style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w600)),
                                 const SizedBox(height: 10),
-                                Text("widget.detail!['price']", overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.themecolor, fontSize: 20, fontWeight: FontWeight.w500))
+                                Text(widget.detail!['price'], overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.themecolor, fontSize: 20, fontWeight: FontWeight.w500))
                               ]))
                             ])))),
                 const SizedBox(height: 10),
@@ -97,28 +100,23 @@ class _LeVechProfileState extends State<LeVechProfile> {
                         child: Column(children: [
                           Padding(
                               padding: const EdgeInsets.symmetric(vertical: 8),
-                              child: Text("widget.detail!['address']", style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w600))),
+                              child: Text(widget.detail!['address'], style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w600))),
                           Divider(color: AppColor.txtfilled, thickness: 2),
                           const SizedBox(height: 10),
                           Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 8),
                               child: Column(children: [
-                                AppTextField(txtValue: "widget.detail!['district']", readOnly: true,),
+                                AppTextField(txtValue: widget.detail!['district'], readOnly: true),
                                 const SizedBox(height: 10),
-                                AppTextField(txtValue: "widget.detail!['taluka']", readOnly: true),
+                                AppTextField(txtValue: widget.detail!['taluka'], readOnly: true),
                                 const SizedBox(height: 10),
-                                AppTextField(txtValue: "widget.detail!['village']", readOnly: true),
+                                AppTextField(txtValue: widget.detail!['village'], readOnly: true),
                                 const SizedBox(height: 10),
-                                AppTextField(txtValue: '+91 ${"widget.detail!['mobile_number']"}', maxLength: 10, readOnly: true, counterTxt: "")
-                                /*InkWell(
-                                    onTap: () {
-                                      launchUrl(Uri(scheme: 'tel', path: "9825695210"));
-                                    },
-                                    child: )*/
+                                AppTextField(txtValue: '+91 ${widget.detail!['mobile_number']}', maxLength: 10, readOnly: true, counterTxt: "")
                               ])),
                           const SizedBox(height: 10),
                           Divider(color: AppColor.txtfilled, thickness: 2),
-                          Text("widget.detail!['item_type']", style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w600)),
+                          Text(widget.detail!['item_type'], style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w600)),
                           Divider(color: AppColor.txtfilled, thickness: 2),
                           Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -127,7 +125,7 @@ class _LeVechProfileState extends State<LeVechProfile> {
                                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: AppColor.txtfilled),
                                   child: Padding(
                                       padding: const EdgeInsets.all(20),
-                                      child: Text("widget.detail!['detail']", style: TextStyle(color: AppColor.primarycolorblack, fontSize: 18, fontWeight: FontWeight.w500)))))
+                                      child: Text(widget.detail!['detail'], style: TextStyle(color: AppColor.primarycolorblack, fontSize: 18, fontWeight: FontWeight.w500)))))
                         ])))
               ]))
         ]))));

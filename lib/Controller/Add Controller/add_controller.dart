@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:le_vech/Controller/Auth%20Controller/noted_controller.dart';
+import 'package:le_vech/Controller/Profile%20Controller/profile_controller.dart';
 import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/Widgets/string_const.dart';
 import 'package:image_picker/image_picker.dart';
@@ -13,6 +14,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AddController extends GetxController {
   NotedController notedController = Get.put(NotedController());
+  ProfileController profileController = Get.put(ProfileController());
 
   TextEditingController addNameController = TextEditingController();
   TextEditingController priceController = TextEditingController();
@@ -20,18 +22,21 @@ class AddController extends GetxController {
   TextEditingController addMobileController = TextEditingController();
   TextEditingController addressController = TextEditingController();
 
+  List<String> tempImg = [];
 
-  RxBool isLoading = false.obs;
+  //RxBool isLoading = false.obs;
   final picker = ImagePicker();
-  RxList<File> selectedImages = [File('')].obs;
- //  List<File> selectedImages=[];
+
+  // RxList<File> selectedImages = [File('')].obs;
+  List<File> selectedImages = [];
   String selectItem = AppString.tractor;
-  RxBool isFirst = true.obs;
+
+  // RxBool isFirst = true.obs;
   late SharedPreferences prefs;
   RxString mo = ''.obs;
-  List<String> imageList = [AppImage.tractorEicher, AppImage.cow, AppImage.horse, AppImage.bike, AppImage.car, AppImage.imglogo];
-  List<String> productPhotos = [];
 
+  // List<String> imageList = [AppImage.tractorEicher, AppImage.cow, AppImage.horse, AppImage.bike, AppImage.car, AppImage.imglogo];
+  // List<String> productPhotos = [];
 
   // Image Picker
   Future getImages(BuildContext context) async {
@@ -47,48 +52,64 @@ class AddController extends GetxController {
     }
   }
 
-
   // MobileNo. get in SharedPreferences
 
-  void mobileNo() async {
+  /*void mobileNo() async {
     prefs = await SharedPreferences.getInstance();
     mo.value = prefs.getString("mobile_number").toString();
-  }
+  }*/
 
 // Setdata in firebase
   setItemData(BuildContext context) async {
     try {
       //isUpdateLoding.value=true;
-     /* FirebaseStorage firebasestorage = FirebaseStorage.instance;
+
+      FirebaseStorage firebasestorage = FirebaseStorage.instance;
+      if (selectedImages.isNotEmpty) {
+        try {
+          for (int i = 0; i < selectedImages.length; i++) {
+            StorageProvider storageProvider = StorageProvider(firebaseStorage: firebasestorage);
+            tempImg.add(selectedImages[i].path);
+            await storageProvider.uploadUserProfile(image: selectedImages[i]);
+          }
+        } catch (e) {
+          print(e);
+        }
+      }
+
+      /*for (int i = 0; i < selectedImages.length; i++) {
+        tempImg.add(selectedImages[i].path);
+      }
+      FirebaseStorage firebasestorage = FirebaseStorage.instance;
       if (selectedImages.isNotEmpty) {
         try {
           StorageProvider storageProvider = StorageProvider(firebaseStorage: firebasestorage);
-          profileUrl.value = await storageProvider.uploadUserProfile(image: selectedProfile.value);
+          tempImg = await storageProvider.uploadUserProfile(image: tempImg);
         } catch (e) {
           print(e);
         }
       }*/
-    List<String> tempImg = [];
-    for (int i = 0; i < selectedImages.length; i++) {
-      tempImg.add(selectedImages[i].path);
-    }
-    storeDataDocs('advertise', mo.value, {
-      'item_img': tempImg,
-      'name': addNameController.text,
-      'item_type': selectItem,
-      'price': priceController.text,
-      'detail': detailsController.text,
-      'district': notedController.districSelect.value,
-      'taluka': notedController.talukaSelect.value,
-      'village': notedController.villageSelect.value,
-      'mobile_number': addMobileController.text,
-      'address': addressController.text
-    });
+
+      storeDataDocs('advertise', profileController.mo!, {
+        'item_img': tempImg,
+        'name': addNameController.text,
+        'item_type': selectItem,
+        'price': priceController.text,
+        'detail': detailsController.text,
+        'district': notedController.districSelect.value,
+        'taluka': notedController.talukaSelect.value,
+        'village': notedController.villageSelect.value,
+        'mobile_number': addMobileController.text,
+        'address': addressController.text
+      });
+      selectedImages.clear();
+      tempImg.clear();
+
     } catch (e) {
-      isLoading.value = false;
+      // isLoading.value = false;
     }
 
-    Navigator.pop(context);
-    //ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("data add")));
+   // Navigator.pop(context);
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("data  jaherat")));
   }
 }
