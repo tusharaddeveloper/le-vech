@@ -65,7 +65,7 @@ class AddController extends GetxController {
 
 // Setdata in firebase
   setItemData(BuildContext context) async {
-    isItemAddLoader = true.obs;
+    isItemAddLoader.value = true;
     try {
       for (int index = 0; index < images.length; index++) {
         try {
@@ -93,9 +93,9 @@ class AddController extends GetxController {
         'address': addressController.text
       });
     } catch (e) {
-      isItemAddLoader = false.obs;
+      isItemAddLoader.value = false;
     }
-
+    isItemAddLoader.value = false;
     Navigator.pop(context);
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("data add")));
   }

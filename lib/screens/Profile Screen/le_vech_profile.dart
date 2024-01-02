@@ -99,7 +99,7 @@ class _LeVechProfileState extends State<LeVechProfile> {
                         child: Column(children: [
                           Padding(
                               padding: const EdgeInsets.symmetric(vertical: 8),
-                              child: Text(widget.detail!['address'], style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w600))),
+                              child: Text(AppString.addLevech, style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w600))),
                           Divider(color: AppColor.txtfilled, thickness: 2),
                           const SizedBox(height: 10),
                           Padding(
@@ -114,7 +114,7 @@ class _LeVechProfileState extends State<LeVechProfile> {
                                 const SizedBox(height: 10),
                                 AppTextField(txtValue: widget.detail!['village'], readOnly: true),
                                 const SizedBox(height: 10),
-                                AppTextField(txtValue: '+91 ${"widget.detail!['mobile_number']"}', maxLength: 10, readOnly: true, counterTxt: "")
+                                AppTextField(txtValue: '+91 ${widget.detail!['mobile_number']}', maxLength: 10, readOnly: true, counterTxt: "")
                                 /*InkWell(
                                     onTap: () {
                                       launchUrl(Uri(scheme: 'tel', path: "9825695210"));
