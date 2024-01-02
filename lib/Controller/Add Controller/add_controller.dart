@@ -32,7 +32,8 @@ class AddController extends GetxController {
   final picker = ImagePicker();
 
   RxList<File> selectedImages = [File('')].obs;
- //  List<String> selectedImages=[];
+
+  //  List<String> selectedImages=[];
 
   // RxList<File> selectedImages = [File('')].obs;
   //List<File> selectedImages = [];
@@ -40,16 +41,18 @@ class AddController extends GetxController {
 
   // RxBool isFirst = true.obs;
   late SharedPreferences prefs;
- // RxString mo = ''.obs;
+
+  // RxString mo = ''.obs;
   List<String> imageList = [AppImage.tractorEicher, AppImage.cow, AppImage.horse, AppImage.bike, AppImage.car, AppImage.imglogo];
- // List<String> productPhotos = [];
+
+  // List<String> productPhotos = [];
   RxString mo = ''.obs;
 
   // List<String> imageList = [AppImage.tractorEicher, AppImage.cow, AppImage.horse, AppImage.bike, AppImage.car, AppImage.imglogo];
   // List<String> productPhotos = [];
 
   // Image Picker
- /* Future getImages(BuildContext context) async {
+  Future getImages(BuildContext context) async {
     selectedImages.clear();
     final pickedFile = await picker.pickMultiImage(imageQuality: 100, maxHeight: 1920, maxWidth: 1080);
     List<XFile> xfilePick = pickedFile;
@@ -60,7 +63,7 @@ class AddController extends GetxController {
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("AppString.nothingSelected")));
     }
-  }*/
+  }
 
   // MobileNo. get in SharedPreferences
 
@@ -114,12 +117,11 @@ class AddController extends GetxController {
       });
       selectedImages.clear();
       tempImg.clear();
-
     } catch (e) {
       // isLoading.value = false;
     }
 
-   // Navigator.pop(context);
+    // Navigator.pop(context);
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("data  jaherat")));
   }
 }

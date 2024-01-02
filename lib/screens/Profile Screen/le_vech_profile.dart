@@ -100,7 +100,7 @@ class _LeVechProfileState extends State<LeVechProfile> {
                         child: Column(children: [
                           Padding(
                               padding: const EdgeInsets.symmetric(vertical: 8),
-                              child: Text(widget.detail!['address'], style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w600))),
+                              child: Text(AppString.address, style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w600),textAlign: TextAlign.center,)),
                           Divider(color: AppColor.txtfilled, thickness: 2),
                           const SizedBox(height: 10),
                           Padding(

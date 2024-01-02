@@ -29,6 +29,7 @@ class AppString {
   static String taluka = "તાલુકો ";
   static String village = "ગામ ";
   static String add = "સરનામું...";
+  static String address = "સરનામું";
   static String pleaseAdd = "કૃપા કરી તમારું સરમાનમું ઉમેરો";
   static String pleaseAddImage = "કૃપા કરી તમારો ફોટો ઉમેરો";
   static String guj = "ગુજરાત";

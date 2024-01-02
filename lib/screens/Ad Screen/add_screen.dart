@@ -32,13 +32,13 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
     addController.selectedImages.clear();
     addController.tempImg.clear();
     notedController.getDis();
-   // addController.mobileNo();
+    // addController.mobileNo();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: SafeArea(child: SingleChildScrollView(child: Obx(() {
+    return Scaffold(body: SafeArea(child: SingleChildScrollView(child: Obx(() {
       return Column(children: [
         AppBarWidget(isLogo: false, height: 130, width: double.infinity, info: AppString.addItem),
         const SizedBox(height: 10),
@@ -47,7 +47,7 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
           child: InkWell(
             onTap: () {
               addController.getImages(context);
-              },
+            },
             child: Row(
               children: [
                 Text(AppString.addPhoto, style: const TextStyle(color: Color(0xff000000), fontSize: 20, fontWeight: FontWeight.w500)),
@@ -166,8 +166,7 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                     } else if (notedController.addressController.value.text.isEmpty) {
                       errorSnackBar(context, AppString.pleaseAdd);
                     } else {*/
-                      addController.setItemData(context);
-
+                    addController.setItemData(context);
                   })
             ]))
       ]);

@@ -5,6 +5,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:le_vech/screens/Auth/splash_screen.dart';
 import 'Widgets/color_const.dart';
 import 'firebase_options.dart';
+import 'screens/Ad Screen/send_add.dart';
 import 'screens/Home Screen/home_screen.dart';
 import 'screens/Profile Screen/le_vech_profile.dart';
 
@@ -27,7 +28,8 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
       // home: LeVechProfile());
-        home: HomeScreen(mobileNo: "9824685852"));
+      //  home: SendAdd());
+         home: HomeScreen(mobileNo: "9999999999"));
        //  home: AddItemsScreen());
   //  home: SplashScreen());
        //  home: NotedScreen(Mobile: '8469497184',));
