@@ -30,15 +30,15 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
   @override
   void initState() {
     addController.selectedImages.clear();
-    addController.tempImg.clear();
+    //addController.tempImg.clear();
     notedController.getDis();
-   // addController.mobileNo();
+    // addController.mobileNo();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: SafeArea(child: SingleChildScrollView(child: Obx(() {
+    return Scaffold(body: SafeArea(child: SingleChildScrollView(child: Obx(() {
       return Column(children: [
         AppBarWidget(isLogo: false, height: 130, width: double.infinity, info: AppString.addItem),
         const SizedBox(height: 10),
@@ -46,8 +46,9 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: InkWell(
             onTap: () {
-              addController.getImages(context);
-              },
+              //addController.getImages(context);
+              addController.getFromGallery(context);
+            },
             child: Row(
               children: [
                 Text(AppString.addPhoto, style: const TextStyle(color: Color(0xff000000), fontSize: 20, fontWeight: FontWeight.w500)),
@@ -58,7 +59,7 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
           ),
         ),
         addController.selectedImages.isEmpty
-            ? SizedBox()
+            ? const SizedBox()
             : CarouselSlider(
                 options: CarouselOptions(height: 190, autoPlay: false, autoPlayInterval: const Duration(seconds: 2), aspectRatio: 16 / 9, viewportFraction: 1, enableInfiniteScroll: false),
                 items: addController.selectedImages.map((i) {
@@ -76,12 +77,6 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                   });
                 }).toList(),
               ),
-        /*for (int i = 0; i < addController.selectedImages.length; i++)
-                      Container(
-                        height: 100,
-                        width: double.infinity,
-                        child: Image.file(addController.selectedImages[i]),
-                      ),*/
         const SizedBox(height: 20),
         Text(AppString.sellingItem, style: TextStyle(color: AppColor.primarycolorblack, fontWeight: FontWeight.w400, fontSize: 18)),
         const SizedBox(height: 20),
@@ -146,13 +141,13 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                   }),
               const SizedBox(height: 10),
               AppTextField(controller: addController.addMobileController, txtValue: AppString.mobileNo, keytype: TextInputType.number, lableValue: AppString.mobileNo, counterTxt: '', maxLength: 10),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               AppTextField(controller: addController.addressController, txtValue: AppString.add, maxLines: 4, counterTxt: ""),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               AppButton(
                   height: 60,
                   width: double.infinity,
-                  isLoad: addController.isAddJaherat.value,
+                  isLoad: addController.isItemAddLoader.value,
                   buttontxt: AppString.send,
                   onTap: () {
                     /* if (notedController.nameController.value.text.isEmpty) {
@@ -166,8 +161,7 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                     } else if (notedController.addressController.value.text.isEmpty) {
                       errorSnackBar(context, AppString.pleaseAdd);
                     } else {*/
-                      addController.setItemData(context);
-
+                    addController.setItemData(context);
                   })
             ]))
       ]);
