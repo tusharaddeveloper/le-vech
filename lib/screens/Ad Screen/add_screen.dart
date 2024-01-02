@@ -152,7 +152,7 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
               AppButton(
                   height: 60,
                   width: double.infinity,
-                  isLoad: isLoading,
+                  isLoad: addController.isAddJaherat.value,
                   buttontxt: AppString.send,
                   onTap: () {
                     /* if (notedController.nameController.value.text.isEmpty) {

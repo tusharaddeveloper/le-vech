@@ -122,9 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
             InkWell(
                 onTap: () {
                   Navigator.pop(context);
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const ProfileScreen(),
-                  ));
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ProfileScreen()));
                 },
                 child: DrawerHeader(
                   decoration: BoxDecoration(color: AppColor.themecolor),
@@ -147,9 +145,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       const SizedBox(width: 18),
                       profileController.profileUrl.value.isNotEmpty
                           ? Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                              Text("${profileController.nameController.value.text}", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 20, color: AppColor.primarycolor)),
+                              Text("${profileController.nameController.value.text} ${profileController.surnameController.value.text}",overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 18, color: AppColor.primarycolor)),
                               const SizedBox(height: 8),
-                              Text("+91 ${profileController.mobileController.value.text}", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 18, color: AppColor.primarycolor))
+                              Text("+91 ${profileController.mobileController.value.text}", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 16, color: AppColor.primarycolor))
                             ])
                           : Text(" Le-vecha ", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 18, color: AppColor.primarycolor))
                     ]),
