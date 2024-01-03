@@ -1,5 +1,3 @@
-import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
@@ -19,8 +17,6 @@ class AddItemsScreen extends StatefulWidget {
   State<AddItemsScreen> createState() => _AddItemsScreenState();
 }
 
-String leVech = "LeVech";
-
 class _AddItemsScreenState extends State<AddItemsScreen> {
   NotedController notedController = Get.put(NotedController());
   AddController addController = Get.put(AddController());
@@ -30,9 +26,7 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
   @override
   void initState() {
     addController.selectedImages.clear();
-    //addController.tempImg.clear();
     notedController.getDis();
-    // addController.mobileNo();
     super.initState();
   }
 
@@ -46,7 +40,6 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: InkWell(
             onTap: () {
-              //addController.getImages(context);
               addController.getFromGallery(context);
             },
             child: Row(
@@ -92,10 +85,7 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                     });
                   }),
               const SizedBox(height: 10),
-              AppTextField(
-                controller: addController.addNameController,
-                txtValue: AppString.name,
-              ),
+              AppTextField(controller: addController.addNameController, txtValue: AppString.name),
               const SizedBox(height: 20),
               AppTextField(controller: addController.priceController, txtValue: AppString.price, keytype: TextInputType.number),
               const SizedBox(height: 20),

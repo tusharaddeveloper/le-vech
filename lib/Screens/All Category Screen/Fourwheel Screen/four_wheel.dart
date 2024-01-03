@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/Widgets/color_const.dart';
@@ -40,13 +41,14 @@ class itemWidget extends StatefulWidget {
 
 class _itemWidgetState extends State<itemWidget> {
   bool isIcon = true;
+  QueryDocumentSnapshot?  detail;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => LeVechProfile(),
+            builder: (context) => LeVechProfile(detail: detail!),
           ));
         },
         child: Card(

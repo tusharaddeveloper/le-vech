@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class AppImage {
   static String imglogo = "assets/images/logops.jpg";
   static String courselImg = "assets/images/tractorr.jpg";

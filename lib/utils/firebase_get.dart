@@ -62,6 +62,10 @@ void storeDataDocs(String collection, String docsId, Map<String, dynamic> data) 
     print(e);
   }
 }
+/*@override
+void addData()async{
+ await FirebaseFirestore.instance.collection().add({'text': 'data added through app'});
+}*/
 
 @override
 void storeDataDocsSubCollection(String collection, String docsId, String subCollection, Map<String, dynamic> data) async {

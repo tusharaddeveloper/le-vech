@@ -16,6 +16,11 @@ class LoginSCreen extends StatefulWidget {
 
 class _LoginSCreenState extends State<LoginSCreen> {
   LoginController loginController = Get.put(LoginController());
+  @override
+  void dispose() {
+    loginController.mobileNoController.value.clear();
+    super.dispose();
+  }
 
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

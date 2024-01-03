@@ -7,23 +7,21 @@ class TractorScreenController extends GetxController {
   RxBool isIcon = true.obs;
   RxBool isLodingData = false.obs;
   List<QueryDocumentSnapshot> profileData = <QueryDocumentSnapshot>[];
-
   RxBool isLoader = false.obs;
 
   getProfileData(BuildContext context) async {
     try {
-      isLoader.value=true;
+      isLoader.value = true;
       profileData = await firebaseGet('advertise');
       if (profileData.isNotEmpty) {
-            print("object gffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffgggggggggggggggggggggggggggggfgfg");
-      }else{
+        print("object gffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffgggggggggggggggggggggggggggggfgfg");
+      } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("No Data Found")));
       }
-      isLoader.value=false;
+      isLoader.value = false;
     } on Exception catch (e) {
-      isLoader.value=false;
+      isLoader.value = false;
       print(e);
     }
   }
-
 }

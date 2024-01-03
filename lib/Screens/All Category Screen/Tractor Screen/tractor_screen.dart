@@ -124,7 +124,7 @@ class _itemWidgetState extends State<itemWidget> {
     return Obx(() {
       return InkWell(
           onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => LeVechProfile()));
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => LeVechProfile(detail:tractorController.profileData[widget.index])));
           },
           child: Card(
               elevation: 2,

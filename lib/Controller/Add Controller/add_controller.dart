@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
@@ -9,6 +10,7 @@ import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/Widgets/string_const.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:le_vech/utils/firebase_get.dart';
+import 'package:le_vech/utils/snackbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AddController extends GetxController {
@@ -28,14 +30,10 @@ class AddController extends GetxController {
 
   RxBool isItemAddLoader = false.obs;
   final picker = ImagePicker();
-
   RxList<File> selectedImages = [File('')].obs;
-
-  //  List<String> selectedImages=[];
   String selectItem = AppString.tractor;
   RxBool isFirst = true.obs;
   late SharedPreferences prefs;
-
   List<String> imageList = [AppImage.tractorEicher, AppImage.cow, AppImage.horse, AppImage.bike, AppImage.car, AppImage.imglogo];
 
   void getFromGallery(BuildContext context) async {
@@ -80,7 +78,9 @@ class AddController extends GetxController {
         }
       }
 
-      storeDataDocs('advertise', profileController.mo!, {
+     // FirebaseFirestore.instance.collection('le-vech_config').doc('developer').collection('advertise').doc().set({''});
+
+      storeData('advertise',  {
         'item_img': url,
         'name': addNameController.text,
         'item_type': selectItem,
@@ -90,13 +90,28 @@ class AddController extends GetxController {
         'taluka': notedController.talukaSelect.value,
         'village': notedController.villageSelect.value,
         'mobile_number': addMobileController.text,
-        'address': addressController.text
+        'address': addressController.text,
+        'login_mo': profileController.mobileController.text
       });
     } catch (e) {
       isItemAddLoader.value = false;
     }
+    clearData(context);
+  }
+
+  void clearData(BuildContext context) {
+    images.clear();
+    imagePath.clear();
+    url.clear();
+    selectedImages.clear();
+    priceController.clear();
+    addNameController.clear();
+    detailsController.clear();
+    addMobileController.clear();
+    addressController.clear();
+
     isItemAddLoader.value = false;
     Navigator.pop(context);
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("data add")));
+    succesSnackBar(context, AppString.successfullyAdd);
   }
 }

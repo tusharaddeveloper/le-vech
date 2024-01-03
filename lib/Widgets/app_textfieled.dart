@@ -40,7 +40,6 @@ class _AppTextFieldState extends State<AppTextField> {
             filled: true,
             counterText: widget.counterTxt,
             fillColor: AppColor.primarycolor,
-            prefixIcon: Icon(widget.prefixIcon,size: 20),
             focusColor: AppColor.primarycolorblack,
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
             hintText: widget.txtValue,

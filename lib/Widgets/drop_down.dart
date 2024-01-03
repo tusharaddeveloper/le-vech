@@ -1,7 +1,4 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-
 import 'color_const.dart';
 
 class DropDown extends StatefulWidget {
@@ -24,41 +21,27 @@ class _DropDownState extends State<DropDown> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 54,
-      width: double.infinity,
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(28), border: Border.all(color: AppColor.primarycolorblack, width: 0.9), color: AppColor.primarycolor),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: DropdownButton(
-          isExpanded: true,
+        height: 54,
+        width: double.infinity,
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(28), border: Border.all(color: AppColor.primarycolorblack, width: 0.9), color: AppColor.primarycolor),
+        child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: DropdownButton(
+                isExpanded: true,
 
-          // Initial Value
-          value: widget.dropdownvalue,
-
-          // Down Arrow Icon
-          icon: const Icon(Icons.keyboard_arrow_down),
-
-          // Array list of items
-          underline:SizedBox(),
-          items: widget.items.map((String items) {
-            return DropdownMenuItem(
-
-              value: items,
-              child: Text(
-                items,
-                style: TextStyle(fontSize: 18, color: AppColor.primarycolorblack),
-              ),
-            );
-          }).toList(),
-          // After selecting the desired option,it will
-          // change button value to selected value
-          onChanged: (String? newValue) {
-            setState(() {
-              widget.onTap(newValue!);
-            });
-          },
-        ),
-      ),
-    );
+                // Initial Value
+                value: widget.dropdownvalue,
+                // Down Arrow Icon
+                icon: const Icon(Icons.keyboard_arrow_down),
+                // Array list of items
+                underline: SizedBox(),
+                items: widget.items.map((String items) {
+                  return DropdownMenuItem(value: items, child: Text(items, style: TextStyle(fontSize: 18, color: AppColor.primarycolorblack)));
+                }).toList(),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    widget.onTap(newValue!);
+                  });
+                })));
   }
 }

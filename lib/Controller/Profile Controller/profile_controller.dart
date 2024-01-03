@@ -26,19 +26,8 @@ class ProfileController extends GetxController {
   TextEditingController surnameController = TextEditingController();
   TextEditingController addressController = TextEditingController();
 
- /* RxList districList = [].obs;
-  RxList districListId = [].obs;
-  RxString districSelect = ''.obs;
-  RxString districSelectId = ''.obs;
-  RxList<String> talukaList = [''].obs;
-  RxList talukaListId = [].obs;
-  RxString talukaSelect = ''.obs;
-  RxString talukaSelectId = ''.obs;
-  RxList<String> villageList = [''].obs;
-  RxList villageListId = [].obs;
-  RxString villageSelect = ''.obs;
-  RxString villageSelectId = ''.obs;*/
   String? mo;
+
   //RxBool isFirst = true.obs;
   RxBool isUpdateLoding = false.obs;
   Rx<File> selectedProfile = File("").obs;
@@ -47,23 +36,23 @@ class ProfileController extends GetxController {
   RxBool isLoader = false.obs;
 
   getProfileData(BuildContext context) async {
-     try {
-       isLoader.value=true;
-       profileData = await firebaseGetwhere("users", "mobile_number", mo!);
-       if (profileData.isNotEmpty) {
+    try {
+      isLoader.value = true;
+      profileData = await firebaseGetwhere("users", "mobile_number", mo!);
+      if (profileData.isNotEmpty) {
         profileUrl.value = profileData[0]['image'];
         nameController.text = profileData[0]['name'];
         surnameController.text = profileData[0]['surname'];
         mobileController.text = profileData[0]["mobile_number"];
         addressController.text = profileData[0]['address'];
-           }else{
-         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("No Data Found")));
-       }
-       isLoader.value=false;
-     } on Exception catch (e) {
-       isLoader.value=false;
-       print(e);
-     }
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("No Data Found")));
+      }
+      isLoader.value = false;
+    } on Exception catch (e) {
+      isLoader.value = false;
+      print(e);
+    }
   }
 
   getMobileNumber(BuildContext context) async {
@@ -72,14 +61,13 @@ class ProfileController extends GetxController {
     getProfileData(context);
   }
 
-
-
   void selectImageFromGallery(BuildContext context) async {
     final pickedFile = await ImageHelper.pickImageFromGallery(context: context, cropStyle: CropStyle.rectangle, title: 'Profile Image');
     if (pickedFile != null) {
       selectedProfile.value = pickedFile;
     } else {}
   }
+
   void selectImageFromCamera(BuildContext context) async {
     final pickedFile = await ImageHelper.pickImageFromCamera(context: context, cropStyle: CropStyle.rectangle, title: 'Profile Image');
     if (pickedFile != null) {
@@ -87,11 +75,11 @@ class ProfileController extends GetxController {
     } else {}
   }
 
-   updateProfile(BuildContext context, String id) async {
-     prefs = await SharedPreferences.getInstance();
-     prefs.setString('mobile_number', mobileController.value.text);
+  updateProfile(BuildContext context, String id) async {
+    prefs = await SharedPreferences.getInstance();
+    prefs.setString('mobile_number', mobileController.value.text);
     try {
-      isUpdateLoding.value=true;
+      isUpdateLoding.value = true;
       FirebaseStorage firebasestorage = FirebaseStorage.instance;
       if (selectedProfile.value.path.isNotEmpty) {
         try {
@@ -114,9 +102,9 @@ class ProfileController extends GetxController {
       succesSnackBar(context, AppString.updateProfile);
       Navigator.pop(context);
 
-      isUpdateLoding.value=false;
+      isUpdateLoding.value = false;
     } catch (e) {
-      isUpdateLoding.value=false;
+      isUpdateLoding.value = false;
     }
   }
 
@@ -132,9 +120,9 @@ class ProfileController extends GetxController {
                 title: const Text('Photo Library'),
                 onTap: () {
                   selectImageFromGallery(context);
-     Navigator.of(context).pop();
+                  Navigator.of(context).pop();
                 }),
-                         ListTile(
+            ListTile(
                 leading: const Icon(Icons.photo_camera),
                 title: const Text('Camera'),
                 onTap: () {

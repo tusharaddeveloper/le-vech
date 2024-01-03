@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:le_vech/Controller/Auth%20Controller/noted_controller.dart';
@@ -44,25 +45,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   onTap: () {
                     profileController.selectImage(context);
                   },
-                  child: Stack(
-                    children: [
-                      Container(
-                          height: 120,
-                          width: 120,
-                          decoration: BoxDecoration(color: AppColor.primarycolor, border: Border.all(color: AppColor.themecolor, width: 2), borderRadius: BorderRadius.circular(80)),
-                          child: ClipRRect(
-                              borderRadius: BorderRadius.circular(80),
-                              child: profileController.selectedProfile.value.path.isEmpty
-                                  ? profileController.profileUrl != ''
-                                      ? Image(
-                                          image: NetworkImage(profileController.profileUrl.value),
-                                          fit: BoxFit.cover,
-                                        )
-                                      : const Image(image: AssetImage('assets/images/logops.jpg'))
-                                  : Image.file(profileController.selectedProfile.value, fit: BoxFit.cover))),
-                      Positioned(bottom: 0, right: 10, child: CircleAvatar(backgroundColor: AppColor.themecolor, radius: 14, child: Icon(Icons.camera_alt, color: AppColor.primarycolor, size: 16)))
-                    ],
-                  )),
+                  child: Stack(children: [
+                    Container(
+                        height: 120,
+                        width: 120,
+                        decoration: BoxDecoration(color: AppColor.primarycolor, border: Border.all(color: AppColor.themecolor, width: 2), borderRadius: BorderRadius.circular(80)),
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.circular(80),
+                            child: /*profileController.selectedProfile.value.path.isEmpty
+                                ? profileController.profileUrl.value != ''
+                                    ? Image(
+                                        image: NetworkImage(profileController.profileUrl.value),
+                                        fit: BoxFit.cover,
+                                      )
+                                    : const Image(image: AssetImage('assets/images/logops.jpg'))
+                                : Image.file(profileController.selectedProfile.value, fit: BoxFit.cover))*/
+                            CachedNetworkImage(
+                                height: 100,
+                                width: 100,
+                                imageUrl: profileController.profileUrl.value,
+                                placeholder: (context, url) => Image(image: AssetImage('assets/images/logops.jpg')),
+                                errorWidget: (context, url, error) => Image(image: AssetImage('assets/images/logops.jpg')),
+                                fit: BoxFit.cover),
+                        ),),
+                    Positioned(bottom: 0, right: 10, child: CircleAvatar(backgroundColor: AppColor.themecolor, radius: 14, child: Icon(Icons.camera_alt, color: AppColor.primarycolor, size: 16)))
+                  ])),
               const SizedBox(height: 20),
               AppTextField(txtValue: AppString.name, controller: profileController.nameController),
               const SizedBox(height: 10),
@@ -104,8 +111,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       notedController.villageSelectId.value = notedController.villageListId[notedController.villageList.indexOf(notedController.villageSelect.value)];
                     });
                   }),
-              const SizedBox(height: 10),
-              const SizedBox(height: 10),
+              const SizedBox(height: 20),
               AppTextField(txtValue: AppString.add, maxLines: 4, controller: profileController.addressController),
               const SizedBox(height: 20),
               AppButton(

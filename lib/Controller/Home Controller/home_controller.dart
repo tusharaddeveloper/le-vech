@@ -36,20 +36,18 @@ class HomeController extends GetxController {
 
   // Firebase get profile & where condition
   getProfileData(String mobileNo) async {
-
-  /*getProfileData(String mobileNo) async {
+    /*getProfileData(String mobileNo) async {
     profileData.value = await firebaseGetwhere('users', 'mobile_number', mobileNo);
     if (profileData.isNotEmpty) {
       profilePic.value = profileData[0]['image'];
     }
   }*/
-
-}
+  }
 
   // logout profile
-
   void logOut(BuildContext context) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.clear();
     Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const LoginSCreen()), (Route<dynamic> route) => false);
-  }}
+  }
+}

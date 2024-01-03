@@ -41,7 +41,7 @@ class OTPController extends GetxController {
     firebasedata.value = await firebaseGetwhere('users', 'mobile_number', mo);
 
     if (firebasedata.isNotEmpty) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen(mobileNo: mo)));
+      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => HomeScreen(mobileNo: mo)), (Route<dynamic> route) => false);
     } else {
       Navigator.push(context, MaterialPageRoute(builder: (context) => NotedScreen(Mobile: mo)));
     }

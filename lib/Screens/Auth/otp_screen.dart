@@ -21,6 +21,12 @@ class _OtpScreenState extends State<OtpScreen> {
   OTPController otpController = Get.put(OTPController());
 
   @override
+  void dispose() {
+    otpController.verifyotp.value.clear();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(body: SafeArea(child: SingleChildScrollView(child: Obx(() {

@@ -1,7 +1,7 @@
 class AppString {
   // Login Page
-  static String baseCollection='le-vech_config';
-  static String baseDoc='developer';
+  static String baseCollection = 'le-vech_config';
+  static String baseDoc = 'developer';
   static String enterNum = "કૃપા કરી તમારો મોબાઇલ નંબર દાખલ કરો.";
   static String mobileNo = "મોબાઈલ નંબર";
   static String getOtp = "OTP  મેળવો";
@@ -34,6 +34,7 @@ class AppString {
   static String pleaseAddImage = "કૃપા કરી તમારો ફોટો ઉમેરો";
   static String guj = "ગુજરાત";
   static String searchBar = "શોધો";
+  static String successfullyLogin = "તમે સફળતાપૂર્વક લૉગિન કર્યું.";
 
   // Home Screen
 
@@ -47,7 +48,7 @@ class AppString {
   static String youSendInfo = " તમે મુકેલી જાહેરાતો ";
   static String share = " શેર કરો ";
   static String logOut = " બહાર નીકળો  ";
-
+  static String successfullyAdd = "તમે સફળતાપૂર્વક જાહેરાત ઉમેરી.";
   static String tractor = "ટ્રેક્ટર લે - વેચ";
   static String cow = "ગાય  લે - વેચ";
   static String horse = "ઘોડા  લે - વેચ";

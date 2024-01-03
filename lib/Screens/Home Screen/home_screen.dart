@@ -1,10 +1,12 @@
 import 'dart:async';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:get/get.dart';
 import 'package:le_vech/Controller/Profile%20Controller/profile_controller.dart';
 import 'package:le_vech/Controller/Home%20Controller/home_controller.dart';
+import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/screens/Ad%20Screen/add_screen.dart';
 import 'package:le_vech/screens/Ad%20Screen/send_add.dart';
 import 'package:le_vech/screens/All%20Category%20Screen/Tractor%20Screen/tractor_screen.dart';
@@ -34,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Obx(() {
       return Scaffold(
@@ -79,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ]);
                         });
                       }).toList()),
-                  const SizedBox(height: 26),
+                  const SizedBox(height: 26)
                 ])),
             Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
@@ -125,43 +128,44 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ProfileScreen()));
                 },
                 child: DrawerHeader(
-                  decoration: BoxDecoration(color: AppColor.themecolor),
-                  child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    Row(children: [
-                      Container(
-                          height: 90,
-                          width: 90,
-                          decoration: const BoxDecoration(shape: BoxShape.circle),
-                          child: ClipRRect(
-                              borderRadius: BorderRadius.circular(80),
-                              child: profileController.selectedProfile.value.path.isEmpty
-                                  ? profileController.profileUrl.value != ''
-                                      ? Image(
-                                          image: NetworkImage(profileController.profileUrl.value),
-                                          fit: BoxFit.cover,
-                                        )
-                                      : const Image(image: AssetImage('assets/images/logops.jpg'))
-                                  : Image.file(profileController.selectedProfile.value, fit: BoxFit.cover))),
-                      const SizedBox(width: 18),
-                      profileController.profileUrl.value.isNotEmpty
-                          ? Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                              Text("${profileController.nameController.value.text} ${profileController.surnameController.value.text}",overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 18, color: AppColor.primarycolor)),
-                              const SizedBox(height: 8),
-                              Text("+91 ${profileController.mobileController.value.text}", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 16, color: AppColor.primarycolor))
-                            ])
-                          : Text(" Le-vecha ", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 18, color: AppColor.primarycolor))
-                    ]),
-                    const Spacer(),
-                    Row(children: [
+                    decoration: BoxDecoration(color: AppColor.themecolor),
+                    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                      Row(children: [
+                        Container(
+                            height: 90,
+                            width: 90,
+                            decoration: const BoxDecoration(shape: BoxShape.circle),
+                            child: ClipRRect(
+                                borderRadius: BorderRadius.circular(80),
+                                child: CachedNetworkImage(
+                                    height: 100,
+                                    width: 100,
+                                    imageUrl: profileController.profileUrl.value,
+                                    placeholder: (context, url) => Image(image: AssetImage(AppImage.imglogo)),
+                                    errorWidget: (context, url, error) => Image(image: AssetImage(AppImage.imglogo)),
+                                    fit: BoxFit.cover),
+                            )),
+                        const SizedBox(width: 18),
+                        profileController.profileUrl.value.isNotEmpty
+                            ? Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                                Text("${profileController.nameController.value.text} ${profileController.surnameController.value.text}",
+                                    overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 18, color: AppColor.primarycolor)),
+                                const SizedBox(height: 8),
+                                Text("+91 ${profileController.mobileController.value.text}", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 16, color: AppColor.primarycolor))
+                              ])
+                            : Text(" Le-vecha ", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 18, color: AppColor.primarycolor))
+                      ]),
                       const Spacer(),
-                      Text(AppString.edit, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 18, color: AppColor.primarycolor)),
-                      const SizedBox(width: 10),
-                      Icon(Icons.edit, color: AppColor.primarycolor, size: 22),
-                      const SizedBox(width: 20)
-                    ]),
-                    const SizedBox(height: 10)
-                  ]), //BoxDecoration
-                )),
+                      Row(children: [
+                        const Spacer(),
+                        Text(AppString.edit, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 18, color: AppColor.primarycolor)),
+                        const SizedBox(width: 10),
+                        Icon(Icons.edit, color: AppColor.primarycolor, size: 22),
+                        const SizedBox(width: 20)
+                      ]),
+                      const SizedBox(height: 10)
+                    ]) //BoxDecoration
+                    )),
             ListTile(
                 leading: Icon(Icons.home_outlined, size: 28, color: AppColor.themecolor),
                 title: Text(homeController.drowerName[0], style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w500)),

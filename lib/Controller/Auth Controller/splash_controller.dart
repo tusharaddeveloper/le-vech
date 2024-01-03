@@ -4,8 +4,7 @@ import 'package:le_vech/screens/Auth/login_screen.dart';
 import 'package:le_vech/screens/Home%20Screen/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SplashController extends GetxController{
-
+class SplashController extends GetxController {
   late SharedPreferences prefs;
 
   // MobileNo. get in SharedPreferences & Navigate

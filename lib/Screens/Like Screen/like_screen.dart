@@ -24,7 +24,7 @@ class _LikeScreenState extends State<LikeScreen> {
                 child: Column(children: [
           AppBarWidget(height: 130, width: double.infinity, isLogo: false, info: AppString.like),
           SizedBox(height: 20),
-          Padding(padding: const EdgeInsets.symmetric(horizontal: 8), child: AppTextField(txtValue: AppString.searchBar, prefixIcon: Icons.search,)),
+          Padding(padding: const EdgeInsets.symmetric(horizontal: 8), child: AppTextField(txtValue: AppString.searchBar, prefixIcon: Icons.search)),
           SizedBox(height: 20),
           Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
@@ -41,7 +41,6 @@ class _LikeScreenState extends State<LikeScreen> {
 }
 
 class itemWidget extends StatefulWidget {
-
   int index;
 
   itemWidget({Key? key, required this.index}) : super(key: key);
@@ -66,26 +65,17 @@ class _itemWidgetState extends State<itemWidget> {
                 child: Column(children: [
                   SizedBox(height: 8),
                   Card(
-                    elevation: 3,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-                    child: Container(
-                      height: 100,
-                      width: 140,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6),
-                        image: DecorationImage(image: AssetImage(imageList[widget.index]), fit: BoxFit.cover),
-                      ),
-                    ),
-                  ),
+                      elevation: 3,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                      child: Container(
+                          height: 100,
+                          width: 140,
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), image: DecorationImage(image: AssetImage(imageList[widget.index]), fit: BoxFit.cover)))),
                   SizedBox(height: 10),
                   Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                        Text(
-                          AppString.tractorName,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(color: AppColor.primarycolorblack, fontSize: 16, fontWeight: FontWeight.w600),
-                        ),
+                        Text(AppString.tractorName, overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.primarycolorblack, fontSize: 16, fontWeight: FontWeight.w600)),
                         SizedBox(height: 10),
                         Row(children: [
                           SizedBox(width: 110, child: Text("₹20,400,000000", overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.price, fontSize: 16, fontWeight: FontWeight.w700))),

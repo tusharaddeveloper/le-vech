@@ -13,7 +13,7 @@ class LoginController extends GetxController {
   RxBool showbutton = false.obs;
   RxBool isLoading = false.obs;
 
-    // set MobileNo. in firebase & get otp
+  // set MobileNo. in firebase & get otp
   void userlogin(BuildContext context) async {
     try {
       if (mobileNoController.value.text.isNotEmpty) {

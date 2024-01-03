@@ -5,9 +5,11 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:le_vech/Controller/Auth%20Controller/login_controller.dart';
+import 'package:le_vech/Widgets/string_const.dart';
 import 'package:le_vech/screens/Home%20Screen/home_screen.dart';
 import 'package:le_vech/utils/firebase_get.dart';
 import 'package:le_vech/utils/image_helper.dart';
+import 'package:le_vech/utils/snackbar.dart';
 import 'package:le_vech/utils/storage_provider.dart';
 
 class NotedController extends GetxController {
@@ -69,6 +71,7 @@ class NotedController extends GetxController {
     } catch (e) {
       print(e);
     }
+    succesSnackBar(context, AppString.successfullyLogin);
   }
 
   void getDis() async {

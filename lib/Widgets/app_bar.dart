@@ -55,7 +55,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                             Spacer(),
                             Text(widget.info!, style: TextStyle(color: AppColor.primarycolor, fontSize: 28)),
                             Spacer(),
-                            Spacer(),
+                            Spacer()
                           ])))))
     ]);
   }

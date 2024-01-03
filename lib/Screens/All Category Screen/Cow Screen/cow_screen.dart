@@ -1,31 +1,29 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:le_vech/Widgets/color_const.dart';
 import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/screens/Profile%20Screen/le_vech_profile.dart';
+import 'package:le_vech/Widgets/color_const.dart';
 
-class TwoWheel extends StatefulWidget {
-  const TwoWheel({Key? key}) : super(key: key);
+class CowScreen extends StatefulWidget {
+  const CowScreen({Key? key}) : super(key: key);
 
   @override
-  State<TwoWheel> createState() => _TwoWheelState();
+  State<CowScreen> createState() => _CowScreenState();
 }
 
-class _TwoWheelState extends State<TwoWheel> {
+class _CowScreenState extends State<CowScreen> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-      child: GridView.builder(
-          itemCount: 5,
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 4.8 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
-          itemBuilder: (context, index) {
-            return itemWidget(
-              index: index,
-            );
-          }),
-    );
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+        child: GridView.builder(
+            itemCount: 5,
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 4.8 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
+            itemBuilder: (context, index) {
+              return itemWidget(index: index);
+            }));
   }
 }
 
@@ -40,14 +38,16 @@ class itemWidget extends StatefulWidget {
 
 class _itemWidgetState extends State<itemWidget> {
   bool isIcon = true;
+  QueryDocumentSnapshot? detail;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => LeVechProfile(),
-          ));
+              builder: (context) => LeVechProfile(
+                    detail: detail!,
+                  )));
         },
         child: Card(
             elevation: 2,
@@ -60,15 +60,15 @@ class _itemWidgetState extends State<itemWidget> {
                       elevation: 3,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                       child: Container(
-                          height: 100, width: 140, decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), image: DecorationImage(image: AssetImage(AppImage.bike), fit: BoxFit.cover)))),
+                          height: 100, width: 140, decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), image: DecorationImage(image: AssetImage(AppImage.cow), fit: BoxFit.cover)))),
                   SizedBox(height: 10),
                   Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                        Text("ગાડી વેચવાનો છે", overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.primarycolorblack, fontSize: 16, fontWeight: FontWeight.w600)),
+                        Text("જર્સી ગાય", overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.primarycolorblack, fontSize: 16, fontWeight: FontWeight.w600)),
                         SizedBox(height: 10),
                         Row(children: [
-                          Expanded(child: Text("₹1,50,000", overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.price, fontSize: 16, fontWeight: FontWeight.w700))),
+                          Expanded(child: Text("₹40,000", overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.price, fontSize: 16, fontWeight: FontWeight.w700))),
                           InkWell(
                               onTap: () {
                                 setState(() {
