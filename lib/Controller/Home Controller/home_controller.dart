@@ -43,7 +43,40 @@ class HomeController extends GetxController {
     }
   }*/
   }
-
+  logOutAlertDialog(BuildContext context) async {
+    return showDialog(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Logout ?'),
+          content: const SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Are you sure To Logout ?'),
+              ],
+            ),
+          ),
+          actions: [
+            ElevatedButton(
+              child: const Text('No'),
+              onPressed: () {
+                Navigator.of(context).pop(); // Dismiss the Dialog
+              },
+            ),
+            ElevatedButton(
+                child: const Text('Yes'),
+                onPressed: () {
+                  logOut(context);
+                  Navigator.of(context).pop();
+                  // Navigate to login
+                }
+            ),
+          ],
+        );
+      },
+    );
+  }
   // logout profile
   void logOut(BuildContext context) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();

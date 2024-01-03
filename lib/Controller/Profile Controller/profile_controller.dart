@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:le_vech/Controller/Auth%20Controller/noted_controller.dart';
+import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/Widgets/string_const.dart';
 import 'package:le_vech/utils/firebase_get.dart';
 import 'package:le_vech/utils/image_helper.dart';
@@ -27,7 +28,8 @@ class ProfileController extends GetxController {
   TextEditingController addressController = TextEditingController();
 
   String? mo;
-
+  List<String> imageList = [AppImage.tractorEicher, AppImage.cow, AppImage.horse, AppImage.bike, AppImage.car, AppImage.imglogo];
+  List levechImageList = [];
   //RxBool isFirst = true.obs;
   RxBool isUpdateLoding = false.obs;
   Rx<File> selectedProfile = File("").obs;
