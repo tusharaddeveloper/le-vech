@@ -6,6 +6,7 @@ import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:get/get.dart';
 import 'package:le_vech/Controller/Profile%20Controller/profile_controller.dart';
 import 'package:le_vech/Controller/Home%20Controller/home_controller.dart';
+import 'package:le_vech/Screens/All%20Category%20Screen/All%20Category%20Screen/all_category_screen.dart';
 import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/screens/Ad%20Screen/add_screen.dart';
 import 'package:le_vech/screens/Ad%20Screen/send_add.dart';
@@ -94,9 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemBuilder: (context, index) {
                       return InkWell(
                           onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => TractorScreen(itemName: homeController.itemName[index]),
-                            ));
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => AllCategoryScreen(itemName: homeController.itemName[index])));
                           },
                           child: Card(
                               elevation: 2,
@@ -136,14 +135,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             width: 90,
                             decoration: const BoxDecoration(shape: BoxShape.circle),
                             child: ClipRRect(
-                                borderRadius: BorderRadius.circular(80),
-                                child: CachedNetworkImage(
-                                    height: 100,
-                                    width: 100,
-                                    imageUrl: profileController.profileUrl.value,
-                                    placeholder: (context, url) => Image(image: AssetImage(AppImage.imglogo)),
-                                    errorWidget: (context, url, error) => Image(image: AssetImage(AppImage.imglogo)),
-                                    fit: BoxFit.cover),
+                              borderRadius: BorderRadius.circular(80),
+                              child: CachedNetworkImage(
+                                  height: 100,
+                                  width: 100,
+                                  imageUrl: profileController.profileUrl.value,
+                                  placeholder: (context, url) => Image(image: AssetImage(AppImage.imglogo)),
+                                  errorWidget: (context, url, error) => Image(image: AssetImage(AppImage.imglogo)),
+                                  fit: BoxFit.cover),
                             )),
                         const SizedBox(width: 18),
                         profileController.profileUrl.value.isNotEmpty

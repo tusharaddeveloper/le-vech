@@ -16,16 +16,16 @@ class AllCategoryController extends GetxController {
 
   getAllads(BuildContext context) async {
     try {
-      isLoader.value = true;
+      isLodingData.value = true;
       profileData.value = await firebaseGet('advertise');
       if (profileData.isNotEmpty) {
         print("GET ALL ADS................................................");
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("No Data Found")));
       }
-      isLoader.value = false;
+      isLodingData.value = false;
     } on Exception catch (e) {
-      isLoader.value = false;
+      isLodingData.value = false;
       print(e);
     }
   }

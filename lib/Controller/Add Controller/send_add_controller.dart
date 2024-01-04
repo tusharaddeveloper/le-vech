@@ -36,7 +36,7 @@ class SendAddController extends GetxController {
   logOut(BuildContext context, int id) async {
     return showDialog(
         context: context,
-        barrierDismissible: false, // user must tap button!
+        barrierDismissible: false,
         builder: (BuildContext context) {
           return AlertDialog(
               backgroundColor: AppColor.dialougeBoxColor,

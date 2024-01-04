@@ -12,7 +12,7 @@ class TractorScreenController extends GetxController {
 
   sellTractor(BuildContext context) async {
     try {
-      isLoader.value = true;
+      isLodingData.value = true;
       allSellTractor.value = await firebaseGetwhere("advertise", "item_type", AppString.tractor);
 
       if (allSellTractor.isNotEmpty) {
@@ -21,9 +21,9 @@ class TractorScreenController extends GetxController {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("No Data Found")));
       }
 
-      isLoader.value = false;
+      isLodingData.value = false;
     } on Exception catch (e) {
-      isLoader.value = false;
+      isLodingData.value = false;
       print(e);
     }
   }
