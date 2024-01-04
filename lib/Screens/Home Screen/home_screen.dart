@@ -212,7 +212,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 leading: Icon(Icons.logout, size: 28, color: AppColor.themecolor),
                 title: Text(AppString.logOut, style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w500)),
                 onTap: () {
-                  homeController.logOut(context);
+                  homeController.logOutAlertDialog(context);
                 })
           ])) //Drawer
           );

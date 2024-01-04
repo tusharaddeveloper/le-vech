@@ -6,7 +6,6 @@ import 'package:le_vech/Controller/Profile%20Controller/profile_controller.dart'
 import 'package:le_vech/Widgets/app_bar.dart';
 import 'package:le_vech/Widgets/app_textfieled.dart';
 import 'package:le_vech/Widgets/color_const.dart';
-import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/Widgets/string_const.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -20,23 +19,19 @@ class LeVechProfile extends StatefulWidget {
 }
 
 class _LeVechProfileState extends State<LeVechProfile> {
-  List<String> imageList = [AppImage.tractorEicher, AppImage.cow, AppImage.horse, AppImage.bike, AppImage.car, AppImage.imglogo];
-  List levechImageList = [];
+
   ProfileController profileController = Get.put(ProfileController());
 
   @override
   void initState() {
-   // print('jhsdhfhbwjhebwjhefvwfhvfhv ${widget.detail["item_img"]}');
     setData();
     super.initState();
   }
 
    setData(){
     setState(() {
-      levechImageList = widget.detail["item_img"];
+      profileController. levechImageList = widget.detail["item_img"];
     });
-
-  //  print(levechImageList);
   }
 
   @override
@@ -52,8 +47,8 @@ class _LeVechProfileState extends State<LeVechProfile> {
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
               child: Column(children: [
                 CarouselSlider(
-                    options: CarouselOptions(height: 190, autoPlay: false, autoPlayInterval: const Duration(seconds: 2), aspectRatio: 16 / 9, viewportFraction: 1),
-                    items: levechImageList.map((i) {
+                    options: CarouselOptions(height: 190, autoPlay: false,enableInfiniteScroll: false, autoPlayInterval: const Duration(seconds: 2), aspectRatio: 16 / 9, viewportFraction: 1),
+                    items: profileController.levechImageList.map((i) {
                       return Builder(builder: (BuildContext context) {
                         return Column(children: [
                           Padding(
@@ -68,14 +63,7 @@ class _LeVechProfileState extends State<LeVechProfile> {
                         ]);
                       });
                     }).toList()),
-                //for(int a=0;a<=levechImageList.length;a++)
-                  /*Container(
-                      height: 190,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        image: DecorationImage(image: NetworkImage(levechImageList[0]), fit: BoxFit.cover),
-                  ),),*/
+
                 const SizedBox(height: 20),
                 Card(
                     elevation: 3,
@@ -98,8 +86,8 @@ class _LeVechProfileState extends State<LeVechProfile> {
                                             height: 100,
                                             width: 100,
                                             imageUrl: profileController.profileUrl.value,
-                                            placeholder: (context, url) => Image(image: AssetImage('assets/images/logops.jpg')),
-                                            errorWidget: (context, url, error) => Image(image: AssetImage('assets/images/logops.jpg')),
+                                            placeholder: (context, url) => const Image(image: AssetImage('assets/images/logops.jpg')),
+                                            errorWidget: (context, url, error) => const Image(image: AssetImage('assets/images/logops.jpg')),
                                             fit: BoxFit.cover),)),
                               ),
                               const SizedBox(width: 20),

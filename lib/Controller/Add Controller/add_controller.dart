@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
@@ -39,6 +38,7 @@ class AddController extends GetxController {
   void getFromGallery(BuildContext context) async {
     final List<XFile> pickedFile = await _picker.pickMultiImage();
     List<XFile> xfilePick = pickedFile;
+
     if (xfilePick.isNotEmpty) {
       for (var i = 0; i < xfilePick.length; i++) {
         selectedImages.add(File(xfilePick[i].path));

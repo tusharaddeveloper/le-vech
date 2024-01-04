@@ -8,6 +8,7 @@ import 'package:le_vech/Widgets/app_button.dart';
 import 'package:le_vech/Widgets/app_textfieled.dart';
 import 'package:le_vech/Widgets/drop_down.dart';
 import 'package:le_vech/Widgets/color_const.dart';
+import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/Widgets/string_const.dart';
 import 'package:le_vech/utils/snackbar.dart';
 
@@ -64,8 +65,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 height: 100,
                                 width: 100,
                                 imageUrl: profileController.profileUrl.value,
-                                placeholder: (context, url) => Image(image: AssetImage('assets/images/logops.jpg')),
-                                errorWidget: (context, url, error) => Image(image: AssetImage('assets/images/logops.jpg')),
+                                placeholder: (context, url) => Image(image: AssetImage(AppImage.imglogo)),
+                                errorWidget: (context, url, error) => Image(image: AssetImage(AppImage.imglogo)),
                                 fit: BoxFit.cover),
                         ),),
                     Positioned(bottom: 0, right: 10, child: CircleAvatar(backgroundColor: AppColor.themecolor, radius: 14, child: Icon(Icons.camera_alt, color: AppColor.primarycolor, size: 16)))
