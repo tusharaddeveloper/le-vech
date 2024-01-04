@@ -48,6 +48,7 @@ class AppString {
   static String youSendInfo = " તમે મુકેલી જાહેરાતો ";
   static String share = " શેર કરો ";
   static String logOut = " બહાર નીકળો  ";
+  static String logOutQuestion = " બહાર નીકળો ?";
   static String successfullyAdd = "તમે સફળતાપૂર્વક જાહેરાત ઉમેરી.";
   static String tractor = "ટ્રેક્ટર લે - વેચ";
   static String cow = "ગાય  લે - વેચ";
@@ -56,6 +57,11 @@ class AppString {
   static String fourWheel = "ફોર - વ્હીલ લે - વેચ";
   static String tractorName = "ટ્રેક્ટર આઇસર ";
   static String edit = "Edit";
+  static String logoutOption = "શું તમે ખરેખર બહાર નીકળવા માંગો છો ?";
+  static String deleteItem = "ડિલિટ ?";
+  static String deleteOption = "શું તમે ખરેખર ડિલિટ કરવા માંગો છો ?";
+  static String yes = "હાઁ";
+  static String no = "ના";
 
   // Add Screen
 

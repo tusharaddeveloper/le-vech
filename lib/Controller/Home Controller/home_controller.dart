@@ -23,8 +23,8 @@ class HomeController extends GetxController {
     Icon(Icons.share, size: 28, color: AppColor.themecolor)
   ].obs;
   RxList drowerName = [AppString.allInfo, AppString.addInfo, AppString.like, AppString.youSendInfo, AppString.share].obs;
-  RxList itemName = [AppString.allInfo,AppString.tractor, AppString.cow, AppString.horse, AppString.twoWheel, AppString.fourWheel, AppString.others].obs;
-  RxList<String> imageList = [AppImage.allCategory,AppImage.tractorEicher, AppImage.cow, AppImage.horse, AppImage.bike, AppImage.car, AppImage.imglogo].obs;
+  RxList itemName = [AppString.allInfo, AppString.tractor, AppString.cow, AppString.horse, AppString.twoWheel, AppString.fourWheel, AppString.others].obs;
+  RxList<String> imageList = [AppImage.allCategory, AppImage.tractorEicher, AppImage.cow, AppImage.horse, AppImage.bike, AppImage.car, AppImage.imglogo].obs;
 
   // get MobileNo. in firebase
   setLogin(String mobileNo) async {
@@ -43,40 +43,42 @@ class HomeController extends GetxController {
     }
   }*/
   }
+
   logOutAlertDialog(BuildContext context) async {
     return showDialog(
       context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Logout ?'),
-          content: const SingleChildScrollView(
+          backgroundColor: AppColor.dialougeBoxColor,
+          title: Text(AppString.logOutQuestion, style: TextStyle(color: AppColor.primarycolor, fontSize: 20)),
+          content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text('Are you sure To Logout ?'),
+                Text(AppString.logoutOption, style: TextStyle(color: AppColor.primarycolor, fontSize: 20)),
               ],
             ),
           ),
           actions: [
             ElevatedButton(
-              child: const Text('No'),
+              child: Text(AppString.no, style: TextStyle(color: AppColor.dialougeBoxColor, fontSize: 18)),
               onPressed: () {
                 Navigator.of(context).pop(); // Dismiss the Dialog
               },
             ),
             ElevatedButton(
-                child: const Text('Yes'),
+                child: Text(AppString.yes, style: TextStyle(color: AppColor.dialougeBoxColor, fontSize: 18)),
                 onPressed: () {
                   logOut(context);
                   Navigator.of(context).pop();
                   // Navigate to login
-                }
-            ),
+                }),
           ],
         );
       },
     );
   }
+
   // logout profile
   void logOut(BuildContext context) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();

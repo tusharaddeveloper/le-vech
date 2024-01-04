@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:le_vech/Controller/All%20Screen%20Controller/tractor_screen_controller.dart';
 import 'package:le_vech/Screens/All%20Category%20Screen/All%20Category%20Screen/all_category_screen.dart';
-import 'package:le_vech/screens/All%20Category%20Screen/Cow%20Screen/cow_screen.dart';
-import 'package:le_vech/screens/All%20Category%20Screen/Fourwheel%20Screen/four_wheel.dart';
-import 'package:le_vech/screens/All%20Category%20Screen/Horse%20Screen/horse_screen.dart';
-import 'package:le_vech/screens/All%20Category%20Screen/Other%20Screen/other_screen.dart';
-import 'package:le_vech/screens/All%20Category%20Screen/Twowheel%20Screen/two_wheel.dart';
+import 'package:le_vech/Screens/All%20Category%20Screen/Cow%20Screen/cow_screen.dart';
+import 'package:le_vech/Screens/All%20Category%20Screen/Fourwheel%20Screen/four_wheel.dart';
+import 'package:le_vech/Screens/All%20Category%20Screen/Horse%20Screen/horse_screen.dart';
+import 'package:le_vech/Screens/All%20Category%20Screen/Other%20Screen/other_screen.dart';
+import 'package:le_vech/Screens/All%20Category%20Screen/Twowheel%20Screen/two_wheel.dart';
 import 'package:le_vech/screens/Profile%20Screen/le_vech_profile.dart';
 import 'package:le_vech/Widgets/app_bar.dart';
 import 'package:le_vech/Widgets/color_const.dart';
@@ -31,10 +31,7 @@ class _TractorScreenState extends State<TractorScreen> {
 
   @override
   void initState() {
-    tractorController.getProfileData(context);
-    setState(() {
-      selectedItem = widget.itemName;
-    });
+    tractorController.sellTractor(context);
     super.initState();
   }
 
@@ -44,7 +41,7 @@ class _TractorScreenState extends State<TractorScreen> {
         backgroundColor: AppColor.txtfilled,
         body: SafeArea(child: SingleChildScrollView(child: Obx(() {
           return tractorController.isLodingData.value
-              ? Center(child: CircularProgressIndicator())
+              ? const Center(child: CircularProgressIndicator())
               : Column(children: [
                   AppBarWidget(height: 130, width: double.infinity, isLogo: false, info: selectedItem),
                   const SizedBox(height: 20),
@@ -84,7 +81,7 @@ class _TractorScreenState extends State<TractorScreen> {
                           })),
                   const SizedBox(height: 20),
                   selectedItem == AppString.allInfo
-                      ? AllCategoryScreen()
+                      ? const AllCategoryScreen()
                     :selectedItem == AppString.cow
                       ? const CowScreen()
                       : selectedItem == AppString.horse
@@ -98,12 +95,12 @@ class _TractorScreenState extends State<TractorScreen> {
                                       : Padding(
                                           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                                           child: GridView.builder(
-                                              itemCount: tractorController.profileData.length,
+                                              itemCount: tractorController.allSellTractor.length,
                                               shrinkWrap: true,
                                               physics: const NeverScrollableScrollPhysics(),
                                               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 4.8 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
                                               itemBuilder: (context, index) {
-                                                return itemWidget(index: index);
+                                                return tractorController.isLodingData.value? const CircularProgressIndicator(): itemWidget(index: index);
                                               }))
                 ]);
         }))));
@@ -123,11 +120,18 @@ class _itemWidgetState extends State<itemWidget> {
   TractorScreenController tractorController = Get.put(TractorScreenController());
 
   @override
+  void initState() {
+    setState(() {});
+    tractorController.sellTractor(context);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Obx(() {
       return InkWell(
           onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => LeVechProfile(detail:tractorController.profileData[widget.index])));
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => LeVechProfile(detail:tractorController.allSellTractor[widget.index])));
           },
           child: Card(
               elevation: 2,
@@ -145,8 +149,8 @@ class _itemWidgetState extends State<itemWidget> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(6),
                               image: DecorationImage(
-                                image: NetworkImage(tractorController.profileData[widget.index]["item_img"][0].toString().isNotEmpty
-                                    ? tractorController.profileData[widget.index]["item_img"][0].toString()
+                                image: NetworkImage(tractorController.allSellTractor[widget.index]["item_img"][0].toString().isNotEmpty
+                                    ? tractorController.allSellTractor[widget.index]["item_img"][0].toString()
                                     : "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
                                 fit: BoxFit.cover,
                               ),
@@ -155,12 +159,12 @@ class _itemWidgetState extends State<itemWidget> {
                     Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12),
                         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                          Text(tractorController.profileData[widget.index]["item_type"],
+                          Text(tractorController.allSellTractor[widget.index]["item_type"],
                               overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.primarycolorblack, fontSize: 16, fontWeight: FontWeight.w600)),
                           const SizedBox(height: 10),
                           Row(children: [
                             Expanded(
-                                child: Text(tractorController.profileData[widget.index]["price"],
+                                child: Text(tractorController.allSellTractor[widget.index]["price"],
                                     overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.price, fontSize: 16, fontWeight: FontWeight.w700))),
                             InkWell(
                                 onTap: () {

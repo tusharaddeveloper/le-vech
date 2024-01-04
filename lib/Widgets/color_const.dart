@@ -18,4 +18,5 @@ class AppColor {
   static Color price = Color(0xff332c93);
   static Color iconColor = Color(0xffd72b1f);
   static Color priceclr = Color(0xff19691f);
+  static Color dialougeBoxColor = Color(0xff466db4);
 }
