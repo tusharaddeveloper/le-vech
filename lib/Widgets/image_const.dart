@@ -1,4 +1,5 @@
 class AppImage {
+  static String allCategory = "assets/images/menu.png";
   static String imglogo = "assets/images/logops.jpg";
   static String courselImg = "assets/images/tractorr.jpg";
   static String tractorEicher = "assets/images/TractorEicher.jpg";

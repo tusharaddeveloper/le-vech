@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:le_vech/Controller/All%20Screen%20Controller/tractor_screen_controller.dart';
+import 'package:le_vech/Screens/All%20Category%20Screen/All%20Category%20Screen/all_category_screen.dart';
 import 'package:le_vech/screens/All%20Category%20Screen/Cow%20Screen/cow_screen.dart';
 import 'package:le_vech/screens/All%20Category%20Screen/Fourwheel%20Screen/four_wheel.dart';
 import 'package:le_vech/screens/All%20Category%20Screen/Horse%20Screen/horse_screen.dart';
@@ -24,8 +25,8 @@ class TractorScreen extends StatefulWidget {
 class _TractorScreenState extends State<TractorScreen> {
   TractorScreenController tractorController = Get.put(TractorScreenController());
 
-  List<String> imageList = [AppImage.tractorEicher, AppImage.cow, AppImage.horse, AppImage.bike, AppImage.car, AppImage.imglogo];
-  List itemName = [AppString.tractor, AppString.cow, AppString.horse, AppString.twoWheel, AppString.fourWheel, AppString.others];
+  List<String> imageList = [AppImage.allCategory,AppImage.tractorEicher, AppImage.cow, AppImage.horse, AppImage.bike, AppImage.car, AppImage.imglogo];
+  List itemName = [AppString.allInfo,AppString.tractor, AppString.cow, AppString.horse, AppString.twoWheel, AppString.fourWheel, AppString.others];
   String selectedItem = AppString.tractor;
 
   @override
@@ -82,7 +83,9 @@ class _TractorScreenState extends State<TractorScreen> {
                                         ]))));
                           })),
                   const SizedBox(height: 20),
-                  selectedItem == AppString.cow
+                  selectedItem == AppString.allInfo
+                      ? AllCategoryScreen()
+                    :selectedItem == AppString.cow
                       ? const CowScreen()
                       : selectedItem == AppString.horse
                           ? const HorseScreen()
