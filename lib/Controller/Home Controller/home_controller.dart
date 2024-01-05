@@ -31,18 +31,10 @@ class HomeController extends GetxController {
     prefs = await SharedPreferences.getInstance();
     prefs.setBool("isLogin", true);
     prefs.setString('mobile_number', mobileNo);
-    getProfileData(mobileNo);
+
   }
 
-  // Firebase get profile & where condition
-  getProfileData(String mobileNo) async {
-    /*getProfileData(String mobileNo) async {
-    profileData.value = await firebaseGetwhere('users', 'mobile_number', mobileNo);
-    if (profileData.isNotEmpty) {
-      profilePic.value = profileData[0]['image'];
-    }
-  }*/
-  }
+
 
   logOutAlertDialog(BuildContext context) async {
     return showDialog(

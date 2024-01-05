@@ -48,6 +48,7 @@ class ItemWidget extends StatefulWidget {
 }
 
 class _ItemWidgetState extends State<ItemWidget> {
+
   TractorScreenController tractorController = Get.put(TractorScreenController());
 
   @override

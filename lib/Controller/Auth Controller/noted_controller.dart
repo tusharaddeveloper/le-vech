@@ -15,6 +15,7 @@ import 'package:le_vech/utils/storage_provider.dart';
 class NotedController extends GetxController {
   LoginController loginController = Get.put(LoginController());
 
+  RxList favoriteList =[].obs;
   RxString name = "".obs;
   RxList<QueryDocumentSnapshot> listOfDistrict = <QueryDocumentSnapshot>[].obs;
   RxList<QueryDocumentSnapshot> listOfTaluka = <QueryDocumentSnapshot>[].obs;
@@ -63,7 +64,8 @@ class NotedController extends GetxController {
         'district': districSelect.value,
         'taluka': talukaSelect.value,
         'village': villageSelect.value,
-        'address': addressController.value.text
+        'address': addressController.value.text,
+        'favorite_list': favoriteList
       });
       isLoading.value = false;
       Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => HomeScreen(mobileNo: mobile)), (Route<dynamic> route) => false);

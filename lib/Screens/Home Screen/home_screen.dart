@@ -32,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
+    setState(() {});
     homeController.setLogin(widget.mobileNo!);
     profileController.getMobileNumber(context);
     super.initState();
@@ -70,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Column(children: [
                   CarouselSlider(
-                      options: CarouselOptions(height: 190, autoPlay: true, autoPlayInterval: const Duration(seconds: 2), aspectRatio: 16 / 9, viewportFraction: 1),
+                      options: CarouselOptions(height: 190, autoPlay: false, autoPlayInterval: const Duration(seconds: 2), aspectRatio: 16 / 9, viewportFraction: 1),
                       items: homeController.imageList.map((i) {
                         return Builder(builder: (BuildContext context) {
                           return Column(children: [
