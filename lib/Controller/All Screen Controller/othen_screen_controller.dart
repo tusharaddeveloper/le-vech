@@ -18,7 +18,7 @@ class OtherScreenController extends GetxController {
       if (getOtherAds.isNotEmpty) {
         print("Object GET Othar ADSSSSSSSSSSSSSSSSSSSS");
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("No Data Found")));
+        print("No Data Found");
       }
 
       isOtharLodingData.value = false;

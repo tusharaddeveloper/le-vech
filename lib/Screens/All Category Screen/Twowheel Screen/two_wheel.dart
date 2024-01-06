@@ -28,15 +28,18 @@ class _TwoWheelState extends State<TwoWheel> {
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
         child: Obx(() {
           return twoWheelController.isLodingData.value
-              ? CircularProgressIndicator()
-              : GridView.builder(
+              ? const CircularProgressIndicator()
+              : twoWheelController.allSellTwoWheel.isNotEmpty? GridView.builder(
                   itemCount: twoWheelController.allSellTwoWheel.length,
                   shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 4.8 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 4.8 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
                   itemBuilder: (context, index) {
                     return ItemWidget(index: index);
-                  });
+                  }):Container(
+          height: 400,
+          alignment: Alignment.center,
+          child: Text("કોઈ જાહેરાત નથી મળી.", style: TextStyle(color: AppColor.iconColor, fontSize: 22, fontWeight: FontWeight.w500), textAlign: TextAlign.center));;
         }));
   }
 }

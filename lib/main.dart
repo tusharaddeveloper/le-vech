@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get/get.dart';
 import 'package:le_vech/screens/Auth/splash_screen.dart';
 import 'Widgets/color_const.dart';
 import 'firebase_options.dart';

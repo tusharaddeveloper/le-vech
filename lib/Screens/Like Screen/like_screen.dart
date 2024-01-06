@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:le_vech/Controller/Like%20Controller/like_screen_controller.dart';
 import 'package:le_vech/Widgets/app_bar.dart';
+import 'package:le_vech/Widgets/app_conts.dart';
 import 'package:le_vech/Widgets/app_textfieled.dart';
 import 'package:le_vech/Widgets/color_const.dart';
 import 'package:le_vech/Widgets/image_const.dart';
@@ -16,36 +17,36 @@ class LikeScreen extends StatefulWidget {
 
 class _LikeScreenState extends State<LikeScreen> {
   LikeController likeController = Get.put(LikeController());
-
   @override
   Widget build(BuildContext context) {
    return Obx(() {
-     return Scaffold(
-         backgroundColor: AppColor.txtfilled,
-         body: SafeArea(
-             child: SingleChildScrollView(
-                 child: Column(children: [
-                   AppBarWidget(height: 130, width: double.infinity, isLogo: false, info: AppString.like),
-                   const SizedBox(height: 20),
-                   Padding(padding: const EdgeInsets.symmetric(horizontal: 8), child: AppTextField(txtValue: AppString.searchBar, prefixIcon: Icons.search)),
-                   const SizedBox(height: 20),
-                   Padding(
-                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                       child: GridView.builder(
-                           itemCount: 5,
-                           shrinkWrap: true,
-                           physics: const NeverScrollableScrollPhysics(),
-                           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                             crossAxisCount: 2,
-                             childAspectRatio: 4.8 / 5.8,
-                             crossAxisSpacing: 2,
-                             mainAxisSpacing: 2,
-                           ),
-                           itemBuilder: (context, index) {
-                             return ItemWidget(index: index);
-                           }))
-                 ]))));
+          return Scaffold(
+        backgroundColor: AppColor.txtfilled,
+        body: SafeArea(
+            child: SingleChildScrollView(
+                child: Column(children: [
+                  AppBarWidget(height: 130, width: double.infinity, isLogo: false, info: AppString.like),
+                  const SizedBox(height: 20),
+                  Padding(padding: const EdgeInsets.symmetric(horizontal: 8), child: AppTextField(txtValue: AppString.searchBar, prefixIcon: Icons.search)),
+                  const SizedBox(height: 20),
+                  Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                      child: GridView.builder(
+                          itemCount: 5,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 4.8 / 5.8,
+                            crossAxisSpacing: 2,
+                            mainAxisSpacing: 2,
+                          ),
+                          itemBuilder: (context, index) {
+                            return ItemWidget(index: index);
+                          }))
+                ]))));
    });
+
   }
 }
 

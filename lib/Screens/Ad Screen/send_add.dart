@@ -34,12 +34,12 @@ class _SendAddState extends State<SendAdd> {
                   Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
                       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                        Text(AppString.youSendInfo, style: TextStyle(color: AppColor.primarycolorblack, fontSize: 22)),
-                        const SizedBox(height: 16),
-                        sendAddController.adsData.isNotEmpty
-                            ? sendAddController.isGetAddLodding.value
+                       // Text("AppString.youSendInfo", style: TextStyle(color: AppColor.primarycolorblack, fontSize: 22)),
+                      //  const SizedBox(height: 16),
+                         sendAddController.isGetAddLodding.value
                             ? const Center(child: CircularProgressIndicator())
-                            : ListView.builder(
+                            : sendAddController.adsData.isNotEmpty
+                             ?ListView.builder(
                                 itemCount: sendAddController.adsData.length,
                                 physics: const NeverScrollableScrollPhysics(),
                                 shrinkWrap: true,
@@ -84,11 +84,11 @@ class _SendAddState extends State<SendAdd> {
                                                       ])
                                                     ]))
                                                   ])))));
-                                })
-                            : Container(
-                                height: 400,
-                                alignment: Alignment.center,
-                                child: Text(AppString.noItemAdd, style: TextStyle(color: AppColor.iconColor, fontSize: 22, fontWeight: FontWeight.w500), textAlign: TextAlign.center))
+                                }): Container(
+                             height: 400,
+                             alignment: Alignment.center,
+                             child: Text(AppString.noItemAdd, style: TextStyle(color: AppColor.iconColor, fontSize: 22, fontWeight: FontWeight.w500), textAlign: TextAlign.center))
+
                       ]))
                 ]);
         }))));

@@ -9,13 +9,13 @@ import 'package:le_vech/utils/firebase_get.dart';
 class SendAddController extends GetxController {
   ProfileController profileController = Get.put(ProfileController());
 
-  List<QueryDocumentSnapshot> adsData = <QueryDocumentSnapshot>[];
+  RxList<QueryDocumentSnapshot> adsData = <QueryDocumentSnapshot>[].obs;
   RxBool isGetAddLodding = false.obs;
 
   getProfileData() async {
     isGetAddLodding.value = true;
     try {
-      adsData = await firebaseGetwhere('advertise', 'login_mo', profileController.mo!);
+      adsData.value = await firebaseGetwhere('advertise', 'login_mo', profileController.mo!);
     } on Exception catch (e) {
       isGetAddLodding.value = false;
       print(e);

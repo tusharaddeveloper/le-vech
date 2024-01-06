@@ -10,7 +10,6 @@ import 'package:le_vech/Screens/All%20Category%20Screen/All%20Category%20Screen/
 import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/screens/Ad%20Screen/add_screen.dart';
 import 'package:le_vech/screens/Ad%20Screen/send_add.dart';
-import 'package:le_vech/screens/All%20Category%20Screen/Tractor%20Screen/tractor_screen.dart';
 import 'package:le_vech/screens/Like%20Screen/like_screen.dart';
 import 'package:le_vech/screens/Profile%20Screen/profile_screen.dart';
 import 'package:le_vech/Widgets/color_const.dart';
@@ -18,7 +17,7 @@ import 'package:le_vech/Widgets/string_const.dart';
 import 'package:share_plus/share_plus.dart';
 
 class HomeScreen extends StatefulWidget {
-  String? mobileNo;
+  String ? mobileNo;
 
   HomeScreen({Key? key, this.mobileNo}) : super(key: key);
 
@@ -115,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     borderRadius: BorderRadius.circular(6), image: DecorationImage(image: AssetImage(homeController.imageList[index]), fit: BoxFit.cover))))),
                                     Padding(
                                         padding: const EdgeInsets.all(8.0),
-                                        child: Text(homeController.itemName[index],
+                                        child: Text(homeController.itemName.value[index],
                                             style: TextStyle(color: AppColor.primarycolorblack, fontSize: 16, fontWeight: FontWeight.w600), textAlign: TextAlign.center))
                                   ]))));
                     }))

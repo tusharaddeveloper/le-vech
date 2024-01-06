@@ -26,14 +26,17 @@ class _TractorScreenState extends State<TractorScreen> {
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
         child: Obx(() {
-          return  tractorController.isLodingData.value? const CircularProgressIndicator(): GridView.builder(
+          return  tractorController.isLodingData.value? const CircularProgressIndicator(): tractorController.allSellTractor.isNotEmpty? GridView.builder(
               itemCount: tractorController.allSellTractor.length,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 4.8 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
               itemBuilder: (context, index) {
                 return ItemWidget(index: index);
-              });
+              }):Container(
+              height: 400,
+              alignment: Alignment.center,
+              child: Text("કોઈ જાહેરાત નથી મળી.", style: TextStyle(color: AppColor.iconColor, fontSize: 22, fontWeight: FontWeight.w500), textAlign: TextAlign.center));
         }));
   }
 }

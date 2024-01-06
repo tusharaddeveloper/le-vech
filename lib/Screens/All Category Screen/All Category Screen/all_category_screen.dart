@@ -4,8 +4,8 @@ import 'package:le_vech/Controller/All%20Screen%20Controller/all_category_contro
 import 'package:le_vech/Controller/Auth%20Controller/noted_controller.dart';
 import 'package:le_vech/Screens/All%20Category%20Screen/Tractor%20Screen/tractor_screen.dart';
 import 'package:le_vech/Screens/Profile%20Screen/le_vech_profile.dart';
+import 'package:le_vech/Widgets/app_conts.dart';
 import 'package:le_vech/Widgets/color_const.dart';
-import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/Widgets/string_const.dart';
 import 'package:le_vech/Screens/All%20Category%20Screen/Cow%20Screen/cow_screen.dart';
 import 'package:le_vech/Screens/All%20Category%20Screen/Fourwheel%20Screen/four_wheel.dart';
@@ -13,6 +13,7 @@ import 'package:le_vech/Screens/All%20Category%20Screen/Horse%20Screen/horse_scr
 import 'package:le_vech/Screens/All%20Category%20Screen/Other%20Screen/other_screen.dart';
 import 'package:le_vech/Screens/All%20Category%20Screen/Twowheel%20Screen/two_wheel.dart';
 import 'package:le_vech/Widgets/app_bar.dart';
+import 'package:le_vech/utils/firebase_get.dart';
 
 class AllCategoryScreen extends StatefulWidget {
   String itemName;
@@ -26,14 +27,10 @@ class AllCategoryScreen extends StatefulWidget {
 class _AllCategoryScreenState extends State<AllCategoryScreen> {
   AllCategoryController allCategoryController = Get.put(AllCategoryController());
 
-  List<String> imageList = [AppImage.allCategory, AppImage.tractorEicher, AppImage.cow, AppImage.horse, AppImage.bike, AppImage.car, AppImage.imglogo];
-  List itemName = [AppString.allInfo, AppString.tractor, AppString.cow, AppString.horse, AppString.twoWheel, AppString.fourWheel, AppString.others];
-  String? selectedItem;
-
   @override
   void initState() {
     setState(() {
-      selectedItem = widget.itemName;
+      allCategoryController.selectedItem.value = widget.itemName;
       allCategoryController.getAllads(context);
     });
     super.initState();
@@ -45,19 +42,19 @@ class _AllCategoryScreenState extends State<AllCategoryScreen> {
         backgroundColor: AppColor.txtfilled,
         body: SafeArea(child: SingleChildScrollView(child: Obx(() {
           return Column(children: [
-            AppBarWidget(height: 130, width: double.infinity, isLogo: false, info: selectedItem),
+            AppBarWidget(height: 130, width: double.infinity, isLogo: false, info: allCategoryController.selectedItem.value),
             const SizedBox(height: 20),
             SizedBox(
                 height: 132,
                 child: ListView.builder(
-                    itemCount: imageList.length,
+                    itemCount: allCategoryController.imageList.length,
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
                       return InkWell(
                           onTap: () {
                             setState(() {
-                              selectedItem = itemName[index];
+                              allCategoryController.selectedItem.value = allCategoryController.itemName[index];
                             });
                           },
                           child: Card(
@@ -66,43 +63,49 @@ class _AllCategoryScreenState extends State<AllCategoryScreen> {
                               child: Container(
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(6),
-                                      border: Border.all(color: selectedItem == itemName[index] ? AppColor.themecolor : AppColor.primarycolor, width: 3),
+                                      border:
+                                          Border.all(color: allCategoryController.selectedItem.value == allCategoryController.itemName[index] ? AppColor.themecolor : AppColor.primarycolor, width: 3),
                                       color: AppColor.primarycolor),
                                   child: Column(children: [
                                     Container(
                                         height: 70,
                                         width: 80,
-                                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), image: DecorationImage(image: AssetImage(imageList[index]), fit: BoxFit.cover))),
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(6), image: DecorationImage(image: AssetImage(allCategoryController.imageList[index]), fit: BoxFit.cover))),
                                     Padding(
                                         padding: const EdgeInsets.all(8.0),
-                                        child: Text(itemName[index], style: TextStyle(color: AppColor.primarycolorblack, fontSize: 14, fontWeight: FontWeight.w600), textAlign: TextAlign.center))
+                                        child: Text(allCategoryController.itemName[index],
+                                            style: TextStyle(color: AppColor.primarycolorblack, fontSize: 14, fontWeight: FontWeight.w600), textAlign: TextAlign.center))
                                   ]))));
                     })),
             const SizedBox(height: 20),
-            selectedItem == AppString.tractor
+            allCategoryController.selectedItem.value == AppString.tractor
                 ? const TractorScreen()
-                : selectedItem == AppString.cow
+                : allCategoryController.selectedItem.value == AppString.cow
                     ? const CowScreen()
-                    : selectedItem == AppString.horse
+                    : allCategoryController.selectedItem.value == AppString.horse
                         ? const HorseScreen()
-                        : selectedItem == AppString.twoWheel
+                        : allCategoryController.selectedItem.value == AppString.twoWheel
                             ? const TwoWheel()
-                            : selectedItem == AppString.fourWheel
+                            : allCategoryController.selectedItem.value == AppString.fourWheel
                                 ? const FourWheel()
-                                : selectedItem == AppString.others
+                                : allCategoryController.selectedItem.value == AppString.others
                                     ? const OtherScreen()
                                     : Padding(
                                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                                         child: allCategoryController.isLodingData.value
                                             ? const CircularProgressIndicator()
-                                            : GridView.builder(
+                                            :allCategoryController.profileData.isNotEmpty? GridView.builder(
                                                 itemCount: allCategoryController.profileData.length,
                                                 shrinkWrap: true,
                                                 physics: const NeverScrollableScrollPhysics(),
                                                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 4.8 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
                                                 itemBuilder: (context, index) {
                                                   return ItemWidget(index: index);
-                                                }))
+                                                }):Container(
+                                            height: 400,
+                                            alignment: Alignment.center,
+                                            child: Text("કોઈ જાહેરાત નથી મળી.", style: TextStyle(color: AppColor.iconColor, fontSize: 22, fontWeight: FontWeight.w500), textAlign: TextAlign.center)))
           ]);
         }))));
   }
@@ -120,9 +123,14 @@ class ItemWidget extends StatefulWidget {
 class _ItemWidgetState extends State<ItemWidget> {
   AllCategoryController allCategoryController = Get.put(AllCategoryController());
   NotedController notedController = Get.put(NotedController());
+  List favListTemp = [];
 
-  /* List<String> imageList = [AppImage.allCategory,AppImage.tractorEicher, AppImage.cow, AppImage.horse, AppImage.bike, AppImage.car, AppImage.imglogo];
-  List itemName = [AppString.allInfo,AppString.tractor, AppString.cow, AppString.horse, AppString.twoWheel, AppString.fourWheel, AppString.others];*/
+  @override
+  void initState() {
+    favListTemp = allCategoryController.favList[widget.index];
+    print(favListTemp);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -166,15 +174,22 @@ class _ItemWidgetState extends State<ItemWidget> {
                                     overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.price, fontSize: 16, fontWeight: FontWeight.w700))),
                             InkWell(
                                 onTap: () {
-                                  if (notedController.favoriteList.contains(allCategoryController.profileData[widget.index].id)) {
+                                  /*if (notedController.favoriteList.contains(allCategoryController.profileData[widget.index].id)) {
                                     notedController.favoriteList.remove(allCategoryController.profileData[widget.index].id);
                                   } else {
                                     notedController.favoriteList.add(allCategoryController.profileData[widget.index].id);
                                   }
-                                  allCategoryController.addFavorite(context);
+                                  allCategoryController.addFavorite(context);*/
+                                  if (favListTemp.contains(userId)) {
+                                    favListTemp.remove(userId);
+                                  } else {
+                                    favListTemp.add(userId);
+                                  }
+                                  updateData('advertise', allCategoryController.profileData[widget.index].id, {'fav_user': favListTemp});
+                                  setState(() {});
                                 },
-                                child: Icon(notedController.favoriteList.contains(allCategoryController.profileData[widget.index].id) ? Icons.favorite : Icons.favorite_border,
-                                    color: notedController.favoriteList.contains(allCategoryController.profileData[widget.index].id) ? AppColor.iconColor : AppColor.primarycolorblack, size: 24))
+                                child: Icon(favListTemp.contains(userId) ? Icons.favorite : Icons.favorite_border,
+                                    color: favListTemp.contains(userId) ? AppColor.iconColor : AppColor.primarycolorblack, size: 24))
                           ])
                         ]))
                   ]))));

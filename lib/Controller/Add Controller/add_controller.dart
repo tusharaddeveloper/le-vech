@@ -91,7 +91,8 @@ class AddController extends GetxController {
         'village': notedController.villageSelect.value,
         'mobile_number': addMobileController.text,
         'address': addressController.text,
-        'login_mo': profileController.mobileController.text
+        'login_mo': profileController.mobileController.text,
+        'fav_user':[]
       });
     } catch (e) {
       isItemAddLoader.value = false;

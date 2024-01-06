@@ -18,7 +18,7 @@ class TractorScreenController extends GetxController {
       if (allSellTractor.isNotEmpty) {
         print("object GET Tractorgggggggggggggggggggggggggggggfgfg");
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("No Data Found")));
+        print("No Data Found");
       }
 
       isLodingData.value = false;

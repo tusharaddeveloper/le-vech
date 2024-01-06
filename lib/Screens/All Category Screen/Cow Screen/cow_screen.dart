@@ -29,14 +29,17 @@ class _CowScreenState extends State<CowScreen> {
         child: Obx(() {
           return cowController.isLodingData.value
               ? const CircularProgressIndicator()
-              : GridView.builder(
+              : cowController.allSellCow.isNotEmpty?GridView.builder(
                   itemCount: cowController.allSellCow.length,
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 4.8 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
                   itemBuilder: (context, index) {
                     return ItemWidget(index: index);
-                  });
+                  }):Container(
+              height: 400,
+              alignment: Alignment.center,
+              child: Text("કોઈ જાહેરાત નથી મળી.", style: TextStyle(color: AppColor.iconColor, fontSize: 22, fontWeight: FontWeight.w500), textAlign: TextAlign.center));
         }));
   }
 }

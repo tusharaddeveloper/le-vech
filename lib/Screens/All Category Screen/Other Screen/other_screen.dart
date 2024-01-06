@@ -14,8 +14,8 @@ class OtherScreen extends StatefulWidget {
 }
 
 class _OtherScreenState extends State<OtherScreen> {
- // List<String> imageList = [AppImage.allCategory, AppImage.tractorEicher, AppImage.cow, AppImage.horse, AppImage.bike, AppImage.car, AppImage.imglogo];
- // List itemName = [AppString.allInfo, AppString.tractor, AppString.cow, AppString.horse, AppString.twoWheel, AppString.fourWheel, AppString.others];
+  // List<String> imageList = [AppImage.allCategory, AppImage.tractorEicher, AppImage.cow, AppImage.horse, AppImage.bike, AppImage.car, AppImage.imglogo];
+  // List itemName = [AppString.allInfo, AppString.tractor, AppString.cow, AppString.horse, AppString.twoWheel, AppString.fourWheel, AppString.others];
   OtherScreenController otherScreenController = Get.put(OtherScreenController());
 
   @override
@@ -32,14 +32,19 @@ class _OtherScreenState extends State<OtherScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
           child: otherScreenController.isOtharLodingData.value
               ? const CircularProgressIndicator()
-              : GridView.builder(
-                  itemCount: otherScreenController.getOtherAds.length,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 4.8 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
-                  itemBuilder: (context, index) {
-                    return ItemWidget(index: index);
-                  }));
+              : otherScreenController.getOtherAds.isNotEmpty
+                  ? GridView.builder(
+                      itemCount: otherScreenController.getOtherAds.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 4.8 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
+                      itemBuilder: (context, index) {
+                        return ItemWidget(index: index);
+                      })
+                  : Container(
+                      height: 400,
+                      alignment: Alignment.center,
+                      child: Text("કોઈ જાહેરાત નથી મળી.", style: TextStyle(color: AppColor.iconColor, fontSize: 22, fontWeight: FontWeight.w500), textAlign: TextAlign.center)));
     });
   }
 }
@@ -79,7 +84,7 @@ class _ItemWidgetState extends State<ItemWidget> {
                         child: Container(
                             height: 100,
                             width: 140,
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), image: DecorationImage(image: AssetImage( AppImage.imglogo), fit: BoxFit.cover)))),
+                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), image: DecorationImage(image: AssetImage(AppImage.imglogo), fit: BoxFit.cover)))),
                     const SizedBox(height: 10),
                     Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12),
