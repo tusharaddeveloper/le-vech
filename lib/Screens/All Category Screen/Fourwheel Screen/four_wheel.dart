@@ -29,12 +29,12 @@ class _FourWheelState extends State<FourWheel> {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
         child: Obx(() {
           return fourWheelController.isLodingData.value
-              ? CircularProgressIndicator()
+              ? const CircularProgressIndicator()
               : GridView.builder(
               itemCount: fourWheelController.allSellFourWheel.length,
               shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 4.8 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 4.8 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
               itemBuilder: (context, index) {
                 return ItemWidget(index: index);
               });
@@ -72,7 +72,7 @@ class _ItemWidgetState extends State<ItemWidget> {
                         elevation: 3,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                         child: Container(
-                            height: 100, width: 140, decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), image: DecorationImage(image: AssetImage(AppImage.bike), fit: BoxFit.cover)))),
+                            height: 100, width: 140, decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), image: DecorationImage(image: AssetImage(AppImage.car), fit: BoxFit.cover)))),
                     const SizedBox(height: 10),
                     Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12),

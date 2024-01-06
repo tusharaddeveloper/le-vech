@@ -24,13 +24,11 @@ class AllCategoryScreen extends StatefulWidget {
 }
 
 class _AllCategoryScreenState extends State<AllCategoryScreen> {
-
   AllCategoryController allCategoryController = Get.put(AllCategoryController());
 
   List<String> imageList = [AppImage.allCategory, AppImage.tractorEicher, AppImage.cow, AppImage.horse, AppImage.bike, AppImage.car, AppImage.imglogo];
   List itemName = [AppString.allInfo, AppString.tractor, AppString.cow, AppString.horse, AppString.twoWheel, AppString.fourWheel, AppString.others];
   String? selectedItem;
-
 
   @override
   void initState() {
@@ -46,67 +44,66 @@ class _AllCategoryScreenState extends State<AllCategoryScreen> {
     return Scaffold(
         backgroundColor: AppColor.txtfilled,
         body: SafeArea(child: SingleChildScrollView(child: Obx(() {
-          return  Column(children: [
-                  AppBarWidget(height: 130, width: double.infinity, isLogo: false, info: selectedItem),
-                  const SizedBox(height: 20),
-                  SizedBox(
-                      height: 132,
-                      child: ListView.builder(
-                          itemCount: imageList.length,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            return InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    selectedItem = itemName[index];
-                                  });
-                                },
-                                child: Card(
-                                    elevation: 2,
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-                                    child: Container(
-                                        decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(6),
-                                            border: Border.all(color: selectedItem == itemName[index] ? AppColor.themecolor : AppColor.primarycolor, width: 3),
-                                            color: AppColor.primarycolor),
-                                        child: Column(children: [
-                                          Container(
-                                              height: 70,
-                                              width: 80,
-                                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), image: DecorationImage(image: AssetImage(imageList[index]), fit: BoxFit.cover))),
-                                          Padding(
-                                              padding: const EdgeInsets.all(8.0),
-                                              child: Text(itemName[index], style: TextStyle(color: AppColor.primarycolorblack, fontSize: 14, fontWeight: FontWeight.w600), textAlign: TextAlign.center))
-                                        ]))));
-                          })),
-                  const SizedBox(height: 20),
-                  selectedItem == AppString.tractor
-                      ? const TractorScreen()
-                      : selectedItem == AppString.cow
-                          ? const CowScreen()
-                          : selectedItem == AppString.horse
-                              ? const HorseScreen()
-                              : selectedItem == AppString.twoWheel
-                                  ? const TwoWheel()
-                                  : selectedItem == AppString.fourWheel
-                                      ? const FourWheel()
-                                      : selectedItem == AppString.others
-                                          ? const OtherScreen()
-                                          : Padding(
-                                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                                              child: allCategoryController.isLodingData.value
-                                                  ? const CircularProgressIndicator()
-                                                  : GridView.builder(
-                                                      itemCount: allCategoryController.profileData.length,
-                                                      shrinkWrap: true,
-                                                      physics: const NeverScrollableScrollPhysics(),
-                                                      gridDelegate:
-                                                          const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 4.8 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
-                                                      itemBuilder: (context, index) {
-                                                        return ItemWidget(index: index);
-                                                      }))
-                ]);
+          return Column(children: [
+            AppBarWidget(height: 130, width: double.infinity, isLogo: false, info: selectedItem),
+            const SizedBox(height: 20),
+            SizedBox(
+                height: 132,
+                child: ListView.builder(
+                    itemCount: imageList.length,
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                          onTap: () {
+                            setState(() {
+                              selectedItem = itemName[index];
+                            });
+                          },
+                          child: Card(
+                              elevation: 2,
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(6),
+                                      border: Border.all(color: selectedItem == itemName[index] ? AppColor.themecolor : AppColor.primarycolor, width: 3),
+                                      color: AppColor.primarycolor),
+                                  child: Column(children: [
+                                    Container(
+                                        height: 70,
+                                        width: 80,
+                                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), image: DecorationImage(image: AssetImage(imageList[index]), fit: BoxFit.cover))),
+                                    Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(itemName[index], style: TextStyle(color: AppColor.primarycolorblack, fontSize: 14, fontWeight: FontWeight.w600), textAlign: TextAlign.center))
+                                  ]))));
+                    })),
+            const SizedBox(height: 20),
+            selectedItem == AppString.tractor
+                ? const TractorScreen()
+                : selectedItem == AppString.cow
+                    ? const CowScreen()
+                    : selectedItem == AppString.horse
+                        ? const HorseScreen()
+                        : selectedItem == AppString.twoWheel
+                            ? const TwoWheel()
+                            : selectedItem == AppString.fourWheel
+                                ? const FourWheel()
+                                : selectedItem == AppString.others
+                                    ? const OtherScreen()
+                                    : Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                                        child: allCategoryController.isLodingData.value
+                                            ? const CircularProgressIndicator()
+                                            : GridView.builder(
+                                                itemCount: allCategoryController.profileData.length,
+                                                shrinkWrap: true,
+                                                physics: const NeverScrollableScrollPhysics(),
+                                                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 4.8 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
+                                                itemBuilder: (context, index) {
+                                                  return ItemWidget(index: index);
+                                                }))
+          ]);
         }))));
   }
 }
@@ -169,17 +166,15 @@ class _ItemWidgetState extends State<ItemWidget> {
                                     overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.price, fontSize: 16, fontWeight: FontWeight.w700))),
                             InkWell(
                                 onTap: () {
-
-                                  if(notedController.favoriteList.contains(allCategoryController.profileData[widget.index].id)){
+                                  if (notedController.favoriteList.contains(allCategoryController.profileData[widget.index].id)) {
                                     notedController.favoriteList.remove(allCategoryController.profileData[widget.index].id);
-                                  }
-                                  else{
+                                  } else {
                                     notedController.favoriteList.add(allCategoryController.profileData[widget.index].id);
                                   }
-                                  allCategoryController.addFavorite( context);
-                                  },
-                                child: Icon(notedController.favoriteList.contains(allCategoryController.profileData[widget.index].id) ? Icons.favorite:Icons.favorite_border,
-                                    color: notedController.favoriteList.contains(allCategoryController.profileData[widget.index].id) ?  AppColor.iconColor:AppColor.primarycolorblack, size: 24))
+                                  allCategoryController.addFavorite(context);
+                                },
+                                child: Icon(notedController.favoriteList.contains(allCategoryController.profileData[widget.index].id) ? Icons.favorite : Icons.favorite_border,
+                                    color: notedController.favoriteList.contains(allCategoryController.profileData[widget.index].id) ? AppColor.iconColor : AppColor.primarycolorblack, size: 24))
                           ])
                         ]))
                   ]))));

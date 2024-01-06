@@ -14,8 +14,8 @@ class AllCategoryController extends GetxController {
   RxBool isIcon = true.obs;
   RxBool isLodingData = false.obs;
 
-  List<String> imageList = [AppImage.allCategory,AppImage.tractorEicher, AppImage.cow, AppImage.horse, AppImage.bike, AppImage.car, AppImage.imglogo];
-  List itemName = [AppImage.allCategory,AppString.tractor, AppString.cow, AppString.horse, AppString.twoWheel, AppString.fourWheel, AppString.others];
+  List<String> imageList = [AppImage.allCategory, AppImage.tractorEicher, AppImage.cow, AppImage.horse, AppImage.bike, AppImage.car, AppImage.imglogo];
+  List itemName = [AppImage.allCategory, AppString.tractor, AppString.cow, AppString.horse, AppString.twoWheel, AppString.fourWheel, AppString.others];
   RxList<QueryDocumentSnapshot> profileData = <QueryDocumentSnapshot>[].obs;
   RxBool isLoader = false.obs;
 
@@ -35,16 +35,11 @@ class AllCategoryController extends GetxController {
     }
   }
 
-  addFavorite(BuildContext context){
+  addFavorite(BuildContext context) {
     try {
-      updateData('users', profileController.mo!, {
-        'favorite_list': notedController.favoriteList
-      });
-
+      updateData('users', profileController.mo!, {'favorite_list': notedController.favoriteList});
     } on Exception catch (e) {
       print(e);
     }
-
-    }
-
+  }
 }

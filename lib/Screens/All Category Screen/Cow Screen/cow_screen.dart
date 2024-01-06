@@ -28,7 +28,7 @@ class _CowScreenState extends State<CowScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
         child: Obx(() {
           return cowController.isLodingData.value
-              ? CircularProgressIndicator()
+              ? const CircularProgressIndicator()
               : GridView.builder(
                   itemCount: cowController.allSellCow.length,
                   shrinkWrap: true,
