@@ -8,6 +8,7 @@ class TwoWheelController extends GetxController {
   RxBool isIcon = true.obs;
   RxBool isLodingData = false.obs;
   RxList<QueryDocumentSnapshot> allSellTwoWheel = <QueryDocumentSnapshot>[].obs;
+  List favTwowheelList = [];
 
   sellTwoWheel(BuildContext context) async {
     try {
@@ -15,7 +16,9 @@ class TwoWheelController extends GetxController {
       allSellTwoWheel.value = await firebaseGetwhere("advertise", "item_type", AppString.twoWheel);
 
       if (allSellTwoWheel.isNotEmpty) {
-        print("object GET Tractorgggggggggggggggggggggggggggggfgfg");
+        for (int i = 0; i < allSellTwoWheel.length; i++) {
+          favTwowheelList.add(allSellTwoWheel[i]['fav_user']);
+        }
       } else {
         print("No Data Found");
       }

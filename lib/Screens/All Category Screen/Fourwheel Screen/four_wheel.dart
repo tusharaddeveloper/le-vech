@@ -2,9 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:le_vech/Controller/All%20Screen%20Controller/four_wheel_controller.dart';
+import 'package:le_vech/Widgets/app_conts.dart';
 import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/Widgets/color_const.dart';
 import 'package:le_vech/screens/Profile%20Screen/le_vech_profile.dart';
+import 'package:le_vech/utils/firebase_get.dart';
 
 class FourWheel extends StatefulWidget {
   const FourWheel({Key? key}) : super(key: key);
@@ -58,6 +60,14 @@ class ItemWidget extends StatefulWidget {
 
 class _ItemWidgetState extends State<ItemWidget> {
   FourWheelController fourWheelController = Get.put(FourWheelController());
+  List favCarTempList = [];
+
+  @override
+  void initState() {
+    favCarTempList = fourWheelController.favCarList[widget.index];
+  //  print(favCarTempList);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,10 +101,16 @@ class _ItemWidgetState extends State<ItemWidget> {
                                     overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.price, fontSize: 16, fontWeight: FontWeight.w700))),
                             InkWell(
                                 onTap: () {
-                                  fourWheelController.isIcon.value = !fourWheelController.isIcon.value;
+                                  if (favCarTempList.contains(userId)) {
+                                    favCarTempList.remove(userId);
+                                  } else {
+                                    favCarTempList.add(userId);
+                                  }
+                                  updateData('advertise', fourWheelController.allSellFourWheel[widget.index].id, {'fav_user': favCarTempList});
+                                  setState(() {});
                                 },
-                                child: Icon(fourWheelController.isIcon.value ? Icons.favorite_border : Icons.favorite,
-                                    color: fourWheelController.isIcon.value ? AppColor.primarycolorblack : AppColor.iconColor, size: 24))
+                                child: Icon(favCarTempList.contains(userId) ? Icons.favorite:Icons.favorite_border ,
+                                    color: favCarTempList.contains(userId)  ?  AppColor.iconColor:AppColor.primarycolorblack , size: 24))
                           ])
                         ]))
                   ]))));

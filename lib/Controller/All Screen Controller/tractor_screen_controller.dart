@@ -5,10 +5,11 @@ import 'package:le_vech/Widgets/string_const.dart';
 import 'package:le_vech/utils/firebase_get.dart';
 
 class TractorScreenController extends GetxController {
-  RxBool isIcon = true.obs;
+ // RxBool isIcon = true.obs;
   RxBool isLodingData = false.obs;
   RxList<QueryDocumentSnapshot> allSellTractor = <QueryDocumentSnapshot>[].obs;
-  RxBool isLoader = false.obs;
+ // RxBool isLoader = false.obs;
+  List favTractorList = [];
 
   sellTractor(BuildContext context) async {
     try {
@@ -16,7 +17,9 @@ class TractorScreenController extends GetxController {
       allSellTractor.value = await firebaseGetwhere("advertise", "item_type", AppString.tractor);
 
       if (allSellTractor.isNotEmpty) {
-        print("object GET Tractorgggggggggggggggggggggggggggggfgfg");
+        for(int i=0;i<allSellTractor.length;i++){
+          favTractorList.add(allSellTractor[i]['fav_user']);
+        }
       } else {
         print("No Data Found");
       }

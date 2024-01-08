@@ -77,7 +77,6 @@ class _SendAddState extends State<SendAdd> {
                                                             overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.priceclr, fontSize: 18, fontWeight: FontWeight.w500)),
                                                         InkWell(
                                                             onTap: () {
-                                                              print(sendAddController.adsData[index].id);
                                                               sendAddController.logOut(context, index);
                                                             },
                                                             child: Padding(padding: const EdgeInsets.all(8.0), child: Icon(Icons.delete_forever, color: AppColor.iconColor, size: 26)))

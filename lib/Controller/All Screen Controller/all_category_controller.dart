@@ -31,7 +31,6 @@ class AllCategoryController extends GetxController {
         }
       } else {
         print("No Data Found");
-
       }
       isLodingData.value = false;
       print(favList);

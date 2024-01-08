@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:le_vech/Controller/All%20Screen%20Controller/tractor_screen_controller.dart';
+import 'package:le_vech/Widgets/app_conts.dart';
 import 'package:le_vech/screens/Profile%20Screen/le_vech_profile.dart';
 import 'package:le_vech/Widgets/color_const.dart';
+import 'package:le_vech/utils/firebase_get.dart';
 
 class TractorScreen extends StatefulWidget {
   const TractorScreen({Key? key}) : super(key: key);
@@ -26,17 +28,21 @@ class _TractorScreenState extends State<TractorScreen> {
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
         child: Obx(() {
-          return  tractorController.isLodingData.value? const CircularProgressIndicator(): tractorController.allSellTractor.isNotEmpty? GridView.builder(
-              itemCount: tractorController.allSellTractor.length,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 4.8 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
-              itemBuilder: (context, index) {
-                return ItemWidget(index: index);
-              }):Container(
-              height: 400,
-              alignment: Alignment.center,
-              child: Text("કોઈ જાહેરાત નથી મળી.", style: TextStyle(color: AppColor.iconColor, fontSize: 22, fontWeight: FontWeight.w500), textAlign: TextAlign.center));
+          return tractorController.isLodingData.value
+              ? const CircularProgressIndicator()
+              : tractorController.allSellTractor.isNotEmpty
+                  ? GridView.builder(
+                      itemCount: tractorController.allSellTractor.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 4.8 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
+                      itemBuilder: (context, index) {
+                        return ItemWidget(index: index);
+                      })
+                  : Container(
+                      height: 400,
+                      alignment: Alignment.center,
+                      child: Text("કોઈ જાહેરાત નથી મળી.", style: TextStyle(color: AppColor.iconColor, fontSize: 22, fontWeight: FontWeight.w500), textAlign: TextAlign.center));
         }));
   }
 }
@@ -51,8 +57,14 @@ class ItemWidget extends StatefulWidget {
 }
 
 class _ItemWidgetState extends State<ItemWidget> {
-
   TractorScreenController tractorController = Get.put(TractorScreenController());
+  List favTractorTempList = [];
+  @override
+  void initState() {
+    favTractorTempList = tractorController.favTractorList[widget.index];
+    print(favTractorTempList);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,10 +108,16 @@ class _ItemWidgetState extends State<ItemWidget> {
                                     overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.price, fontSize: 16, fontWeight: FontWeight.w700))),
                             InkWell(
                                 onTap: () {
-                                  tractorController.isIcon.value = !tractorController.isIcon.value;
+                                  if (favTractorTempList.contains(userId)) {
+                                    favTractorTempList.remove(userId);
+                                  } else {
+                                    favTractorTempList.add(userId);
+                                  }
+                                  updateData('advertise', tractorController.allSellTractor[widget.index].id, {'fav_user': favTractorTempList});
+                                  setState(() {});
                                 },
-                                child: Icon(tractorController.isIcon.value ? Icons.favorite_border : Icons.favorite,
-                                    color: tractorController.isIcon.value ? AppColor.primarycolorblack : AppColor.iconColor, size: 24))
+                                child: Icon(favTractorTempList.contains(userId) ? Icons.favorite:Icons.favorite_border ,
+                                    color: favTractorTempList.contains(userId)  ?  AppColor.iconColor:AppColor.primarycolorblack , size: 24))
                           ])
                         ]))
                   ]))));

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:le_vech/Controller/All%20Screen%20Controller/horse_screen_controller.dart';
+import 'package:le_vech/Widgets/app_conts.dart';
 import 'package:le_vech/Widgets/color_const.dart';
 import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/screens/Profile%20Screen/le_vech_profile.dart';
+import 'package:le_vech/utils/firebase_get.dart';
 
 class HorseScreen extends StatefulWidget {
   const HorseScreen({Key? key}) : super(key: key);
@@ -55,6 +57,15 @@ class ItemWidget extends StatefulWidget {
 
 class _ItemWidgetState extends State<ItemWidget> {
   HorseScreenController horseController = Get.put(HorseScreenController());
+  List favHorseTempList = [];
+
+  @override
+  void initState() {
+    favHorseTempList = horseController.favHorseList[widget.index];
+  //  print(favTractorTempList);
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -88,10 +99,16 @@ class _ItemWidgetState extends State<ItemWidget> {
                                     overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.price, fontSize: 16, fontWeight: FontWeight.w700))),
                             InkWell(
                                 onTap: () {
-                                  horseController.isIcon.value = !horseController.isIcon.value;
+                                  if (favHorseTempList.contains(userId)) {
+                                    favHorseTempList.remove(userId);
+                                  } else {
+                                    favHorseTempList.add(userId);
+                                  }
+                                  updateData('advertise', horseController.allSellHorse[widget.index].id, {'fav_user': favHorseTempList});
+                                  setState(() {});
                                 },
-                                child: Icon(horseController.isIcon.value ? Icons.favorite_border : Icons.favorite,
-                                    color: horseController.isIcon.value ? AppColor.primarycolorblack : AppColor.iconColor, size: 24))
+                                child: Icon(favHorseTempList.contains(userId) ? Icons.favorite:Icons.favorite_border ,
+                                    color: favHorseTempList.contains(userId)  ?  AppColor.iconColor:AppColor.primarycolorblack , size: 24))
                           ])
                         ]))
                   ]))));

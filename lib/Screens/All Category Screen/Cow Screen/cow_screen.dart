@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:le_vech/Controller/All%20Screen%20Controller/cow_screen_controller.dart';
+import 'package:le_vech/Widgets/app_conts.dart';
 import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/screens/Profile%20Screen/le_vech_profile.dart';
 import 'package:le_vech/Widgets/color_const.dart';
+import 'package:le_vech/utils/firebase_get.dart';
 
 class CowScreen extends StatefulWidget {
   const CowScreen({Key? key}) : super(key: key);
@@ -55,6 +57,14 @@ class ItemWidget extends StatefulWidget {
 
 class _ItemWidgetState extends State<ItemWidget> {
   CowScreenController cowController = Get.put(CowScreenController());
+  List favCowTempList = [];
+
+  @override
+  void initState() {
+    favCowTempList = cowController.favCowList[widget.index];
+   // print(favCowTempList);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,10 +98,16 @@ class _ItemWidgetState extends State<ItemWidget> {
                                     overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.price, fontSize: 16, fontWeight: FontWeight.w700))),
                             InkWell(
                                 onTap: () {
-                                  cowController.isIcon.value = !cowController.isIcon.value;
+                                  if (favCowTempList.contains(userId)) {
+                                    favCowTempList.remove(userId);
+                                  } else {
+                                    favCowTempList.add(userId);
+                                  }
+                                  updateData('advertise', cowController.allSellCow[widget.index].id, {'fav_user': favCowTempList});
+                                  setState(() {});
                                 },
-                                child: Icon(cowController.isIcon.value ? Icons.favorite_border : Icons.favorite,
-                                    color: cowController.isIcon.value ? AppColor.primarycolorblack : AppColor.iconColor, size: 24))
+                                child: Icon(favCowTempList.contains(userId) ? Icons.favorite:Icons.favorite_border ,
+                                    color: favCowTempList.contains(userId)  ?  AppColor.iconColor:AppColor.primarycolorblack , size: 24))
                           ])
                         ]))
                   ]))));

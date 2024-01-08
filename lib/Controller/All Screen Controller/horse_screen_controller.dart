@@ -6,10 +6,11 @@ import 'package:le_vech/Widgets/string_const.dart';
 import 'package:le_vech/utils/firebase_get.dart';
 
 class HorseScreenController extends GetxController {
-  RxBool isIcon = true.obs;
+ // RxBool isIcon = true.obs;
   RxBool isLodingData = false.obs;
   RxList<QueryDocumentSnapshot> allSellHorse = <QueryDocumentSnapshot>[].obs;
-  RxBool isLoader = false.obs;
+ // RxBool isLoader = false.obs;
+  List favHorseList = [];
 
   sellHorse(BuildContext context) async {
     try {
@@ -17,7 +18,9 @@ class HorseScreenController extends GetxController {
       allSellHorse.value = await firebaseGetwhere("advertise", "item_type", AppString.horse);
 
       if (allSellHorse.isNotEmpty) {
-        print("object GET Tractorgggggggggggggggggggggggggggggfgfg");
+        for(int i=0;i<allSellHorse.length;i++){
+          favHorseList.add(allSellHorse[i]['fav_user']);
+        }
       } else {
         print("No Data Found");
       }

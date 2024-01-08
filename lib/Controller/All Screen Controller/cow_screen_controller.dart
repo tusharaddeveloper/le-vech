@@ -8,7 +8,7 @@ class CowScreenController extends GetxController {
   RxBool isIcon = true.obs;
   RxBool isLodingData = false.obs;
   RxList<QueryDocumentSnapshot> allSellCow = <QueryDocumentSnapshot>[].obs;
-  RxBool isLoader = false.obs;
+  List favCowList = [];
 
   sellCow(BuildContext context) async {
     try {
@@ -16,7 +16,11 @@ class CowScreenController extends GetxController {
       allSellCow.value = await firebaseGetwhere("advertise", "item_type", AppString.cow);
 
       if (allSellCow.isNotEmpty) {
-        print("object GET Tractorgggggggggggggggggggggggggggggfgfg");
+
+        for(int i=0;i<allSellCow.length;i++){
+          favCowList.add(allSellCow[i]['fav_user']);
+
+        }
       } else {
         print("No Data Found");
       }

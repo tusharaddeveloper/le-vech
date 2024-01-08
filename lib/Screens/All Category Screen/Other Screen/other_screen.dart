@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:le_vech/Controller/All%20Screen%20Controller/othen_screen_controller.dart';
+import 'package:le_vech/Widgets/app_conts.dart';
 import 'package:le_vech/Widgets/color_const.dart';
 import 'package:le_vech/Widgets/image_const.dart';
-import 'package:le_vech/Widgets/string_const.dart';
 import 'package:le_vech/screens/Profile%20Screen/le_vech_profile.dart';
+import 'package:le_vech/utils/firebase_get.dart';
 
 class OtherScreen extends StatefulWidget {
   const OtherScreen({Key? key}) : super(key: key);
@@ -60,9 +61,18 @@ class ItemWidget extends StatefulWidget {
 
 class _ItemWidgetState extends State<ItemWidget> {
   OtherScreenController otherScreenController = Get.put(OtherScreenController());
-  List<String> imageList = [AppImage.allCategory, AppImage.tractorEicher, AppImage.cow, AppImage.horse, AppImage.bike, AppImage.car, AppImage.imglogo];
+
+  /*List<String> imageList = [AppImage.allCategory, AppImage.tractorEicher, AppImage.cow, AppImage.horse, AppImage.bike, AppImage.car, AppImage.imglogo];
   List itemName = [AppString.allInfo, AppString.tractor, AppString.cow, AppString.horse, AppString.twoWheel, AppString.fourWheel, AppString.others];
-  bool isIcon = true;
+  bool isIcon = true;*/
+  List favOtherTempList = [];
+
+  @override
+  void initState() {
+    favOtherTempList = otherScreenController.favOtherList[widget.index];
+    //  print(favTractorTempList);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,11 +108,16 @@ class _ItemWidgetState extends State<ItemWidget> {
                                     overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.price, fontSize: 16, fontWeight: FontWeight.w700))),
                             InkWell(
                                 onTap: () {
-                                  setState(() {
-                                    isIcon = !isIcon;
-                                  });
+                                  if (favOtherTempList.contains(userId)) {
+                                    favOtherTempList.remove(userId);
+                                  } else {
+                                    favOtherTempList.add(userId);
+                                  }
+                                  updateData('advertise', otherScreenController.getOtherAds[widget.index].id, {'fav_user': favOtherTempList});
+                                  setState(() {});
                                 },
-                                child: Icon(isIcon ? Icons.favorite_border : Icons.favorite, color: isIcon ? AppColor.primarycolorblack : AppColor.iconColor, size: 24))
+                                child: Icon(favOtherTempList.contains(userId) ? Icons.favorite : Icons.favorite_border,
+                                    color: favOtherTempList.contains(userId) ? AppColor.iconColor : AppColor.primarycolorblack, size: 24))
                           ])
                         ]))
                   ]))));

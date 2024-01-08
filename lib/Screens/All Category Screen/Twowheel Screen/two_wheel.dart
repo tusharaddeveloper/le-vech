@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:le_vech/Controller/All%20Screen%20Controller/two_wheel_controller.dart';
+import 'package:le_vech/Widgets/app_conts.dart';
 import 'package:le_vech/Widgets/color_const.dart';
 import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/screens/Profile%20Screen/le_vech_profile.dart';
+import 'package:le_vech/utils/firebase_get.dart';
 
 class TwoWheel extends StatefulWidget {
   const TwoWheel({Key? key}) : super(key: key);
@@ -55,7 +57,14 @@ class ItemWidget extends StatefulWidget {
 
 class _ItemWidgetState extends State<ItemWidget> {
   TwoWheelController twoWheelController = Get.put(TwoWheelController());
+  List favTwowheelTempList = [];
 
+  @override
+  void initState() {
+    favTwowheelTempList = twoWheelController.favTwowheelList[widget.index];
+    //  print(favTractorTempList);
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -88,10 +97,16 @@ class _ItemWidgetState extends State<ItemWidget> {
                                     overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.price, fontSize: 16, fontWeight: FontWeight.w700))),
                             InkWell(
                                 onTap: () {
-                                  twoWheelController.isIcon.value = !twoWheelController.isIcon.value;
+                                  if (favTwowheelTempList.contains(userId)) {
+                                    favTwowheelTempList.remove(userId);
+                                  } else {
+                                    favTwowheelTempList.add(userId);
+                                  }
+                                  updateData('advertise', twoWheelController.allSellTwoWheel[widget.index].id, {'fav_user': favTwowheelTempList});
+                                  setState(() {});
                                 },
-                                child: Icon(twoWheelController.isIcon.value ? Icons.favorite_border : Icons.favorite,
-                                    color: twoWheelController.isIcon.value ? AppColor.primarycolorblack : AppColor.iconColor, size: 24))
+                                child: Icon(favTwowheelTempList.contains(userId) ? Icons.favorite:Icons.favorite_border ,
+                                    color: favTwowheelTempList.contains(userId)  ?  AppColor.iconColor:AppColor.primarycolorblack , size: 24))
                           ])
                         ]))
                   ]))));

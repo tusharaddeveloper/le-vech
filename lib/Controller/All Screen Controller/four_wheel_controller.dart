@@ -8,7 +8,7 @@ class FourWheelController extends GetxController {
   RxBool isIcon = true.obs;
   RxBool isLodingData = false.obs;
   RxList<QueryDocumentSnapshot> allSellFourWheel = <QueryDocumentSnapshot>[].obs;
-  RxBool isLoader = false.obs;
+  List favCarList = [];
 
   sellFourWheel(BuildContext context) async {
     try {
@@ -16,7 +16,9 @@ class FourWheelController extends GetxController {
       allSellFourWheel.value = await firebaseGetwhere("advertise", "item_type", AppString.fourWheel);
 
       if (allSellFourWheel.isNotEmpty) {
-        print("object GET Tractorgggggggggggggggggggggggggggggfgfg");
+        for(int i=0;i<allSellFourWheel.length;i++){
+          favCarList.add(allSellFourWheel[i]['fav_user']);
+        }
       } else {
         print("No Data Found");
       }

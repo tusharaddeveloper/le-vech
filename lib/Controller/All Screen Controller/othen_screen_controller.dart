@@ -5,10 +5,10 @@ import 'package:le_vech/Widgets/string_const.dart';
 import 'package:le_vech/utils/firebase_get.dart';
 
 class OtherScreenController extends GetxController {
-  RxBool isIcon = true.obs;
+  // RxBool isIcon = true.obs;
   RxBool isOtharLodingData = false.obs;
   RxList<QueryDocumentSnapshot> getOtherAds = <QueryDocumentSnapshot>[].obs;
-
+  List favOtherList = [];
 
   sellOtherAds(BuildContext context) async {
     try {
@@ -16,7 +16,9 @@ class OtherScreenController extends GetxController {
       getOtherAds.value = await firebaseGetwhere("advertise", "item_type", AppString.others);
 
       if (getOtherAds.isNotEmpty) {
-        print("Object GET Othar ADSSSSSSSSSSSSSSSSSSSS");
+        for (int i = 0; i < getOtherAds.length; i++) {
+          favOtherList.add(getOtherAds[i]['fav_user']);
+        }
       } else {
         print("No Data Found");
       }
@@ -27,6 +29,4 @@ class OtherScreenController extends GetxController {
       print(e);
     }
   }
-
-
 }
