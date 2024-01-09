@@ -31,17 +31,19 @@ class _CowScreenState extends State<CowScreen> {
         child: Obx(() {
           return cowController.isLodingData.value
               ? const CircularProgressIndicator()
-              : cowController.allSellCow.isNotEmpty?GridView.builder(
-                  itemCount: cowController.allSellCow.length,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 4.8 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
-                  itemBuilder: (context, index) {
-                    return ItemWidget(index: index);
-                  }):Container(
-              height: 400,
-              alignment: Alignment.center,
-              child: Text("કોઈ જાહેરાત નથી મળી.", style: TextStyle(color: AppColor.iconColor, fontSize: 22, fontWeight: FontWeight.w500), textAlign: TextAlign.center));
+              : cowController.allSellCow.isNotEmpty
+                  ? GridView.builder(
+                      itemCount: cowController.allSellCow.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 4.8 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
+                      itemBuilder: (context, index) {
+                        return ItemWidget(index: index);
+                      })
+                  : Container(
+                      height: 400,
+                      alignment: Alignment.center,
+                      child: Text("કોઈ જાહેરાત નથી મળી.", style: TextStyle(color: AppColor.iconColor, fontSize: 22, fontWeight: FontWeight.w500), textAlign: TextAlign.center));
         }));
   }
 }
@@ -62,7 +64,7 @@ class _ItemWidgetState extends State<ItemWidget> {
   @override
   void initState() {
     favCowTempList = cowController.favCowList[widget.index];
-   // print(favCowTempList);
+    // print(favCowTempList);
     super.initState();
   }
 
@@ -84,7 +86,14 @@ class _ItemWidgetState extends State<ItemWidget> {
                         elevation: 3,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                         child: Container(
-                            height: 100, width: 140, decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), image: DecorationImage(image: AssetImage(AppImage.cow), fit: BoxFit.cover)))),
+                            height: 100,
+                            width: 140,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6),
+                              image: DecorationImage(image: NetworkImage(cowController.allSellCow[widget.index]["item_img"][0].toString().isNotEmpty
+                                  ? cowController.allSellCow[widget.index]["item_img"][0].toString()
+                                  : "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),fit: BoxFit.cover),
+                            ))),
                     const SizedBox(height: 10),
                     Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -106,8 +115,8 @@ class _ItemWidgetState extends State<ItemWidget> {
                                   updateData('advertise', cowController.allSellCow[widget.index].id, {'fav_user': favCowTempList});
                                   setState(() {});
                                 },
-                                child: Icon(favCowTempList.contains(userId) ? Icons.favorite:Icons.favorite_border ,
-                                    color: favCowTempList.contains(userId)  ?  AppColor.iconColor:AppColor.primarycolorblack , size: 24))
+                                child: Icon(favCowTempList.contains(userId) ? Icons.favorite : Icons.favorite_border,
+                                    color: favCowTempList.contains(userId) ? AppColor.iconColor : AppColor.primarycolorblack, size: 24))
                           ])
                         ]))
                   ]))));

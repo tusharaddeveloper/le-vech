@@ -13,6 +13,7 @@ class OTPController extends GetxController {
   Rx<TextEditingController> verifyotp = TextEditingController().obs;
 
   FirebaseAuth? auth;
+
   RxList<QueryDocumentSnapshot> firebasedata = <QueryDocumentSnapshot>[].obs;
 
   void verifyOtp(BuildContext context, String varId, String mo) async {

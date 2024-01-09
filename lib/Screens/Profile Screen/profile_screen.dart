@@ -61,13 +61,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       )
                                     : const Image(image: AssetImage('assets/images/logops.jpg'))
                                 : Image.file(profileController.selectedProfile.value, fit: BoxFit.cover))*/
-                            CachedNetworkImage(
+                            profileController.selectedProfile.value.path.isEmpty ?CachedNetworkImage(
                                 height: 100,
                                 width: 100,
-                                imageUrl: profileController.profileUrl.value,
+                                imageUrl:  profileController.profileUrl.value ,
                                 placeholder: (context, url) => Image(image: AssetImage(AppImage.imglogo)),
                                 errorWidget: (context, url, error) => Image(image: AssetImage(AppImage.imglogo)),
-                                fit: BoxFit.cover),
+                                fit: BoxFit.cover):Image.file(profileController.selectedProfile.value, fit: BoxFit.cover),
                         ),),
                     Positioned(bottom: 0, right: 10, child: CircleAvatar(backgroundColor: AppColor.themecolor, radius: 14, child: Icon(Icons.camera_alt, color: AppColor.primarycolor, size: 16)))
                   ])),

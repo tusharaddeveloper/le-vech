@@ -31,17 +31,19 @@ class _HorseScreenState extends State<HorseScreen> {
         child: Obx(() {
           return horseController.isLodingData.value
               ? const CircularProgressIndicator()
-              :horseController.allSellHorse.isNotEmpty? GridView.builder(
-                  itemCount: horseController.allSellHorse.length,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 4.8 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
-                  itemBuilder: (context, index) {
-                    return ItemWidget(index: index);
-                  }):Container(
-              height: 400,
-              alignment: Alignment.center,
-              child: Text("કોઈ જાહેરાત નથી મળી.", style: TextStyle(color: AppColor.iconColor, fontSize: 22, fontWeight: FontWeight.w500), textAlign: TextAlign.center));
+              : horseController.allSellHorse.isNotEmpty
+                  ? GridView.builder(
+                      itemCount: horseController.allSellHorse.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 4.8 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
+                      itemBuilder: (context, index) {
+                        return ItemWidget(index: index);
+                      })
+                  : Container(
+                      height: 400,
+                      alignment: Alignment.center,
+                      child: Text("કોઈ જાહેરાત નથી મળી.", style: TextStyle(color: AppColor.iconColor, fontSize: 22, fontWeight: FontWeight.w500), textAlign: TextAlign.center));
         }));
   }
 }
@@ -62,10 +64,9 @@ class _ItemWidgetState extends State<ItemWidget> {
   @override
   void initState() {
     favHorseTempList = horseController.favHorseList[widget.index];
-  //  print(favTractorTempList);
+    //  print(favTractorTempList);
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +86,14 @@ class _ItemWidgetState extends State<ItemWidget> {
                         elevation: 3,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                         child: Container(
-                            height: 100, width: 140, decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), image: DecorationImage(image: AssetImage(AppImage.cow), fit: BoxFit.cover)))),
+                            height: 100,
+                            width: 140,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6),
+                              image: DecorationImage(image: NetworkImage(horseController.allSellHorse[widget.index]["item_img"][0].toString().isNotEmpty
+                                  ? horseController.allSellHorse[widget.index]["item_img"][0].toString()
+                                  : "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),fit: BoxFit.cover),
+                            ))),
                     const SizedBox(height: 10),
                     Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -107,8 +115,8 @@ class _ItemWidgetState extends State<ItemWidget> {
                                   updateData('advertise', horseController.allSellHorse[widget.index].id, {'fav_user': favHorseTempList});
                                   setState(() {});
                                 },
-                                child: Icon(favHorseTempList.contains(userId) ? Icons.favorite:Icons.favorite_border ,
-                                    color: favHorseTempList.contains(userId)  ?  AppColor.iconColor:AppColor.primarycolorblack , size: 24))
+                                child: Icon(favHorseTempList.contains(userId) ? Icons.favorite : Icons.favorite_border,
+                                    color: favHorseTempList.contains(userId) ? AppColor.iconColor : AppColor.primarycolorblack, size: 24))
                           ])
                         ]))
                   ]))));

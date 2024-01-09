@@ -65,7 +65,7 @@ class _ItemWidgetState extends State<ItemWidget> {
   @override
   void initState() {
     favCarTempList = fourWheelController.favCarList[widget.index];
-  //  print(favCarTempList);
+    //  print(favCarTempList);
     super.initState();
   }
 
@@ -87,7 +87,14 @@ class _ItemWidgetState extends State<ItemWidget> {
                         elevation: 3,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                         child: Container(
-                            height: 100, width: 140, decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), image: DecorationImage(image: AssetImage(AppImage.car), fit: BoxFit.cover)))),
+                            height: 100,
+                            width: 140,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6),
+                              image: DecorationImage(image: NetworkImage(fourWheelController.allSellFourWheel[widget.index]["item_img"][0].toString().isNotEmpty
+                                  ? fourWheelController.allSellFourWheel[widget.index]["item_img"][0].toString()
+                                  : "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),fit: BoxFit.cover),
+                            ))),
                     const SizedBox(height: 10),
                     Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -109,8 +116,8 @@ class _ItemWidgetState extends State<ItemWidget> {
                                   updateData('advertise', fourWheelController.allSellFourWheel[widget.index].id, {'fav_user': favCarTempList});
                                   setState(() {});
                                 },
-                                child: Icon(favCarTempList.contains(userId) ? Icons.favorite:Icons.favorite_border ,
-                                    color: favCarTempList.contains(userId)  ?  AppColor.iconColor:AppColor.primarycolorblack , size: 24))
+                                child: Icon(favCarTempList.contains(userId) ? Icons.favorite : Icons.favorite_border,
+                                    color: favCarTempList.contains(userId) ? AppColor.iconColor : AppColor.primarycolorblack, size: 24))
                           ])
                         ]))
                   ]))));

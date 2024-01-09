@@ -94,7 +94,12 @@ class _ItemWidgetState extends State<ItemWidget> {
                         child: Container(
                             height: 100,
                             width: 140,
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), image: DecorationImage(image: AssetImage(AppImage.imglogo), fit: BoxFit.cover)))),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6),
+                              image: DecorationImage(image: NetworkImage(otherScreenController.getOtherAds[widget.index]["item_img"][0].toString().isNotEmpty
+                                  ? otherScreenController.getOtherAds[widget.index]["item_img"][0].toString()
+                                  : "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),fit: BoxFit.cover),
+                            ))),
                     const SizedBox(height: 10),
                     Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12),
