@@ -133,6 +133,12 @@ class _ItemWidgetState extends State<ItemWidget> {
   }
 
   @override
+  void dispose() {
+    favListTemp.clear();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Obx(() {
       return InkWell(

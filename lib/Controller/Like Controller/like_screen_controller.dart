@@ -13,25 +13,24 @@ class LikeController extends GetxController {
     try {
       isLodingData.value = true;
       profileData.value = await firebaseGet('advertise');
-      if (profileData.isNotEmpty) {
-        for(int i=0;i<profileData.length;i++){
-          favList.add(profileData[i]['fav_user']);
-        }
-      } else {
-        print("No Data Found");
-      }
-      for(int i=0;i<profileData.length;i++){
-        List temp=favList[i];
-        if(temp.contains(userId)){
-          getWhereLike.add(profileData[i]);
-        }
-
+      if(profileData.isNotEmpty){
+        setLike();
       }
     } on Exception catch (e) {
       isLodingData.value = false;
       print(e);
     }
     isLodingData.value = false;
+  }
+
+  setLike()async{
+    for(int i=0;i<profileData.length;i++){
+      List temp=profileData[i]['fav_user'];
+      if(temp.contains(userId)){
+        getWhereLike.add(profileData[i]);
+      }
+    }
+
   }
 
 

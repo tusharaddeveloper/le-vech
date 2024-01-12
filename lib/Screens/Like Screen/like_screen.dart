@@ -78,7 +78,7 @@ class _ItemWidgetState extends State<ItemWidget> {
 
   @override
   void initState() {
-    favListTemp = likeController.favList[widget.index];
+    favListTemp = likeController.getWhereLike[widget.index]['fav_user'];
 
     print(favListTemp);
     super.initState();
