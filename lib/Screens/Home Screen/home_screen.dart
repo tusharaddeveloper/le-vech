@@ -17,7 +17,7 @@ import 'package:le_vech/Widgets/string_const.dart';
 import 'package:share_plus/share_plus.dart';
 
 class HomeScreen extends StatefulWidget {
-  String ? mobileNo;
+  String? mobileNo;
 
   HomeScreen({Key? key, this.mobileNo}) : super(key: key);
 
@@ -70,20 +70,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Column(children: [
                   CarouselSlider(
-                      options: CarouselOptions(height: 190, autoPlay: false, autoPlayInterval: const Duration(seconds: 2), aspectRatio: 16 / 9, viewportFraction: 1),
+                      options: CarouselOptions(height: 150, autoPlay: true, autoPlayInterval: const Duration(seconds: 2), aspectRatio: 16 / 9, viewportFraction: 1),
                       items: homeController.imageList.map((i) {
                         return Builder(builder: (BuildContext context) {
-                          return Column(children: [
-                            Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 8),
-                                child: Container(
-                                    height: 190,
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(30), image: DecorationImage(image: AssetImage(i), fit: BoxFit.cover))))
-                          ]);
+                          return Column(
+                              children: [Padding(padding: const EdgeInsets.symmetric(horizontal: 8), child: Container(height: 150, width: double.infinity, decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), image: DecorationImage(image: AssetImage(i), fit: BoxFit.cover))))]);
                         });
                       }).toList()),
-                  const SizedBox(height: 26)
+                  const SizedBox(height: 16)
                 ])),
             Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
@@ -91,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemCount: homeController.itemName.length,
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 5.2 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, childAspectRatio: 5.2 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
                     itemBuilder: (context, index) {
                       return InkWell(
                           onTap: () {
@@ -108,14 +102,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         child: Card(
                                             elevation: 3,
                                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-                                            child: Container(
-                                                width: 140,
-                                                decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(6), image: DecorationImage(image: AssetImage(homeController.imageList[index]), fit: BoxFit.cover))))),
-                                    Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(homeController.itemName.value[index],
-                                            style: TextStyle(color: AppColor.primarycolorblack, fontSize: 16, fontWeight: FontWeight.w600), textAlign: TextAlign.center))
+                                            child: Container(width: 140, decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), image: DecorationImage(image: AssetImage(homeController.imageList[index]), fit: BoxFit.cover))))),
+                                    Padding(padding: const EdgeInsets.all(8.0), child: Text(homeController.itemName.value[index], style: TextStyle(color: AppColor.primarycolorblack, fontSize: 16, fontWeight: FontWeight.w600), textAlign: TextAlign.center))
                                   ]))));
                     }))
           ]))),
@@ -136,32 +124,20 @@ class _HomeScreenState extends State<HomeScreen> {
                             decoration: const BoxDecoration(shape: BoxShape.circle),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(80),
-                              child: CachedNetworkImage(
-                                  height: 100,
-                                  width: 100,
-                                  imageUrl: profileController.profileUrl.value,
-                                  placeholder: (context, url) => Image(image: AssetImage(AppImage.imglogo)),
-                                  errorWidget: (context, url, error) => Image(image: AssetImage(AppImage.imglogo)),
-                                  fit: BoxFit.cover),
+                              child:
+                                  CachedNetworkImage(height: 100, width: 100, imageUrl: profileController.profileUrl.value, placeholder: (context, url) => Image(image: AssetImage(AppImage.imglogo)), errorWidget: (context, url, error) => Image(image: AssetImage(AppImage.imglogo)), fit: BoxFit.cover),
                             )),
                         const SizedBox(width: 18),
                         profileController.profileUrl.value.isNotEmpty
                             ? Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                                Text("${profileController.nameController.value.text} ${profileController.surnameController.value.text}",
-                                    overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 18, color: AppColor.primarycolor)),
+                                Text("${profileController.nameController.value.text} ${profileController.surnameController.value.text}", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 18, color: AppColor.primarycolor)),
                                 const SizedBox(height: 8),
                                 Text("+91 ${profileController.mobileController.value.text}", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 16, color: AppColor.primarycolor))
                               ])
                             : Text(" Le-vecha ", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 18, color: AppColor.primarycolor))
                       ]),
                       const Spacer(),
-                      Row(children: [
-                        const Spacer(),
-                        Text(AppString.edit, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 18, color: AppColor.primarycolor)),
-                        const SizedBox(width: 10),
-                        Icon(Icons.edit, color: AppColor.primarycolor, size: 22),
-                        const SizedBox(width: 20)
-                      ]),
+                      Row(children: [const Spacer(), Text(AppString.edit, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 18, color: AppColor.primarycolor)), const SizedBox(width: 10), Icon(Icons.edit, color: AppColor.primarycolor, size: 22), const SizedBox(width: 20)]),
                       const SizedBox(height: 10)
                     ]) //BoxDecoration
                     )),
