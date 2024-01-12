@@ -19,4 +19,9 @@ class AppColor {
   static Color iconColor = Color(0xffd72b1f);
   static Color priceclr = Color(0xff19691f);
   static Color dialougeBoxColor = Color(0xff466db4);
+
+  /// All Category Screen
+  static Color primarygrey = Colors.grey;
+  static Color grey700 = Colors.grey.shade700;
+
 }

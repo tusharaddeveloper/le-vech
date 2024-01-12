@@ -171,7 +171,7 @@ class _ItemWidgetState extends State<ItemWidget> {
                     Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12),
                         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                          Text(allCategoryController.profileData[widget.index]["item_type"],
+                          Text(allCategoryController.profileData[widget.index]["name"],
                               overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.primarycolorblack, fontSize: 16, fontWeight: FontWeight.w600)),
                           const SizedBox(height: 10),
                           Row(children: [
@@ -197,7 +197,9 @@ class _ItemWidgetState extends State<ItemWidget> {
                                 child: Icon(favListTemp.contains(userId) ? Icons.favorite : Icons.favorite_border,
                                     color: favListTemp.contains(userId) ? AppColor.iconColor : AppColor.primarycolorblack, size: 24))
                           ])
-                        ]))
+                        ])),
+                    const SizedBox(height: 5),
+                    Text(allCategoryController.profileData[widget.index]["item_type"],style: TextStyle(color: AppColor.grey700),)
                   ]))));
     });
   }
