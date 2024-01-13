@@ -40,6 +40,4 @@ class AllCategoryController extends GetxController {
       print(e);
     }
   }
-
-
 }

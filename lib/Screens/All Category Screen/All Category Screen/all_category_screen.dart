@@ -5,6 +5,7 @@ import 'package:le_vech/Controller/Auth%20Controller/noted_controller.dart';
 import 'package:le_vech/Screens/All%20Category%20Screen/Tractor%20Screen/tractor_screen.dart';
 import 'package:le_vech/Screens/Profile%20Screen/le_vech_profile.dart';
 import 'package:le_vech/Widgets/app_conts.dart';
+import 'package:le_vech/Widgets/app_text.dart';
 import 'package:le_vech/Widgets/color_const.dart';
 import 'package:le_vech/Widgets/string_const.dart';
 import 'package:le_vech/Screens/All%20Category%20Screen/Cow%20Screen/cow_screen.dart';
@@ -171,8 +172,9 @@ class _ItemWidgetState extends State<ItemWidget> {
                     Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12),
                         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                          Text(allCategoryController.profileData[widget.index]["name"],
-                              overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.primarycolorblack, fontSize: 16, fontWeight: FontWeight.w600)),
+                          AppText(text: allCategoryController.profileData[widget.index]["name"],txtColor: AppColor.primarycolorblack,size: 16,fontWeight: FontWeight.w600,overflow: TextOverflow.ellipsis),
+                          /*Text(allCategoryController.profileData[widget.index]["name"],
+                              overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.primarycolorblack, fontSize: 16, fontWeight: FontWeight.w600)),*/
                           const SizedBox(height: 10),
                           Row(children: [
                             Expanded(
@@ -199,7 +201,8 @@ class _ItemWidgetState extends State<ItemWidget> {
                           ])
                         ])),
                     const SizedBox(height: 5),
-                    Text(allCategoryController.profileData[widget.index]["item_type"],style: TextStyle(color: AppColor.grey700),)
+                    AppText(text: allCategoryController.profileData[widget.index]["item_type"],txtColor: AppColor.grey700,size: 13),
+                    /*Text(allCategoryController.profileData[widget.index]["item_type"],style: TextStyle(color: AppColor.grey700),)*/
                   ]))));
     });
   }

@@ -47,7 +47,7 @@ class HomeController extends GetxController {
           title: Text(AppString.logOutQuestion, style: TextStyle(color: AppColor.primarycolor, fontSize: 20)),
           content: SingleChildScrollView(
             child: ListBody(
-              children: <Widget>[
+              children: [
                 Text(AppString.logoutOption, style: TextStyle(color: AppColor.primarycolor, fontSize: 20)),
               ],
             ),
@@ -64,9 +64,8 @@ class HomeController extends GetxController {
                 onPressed: () {
                   logOut(context);
                   Navigator.of(context).pop();
-                  // Navigate to login
-                }),
-          ],
+                })
+          ]
         );
       },
     );

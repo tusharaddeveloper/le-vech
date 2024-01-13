@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:le_vech/Controller/All%20Screen%20Controller/cow_screen_controller.dart';
 import 'package:le_vech/Widgets/app_conts.dart';
+import 'package:le_vech/Widgets/app_text.dart';
 import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/screens/Profile%20Screen/le_vech_profile.dart';
 import 'package:le_vech/Widgets/color_const.dart';
@@ -104,8 +105,9 @@ class _ItemWidgetState extends State<ItemWidget> {
                     Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12),
                         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                          Text(cowController.allSellCow[widget.index]["item_type"],
-                              overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.primarycolorblack, fontSize: 16, fontWeight: FontWeight.w600)),
+                          AppText(text: cowController.allSellCow[widget.index]["name"],txtColor: AppColor.primarycolorblack,size: 16,fontWeight: FontWeight.w600,overflow: TextOverflow.ellipsis),
+                         /* Text(cowController.allSellCow[widget.index]["item_type"],
+                              overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.primarycolorblack, fontSize: 16, fontWeight: FontWeight.w600)),*/
                           const SizedBox(height: 10),
                           Row(children: [
                             Expanded(
@@ -124,7 +126,8 @@ class _ItemWidgetState extends State<ItemWidget> {
                                 child: Icon(favCowTempList.contains(userId) ? Icons.favorite : Icons.favorite_border,
                                     color: favCowTempList.contains(userId) ? AppColor.iconColor : AppColor.primarycolorblack, size: 24))
                           ])
-                        ]))
+                        ])), const SizedBox(height: 5),
+                    AppText(text: cowController.allSellCow[widget.index]["item_type"],txtColor: AppColor.grey700,size: 13),
                   ]))));
     });
   }
