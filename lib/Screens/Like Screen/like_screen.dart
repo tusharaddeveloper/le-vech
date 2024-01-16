@@ -5,6 +5,7 @@ import 'package:le_vech/Controller/Like%20Controller/like_screen_controller.dart
 import 'package:le_vech/Screens/Profile%20Screen/le_vech_profile.dart';
 import 'package:le_vech/Widgets/app_bar.dart';
 import 'package:le_vech/Widgets/app_conts.dart';
+import 'package:le_vech/Widgets/app_text.dart';
 import 'package:le_vech/Widgets/app_textfieled.dart';
 import 'package:le_vech/Widgets/color_const.dart';
 import 'package:le_vech/Widgets/image_const.dart';
@@ -54,7 +55,7 @@ class _LikeScreenState extends State<LikeScreen> {
                     : Container(
                         height: 400,
                         alignment: Alignment.center,
-                        child: Text("કોઈ જાહેરાત નથી મળી.", style: TextStyle(color: AppColor.iconColor, fontSize: 22, fontWeight: FontWeight.w500), textAlign: TextAlign.center))
+                    child: AppText(text: "કોઈ જાહેરાત નથી મળી.",txtColor: AppColor.iconColor,size: 22,fontWeight: FontWeight.w500,txtAlign: TextAlign.center))
             )
           ]))));
     });
@@ -123,13 +124,13 @@ class _ItemWidgetState extends State<ItemWidget> {
                     Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12),
                         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                          Text(likeController.getWhereLike[widget.index]["item_type"],
-                              overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.primarycolorblack, fontSize: 16, fontWeight: FontWeight.w600)),
+                          /*Text(likeController.getWhereLike[widget.index]["item_type"],overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.primarycolorblack, fontSize: 16, fontWeight: FontWeight.w600)),*/
+                           AppText(text: likeController.getWhereLike[widget.index]["item_type"],txtColor: AppColor.primarycolorblack,size: 16,fontWeight: FontWeight.w600,txtAlign: TextAlign.center,overflow: TextOverflow.ellipsis),
                           const SizedBox(height: 10),
                           Row(children: [
                             Expanded(
-                                child: Text(likeController.getWhereLike[widget.index]["price"],
-                                    overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.price, fontSize: 16, fontWeight: FontWeight.w700))),
+                                child:  AppText(text: likeController.getWhereLike[widget.index]["price"],overflow: TextOverflow.ellipsis,txtColor: AppColor.price,size: 16,fontWeight: FontWeight.w700),
+                              /*Text(likeController.getWhereLike[widget.index]["price"], overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.price, fontSize: 16, fontWeight: FontWeight.w700))*/),
                             InkWell(
                                 onTap: () {
                                   /*if (notedController.favoriteList.contains(allCategoryController.profileData[widget.index].id)) {

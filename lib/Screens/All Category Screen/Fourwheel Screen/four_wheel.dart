@@ -45,7 +45,7 @@ class _FourWheelState extends State<FourWheel> {
                   : Container(
                       height: 400,
                       alignment: Alignment.center,
-                      child: Text("કોઈ જાહેરાત નથી મળી.", style: TextStyle(color: AppColor.iconColor, fontSize: 22, fontWeight: FontWeight.w500), textAlign: TextAlign.center));
+              child: AppText(text: "કોઈ જાહેરાત નથી મળી.",txtColor: AppColor.iconColor,size: 22,fontWeight: FontWeight.w500,txtAlign: TextAlign.center,));
         }));
   }
 }

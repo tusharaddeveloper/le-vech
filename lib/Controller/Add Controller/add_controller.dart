@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:le_vech/Controller/Auth%20Controller/noted_controller.dart';
 import 'package:le_vech/Controller/Profile%20Controller/profile_controller.dart';
+import 'package:le_vech/Widgets/app_text.dart';
 import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/Widgets/string_const.dart';
 import 'package:image_picker/image_picker.dart';
@@ -44,7 +45,7 @@ class AddController extends GetxController {
         selectedImages.add(File(xfilePick[i].path));
       }
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("AppString.nothingSelected")));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: AppText(text: "Images Not Select",size: 14,)));
     }
     if (pickedFile.isNotEmpty) {
       for (var element in pickedFile) {

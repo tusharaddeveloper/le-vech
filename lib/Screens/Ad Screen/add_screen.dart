@@ -5,6 +5,7 @@ import 'package:le_vech/Controller/Add%20Controller/add_controller.dart';
 import 'package:le_vech/Controller/Auth%20Controller/noted_controller.dart';
 import 'package:le_vech/Widgets/app_bar.dart';
 import 'package:le_vech/Widgets/app_button.dart';
+import 'package:le_vech/Widgets/app_text.dart';
 import 'package:le_vech/Widgets/app_textfieled.dart';
 import 'package:le_vech/Widgets/color_const.dart';
 import 'package:le_vech/Widgets/drop_down.dart';
@@ -44,7 +45,8 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
             },
             child: Row(
               children: [
-                Text(AppString.addPhoto, style: const TextStyle(color: Color(0xff000000), fontSize: 20, fontWeight: FontWeight.w500)),
+                AppText(text: AppString.addPhoto,txtColor: AppColor.primarycolorblack,size: 20,fontWeight: FontWeight.w500)
+                /*Text(AppString.addPhoto, style: const TextStyle(color: Color(0xff000000), fontSize: 20, fontWeight: FontWeight.w500))*/,
                 const SizedBox(width: 8),
                 Icon(Icons.add_circle_outline, size: 28, color: AppColor.themecolor),
               ],
@@ -71,7 +73,8 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                 }).toList(),
               ),
         const SizedBox(height: 20),
-        Text(AppString.sellingItem, style: TextStyle(color: AppColor.primarycolorblack, fontWeight: FontWeight.w400, fontSize: 18)),
+        AppText(text: AppString.sellingItem,txtColor: AppColor.primarycolorblack,size: 18,fontWeight: FontWeight.w400),
+
         const SizedBox(height: 20),
         Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -89,11 +92,13 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
               const SizedBox(height: 20),
               AppTextField(controller: addController.priceController, txtValue: AppString.price, keytype: TextInputType.number),
               const SizedBox(height: 20),
-              Text(AppString.sellingInfo, style: TextStyle(color: AppColor.primarycolorblack, fontWeight: FontWeight.w400, fontSize: 18)),
+              AppText(text: AppString.sellingInfo,txtColor: AppColor.primarycolorblack,size: 18,fontWeight: FontWeight.w400),
+              /*Text(AppString.sellingInfo, style: TextStyle(color: AppColor.primarycolorblack, fontWeight: FontWeight.w400, fontSize: 18)),*/
               const SizedBox(height: 20),
               AppTextField(controller: addController.detailsController, txtValue: AppString.infoSend, maxLines: 4, counterTxt: ""),
               const SizedBox(height: 20),
-              Text(AppString.sellingplace, style: TextStyle(color: AppColor.primarycolorblack, fontWeight: FontWeight.w400, fontSize: 18)),
+              AppText(text: AppString.sellingplace,txtColor: AppColor.primarycolorblack,size: 18,fontWeight: FontWeight.w400),
+             // Text(AppString.sellingplace, style: TextStyle(color: AppColor.primarycolorblack, fontWeight: FontWeight.w400, fontSize: 18)),
               const SizedBox(height: 20),
               AppTextField(txtValue: AppString.guj, readOnly: true),
               const SizedBox(height: 10),

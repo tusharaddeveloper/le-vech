@@ -39,6 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return Obx(() {
       return Scaffold(
           backgroundColor: AppColor.txtfilled,
@@ -73,8 +74,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       options: CarouselOptions(height: 150, autoPlay: true, autoPlayInterval: const Duration(seconds: 2), aspectRatio: 16 / 9, viewportFraction: 1),
                       items: homeController.imageList.map((i) {
                         return Builder(builder: (BuildContext context) {
-                          return Column(
-                              children: [Padding(padding: const EdgeInsets.symmetric(horizontal: 8), child: Container(height: 150, width: double.infinity, decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), image: DecorationImage(image: AssetImage(i), fit: BoxFit.cover))))]);
+                          return Column(children: [
+                            Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 8),
+                                child: Container(
+                                    height: 150,
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), image: DecorationImage(image: AssetImage(i), fit: BoxFit.cover))))
+                          ]);
                         });
                       }).toList()),
                   const SizedBox(height: 16)
@@ -93,17 +100,37 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                           child: Card(
                               elevation: 2,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8), topLeft: Radius.circular(8), topRight: Radius.circular(8))),
+
                               child: Container(
-                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), color: AppColor.primarycolor),
+                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: AppColor.primarycolor),
                                   child: Column(children: [
-                                    const SizedBox(height: 8),
+                                    Card(
+                                      margin: EdgeInsets.zero,
+                                      shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8), topLeft: Radius.circular(8), topRight: Radius.circular(8))),
+                                      child: Container(
+                                          height: 90,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8), topLeft: Radius.circular(8), topRight: Radius.circular(8)),
+                                              color: Colors.yellow,
+                                              image: DecorationImage(
+                                                image: AssetImage(homeController.imageList[index]),
+                                                fit: BoxFit.cover,
+                                              ))),
+                                    ),
                                     Expanded(
-                                        child: Card(
-                                            elevation: 3,
-                                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-                                            child: Container(width: 140, decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), image: DecorationImage(image: AssetImage(homeController.imageList[index]), fit: BoxFit.cover))))),
-                                    Padding(padding: const EdgeInsets.all(8.0), child: Text(homeController.itemName.value[index], style: TextStyle(color: AppColor.primarycolorblack, fontSize: 16, fontWeight: FontWeight.w600), textAlign: TextAlign.center))
+                                      child: Padding(
+                                          padding: const EdgeInsets.all(6.0),
+                                          child: Text(
+                                            homeController.itemName[index],
+                                            maxLines: 1,
+                                            style: TextStyle(color: AppColor.primarycolorblack, fontSize: 14, fontWeight: FontWeight.w600),
+                                            textAlign: TextAlign.center,
+                                          )),
+                                    )
                                   ]))));
                     }))
           ]))),
@@ -124,20 +151,35 @@ class _HomeScreenState extends State<HomeScreen> {
                             decoration: const BoxDecoration(shape: BoxShape.circle),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(80),
-                              child:
-                                  CachedNetworkImage(height: 100, width: 100, imageUrl: profileController.profileUrl.value, placeholder: (context, url) => Image(image: AssetImage(AppImage.imglogo)), errorWidget: (context, url, error) => Image(image: AssetImage(AppImage.imglogo)), fit: BoxFit.cover),
+                              child: CachedNetworkImage(
+                                  height: 100,
+                                  width: 100,
+                                  imageUrl: profileController.profileUrl.value,
+                                  placeholder: (context, url) => Image(image: AssetImage(AppImage.imglogo)),
+                                  errorWidget: (context, url, error) => Image(image: AssetImage(AppImage.imglogo)),
+                                  fit: BoxFit.cover),
                             )),
                         const SizedBox(width: 18),
                         profileController.profileUrl.value.isNotEmpty
-                            ? Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                                Text("${profileController.nameController.value.text} ${profileController.surnameController.value.text}", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 18, color: AppColor.primarycolor)),
-                                const SizedBox(height: 8),
-                                Text("+91 ${profileController.mobileController.value.text}", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 16, color: AppColor.primarycolor))
-                              ])
+                            ? SizedBox(width: MediaQuery.of(context).size.width*0.410,
+
+                          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                                  Text("${profileController.nameController.value.text} ${profileController.surnameController.value.text}",
+                                      overflow: TextOverflow.ellipsis,maxLines: 1 ,style: TextStyle(fontSize: 18, color: AppColor.primarycolor)),
+                                  const SizedBox(height: 6),
+                                  Text("+91 ${profileController.mobileController.value.text}", overflow: TextOverflow.ellipsis,maxLines: 1, style: TextStyle(fontSize: 16, color: AppColor.primarycolor))
+                                ]),
+                            )
                             : Text(" Le-vecha ", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 18, color: AppColor.primarycolor))
                       ]),
                       const Spacer(),
-                      Row(children: [const Spacer(), Text(AppString.edit, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 18, color: AppColor.primarycolor)), const SizedBox(width: 10), Icon(Icons.edit, color: AppColor.primarycolor, size: 22), const SizedBox(width: 20)]),
+                      Row(children: [
+                        const Spacer(),
+                        Text(AppString.edit, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 18, color: AppColor.primarycolor)),
+                        const SizedBox(width: 10),
+                        Icon(Icons.edit, color: AppColor.primarycolor, size: 22),
+                        const SizedBox(width: 20)
+                      ]),
                       const SizedBox(height: 10)
                     ]) //BoxDecoration
                     )),

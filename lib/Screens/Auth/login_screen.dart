@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:le_vech/Controller/Auth%20Controller/login_controller.dart';
 import 'package:le_vech/Widgets/app_bar.dart';
 import 'package:le_vech/Widgets/app_button.dart';
+import 'package:le_vech/Widgets/app_text.dart';
 import 'package:le_vech/Widgets/app_textfieled.dart';
 import 'package:le_vech/Widgets/color_const.dart';
 import 'package:le_vech/Widgets/string_const.dart';
@@ -30,7 +31,8 @@ class _LoginSCreenState extends State<LoginSCreen> {
         Padding(
             padding: const EdgeInsets.only(left: 16, right: 16, top: 30),
             child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-              Text(AppString.enterNum, style: TextStyle(color: AppColor.themecolor, fontSize: 18, fontWeight: FontWeight.w600)),
+             /* Text(AppString.enterNum, style: TextStyle(color: AppColor.themecolor, fontSize: 18, fontWeight: FontWeight.w600)),*/
+              AppText(text: AppString.enterNum,txtColor: AppColor.themecolor,size: 18,fontWeight: FontWeight.w600),
               const SizedBox(height: 24),
               AppTextField(txtValue: AppString.mobileNo, lableValue: AppString.mobileNo, controller: loginController.mobileNoController.value, maxLength: 10, keytype: TextInputType.number),
               const SizedBox(height: 10),

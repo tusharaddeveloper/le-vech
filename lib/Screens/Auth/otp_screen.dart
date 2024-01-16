@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:le_vech/Controller/Auth%20Controller/otp_controller.dart';
 import 'package:le_vech/Widgets/app_bar.dart';
+import 'package:le_vech/Widgets/app_text.dart';
 import 'package:le_vech/Widgets/app_textfieled.dart';
 import 'package:le_vech/Widgets/color_const.dart';
 import 'package:le_vech/Widgets/string_const.dart';
@@ -35,7 +36,8 @@ class _OtpScreenState extends State<OtpScreen> {
         Padding(
             padding: const EdgeInsets.only(left: 16, right: 16, top: 30),
             child: Column(children: [
-              Text(AppString.enterOtp, style: TextStyle(color: AppColor.themecolor, fontSize: 18, fontWeight: FontWeight.w600)),
+              AppText(text: AppString.enterOtp,txtColor: AppColor.themecolor,size: 18,fontWeight: FontWeight.w600),
+             // Text(AppString.enterOtp, style: TextStyle(color: AppColor.themecolor, fontSize: 18, fontWeight: FontWeight.w600)),
               const SizedBox(height: 24),
               AppTextField(controller: otpController.verifyotp.value, txtValue: AppString.otpCode, lableValue: AppString.otpText, keytype: TextInputType.number, maxLength: 6),
               const SizedBox(height: 10),
@@ -50,13 +52,15 @@ class _OtpScreenState extends State<OtpScreen> {
                       child: Center(
                           child: otpController.isLoading.value
                               ? const Padding(padding: EdgeInsets.all(3.0), child: CircularProgressIndicator(color: Colors.white))
-                              : Text(AppString.nextPage, style: TextStyle(color: AppColor.primarycolor, fontSize: 20, fontWeight: FontWeight.w500))))),
+                              : AppText(text: AppString.nextPage,txtColor: AppColor.primarycolor,size: 20,fontWeight: FontWeight.w500),
+                        /*Text(AppString.nextPage, style: TextStyle(color: AppColor.primarycolor, fontSize: 20, fontWeight: FontWeight.w500))*/))),
               const SizedBox(height: 26),
               InkWell(
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginSCreen()));
                   },
-                  child: Text(AppString.otpBack, style: TextStyle(color: AppColor.themecolor, fontSize: 18, fontWeight: FontWeight.w600)))
+                  child: AppText(text: AppString.otpBack,txtColor: AppColor.themecolor,size: 18,fontWeight: FontWeight.w600),
+                /*Text(AppString.otpBack, style: TextStyle(color: AppColor.themecolor, fontSize: 18, fontWeight: FontWeight.w600))*/)
             ]))
       ]);
     }))));

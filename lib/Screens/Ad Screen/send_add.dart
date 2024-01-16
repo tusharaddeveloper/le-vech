@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:le_vech/Controller/Add%20Controller/send_add_controller.dart';
+import 'package:le_vech/Widgets/app_text.dart';
 import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/Widgets/app_bar.dart';
 import 'package:le_vech/Widgets/color_const.dart';
@@ -64,17 +65,19 @@ class _SendAddState extends State<SendAdd> {
                                                     const SizedBox(width: 10),
                                                     Expanded(
                                                         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                                                      Text(sendAddController.adsData[index]['item_type'],
-                                                          overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.themecolor, fontSize: 18, fontWeight: FontWeight.bold)),
-                                                      Text(sendAddController.adsData[index]['district'],
-                                                          overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.themecolor, fontSize: 14, fontWeight: FontWeight.w500)),
-                                                      Text(sendAddController.adsData[index]['taluka'],
-                                                          overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.themecolor, fontSize: 14, fontWeight: FontWeight.w500)),
-                                                      Text(sendAddController.adsData[index]['village'],
-                                                          overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.themecolor, fontSize: 14, fontWeight: FontWeight.w500)),
+                                                          AppText(text: sendAddController.adsData[index]['item_type'],txtColor: AppColor.themecolor,size: 18,fontWeight: FontWeight.bold,overflow: TextOverflow.ellipsis),
+                                                          AppText(text: sendAddController.adsData[index]['district'],txtColor: AppColor.themecolor,size: 14,fontWeight: FontWeight.w500,overflow: TextOverflow.ellipsis),
+                                                          AppText(text: sendAddController.adsData[index]['taluka'],txtColor: AppColor.themecolor,size: 14,fontWeight: FontWeight.w500,overflow: TextOverflow.ellipsis),
+                                                          AppText(text: sendAddController.adsData[index]['village'],txtColor: AppColor.themecolor,size: 14,fontWeight: FontWeight.w500,overflow: TextOverflow.ellipsis),
+
+                                                     /* Text(sendAddController.adsData[index]['item_type'], overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.themecolor, fontSize: 18, fontWeight: FontWeight.bold)),
+                                                      Text(sendAddController.adsData[index]['district'], overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.themecolor, fontSize: 14, fontWeight: FontWeight.w500)),
+                                                      Text(sendAddController.adsData[index]['taluka'], overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.themecolor, fontSize: 14, fontWeight: FontWeight.w500)),
+                                                      Text(sendAddController.adsData[index]['village'], overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.themecolor, fontSize: 14, fontWeight: FontWeight.w500)),*/
                                                       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                                                        Text(sendAddController.adsData[index]['price'],
-                                                            overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.priceclr, fontSize: 18, fontWeight: FontWeight.w500)),
+                                                        /*Text(sendAddController.adsData[index]['price'],
+                                                            overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.priceclr, fontSize: 18, fontWeight: FontWeight.w500)),*/
+                                                        AppText(text: sendAddController.adsData[index]['price'],txtColor: AppColor.priceclr,size: 18,fontWeight: FontWeight.w500,overflow: TextOverflow.ellipsis),
                                                         InkWell(
                                                             onTap: () {
                                                               sendAddController.logOut(context, index);
@@ -86,7 +89,8 @@ class _SendAddState extends State<SendAdd> {
                                 }): Container(
                              height: 400,
                              alignment: Alignment.center,
-                             child: Text(AppString.noItemAdd, style: TextStyle(color: AppColor.iconColor, fontSize: 22, fontWeight: FontWeight.w500), textAlign: TextAlign.center))
+                             child:  AppText(text: AppString.noItemAdd,txtColor: AppColor.iconColor,size: 22,fontWeight: FontWeight.w500,txtAlign: TextAlign.center),
+                           /*Text(AppString.noItemAdd, style: TextStyle(color: AppColor.iconColor, fontSize: 22, fontWeight: FontWeight.w500), textAlign: TextAlign.center)*/)
 
                       ]))
                 ]);
