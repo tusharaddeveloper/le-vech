@@ -23,9 +23,58 @@ class HomeController extends GetxController {
     Icon(Icons.share, size: 28, color: AppColor.themecolor)
   ].obs;*/
 
-  RxList drowerName = [AppString.allInfo, AppString.addInfo, AppString.like, AppString.youSendInfo, AppString.share].obs;
-  RxList<String> itemName = [AppString.allInfo, AppString.tractor, AppString.cow, AppString.horse, AppString.twoWheel, AppString.fourWheel, AppString.others].obs;
-  RxList<String> imageList = [AppImage.allCategory, AppImage.tractorEicher, AppImage.cow, AppImage.horse, AppImage.bike, AppImage.car, AppImage.imglogo].obs;
+  RxList drowerName = [
+    AppString.allInfo,
+    AppString.addInfo,
+    AppString.like,
+    AppString.youSendInfo,
+    AppString.share,
+    "ખેત પેદાશ લે - વેચ",
+    "ઇલેક્ટ્રોનિક સાધનો લે-વેચ",
+    "લેપટોપ કમ્પ્યુટર ટીવી લે-વેચ",
+    "નોકરી",
+    "મોબાઇલ લે-વેચ",
+    "ભંગાર લે-વેચ",
+    "મકાન દુકાન પ્લોટ લે-વેચ",
+    "બિયારણ દવા લે-વેચ",
+    "જમીન લે-વેચ",
+    "ફળ શાકભાજી લે-વેચ",
+    "નર્સરી રોપ લે-વેચ",
+    "ઘેટાં બકરાં લે-વેચ",
+    "સનેડો ટ્રેક્ટર લે-વેચ",
+    "ટ્રેક્ટર ઓજાર લે-વેચ",
+    "ખેત ઓજાર લે-વેચ",
+    "પક્ષીઓ લે-વેચ",
+    "બળદ લે-વેચ",
+    "કુતરા લે-વેચ"
+  ].obs;
+  RxList<String> itemName = [
+    AppString.allInfo,
+    AppString.tractor,
+    AppString.cow,
+    AppString.horse,
+    AppString.twoWheel,
+    AppString.fourWheel,
+    AppString.others,
+    "ખેત પેદાશ લે - વેચ",
+    "ઇલેક્ટ્રોનિક સાધનો લે-વેચ",
+    "લેપટોપ કમ્પ્યુટર ટીવી લે-વેચ",
+    "નોકરી",
+    "મોબાઇલ લે-વેચ",
+    "ભંગાર લે-વેચ",
+    "મકાન દુકાન પ્લોટ લે-વેચ",
+    "બિયારણ દવા લે-વેચ",
+    "જમીન લે-વેચ",
+    "ફળ શાકભાજી લે-વેચ",
+    "નર્સરી રોપ લે-વેચ",
+    "ઘેટાં બકરાં લે-વેચ",
+    "સનેડો ટ્રેક્ટર લે-વેચ",
+    "ટ્રેક્ટર ઓજાર લે-વેચ",
+    "ખેત ઓજાર લે-વેચ",
+    "પક્ષીઓ લે-વેચ",
+    "બળદ લે-વેચ",
+    "કુતરા લે-વેચ"].obs;
+  RxList<String> imageList = [AppImage.allCategory, AppImage.tractorEicher, AppImage.cow, AppImage.horse, AppImage.bike, AppImage.car, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo].obs;
 
   // get MobileNo. in firebase
   setLogin(String mobileNo) async {
@@ -42,7 +91,7 @@ class HomeController extends GetxController {
       builder: (BuildContext context) {
         return AlertDialog(
             backgroundColor: AppColor.dialougeBoxColor,
-            title: AppText(text: AppString.logOutQuestion,txtColor: AppColor.primarycolor,size: 20),
+            title: AppText(text: AppString.logOutQuestion, txtColor: AppColor.primarycolor, size: 20),
             content: SingleChildScrollView(
               child: ListBody(
                 children: [
@@ -52,16 +101,13 @@ class HomeController extends GetxController {
             ),
             actions: [
               ElevatedButton(
-                child:
-        AppText(text: AppString.no,txtColor: AppColor.dialougeBoxColor,size: 18)
-                ,
+                child: AppText(text: AppString.no, txtColor: AppColor.dialougeBoxColor, size: 18),
                 onPressed: () {
                   Navigator.of(context).pop(); // Dismiss the Dialog
                 },
               ),
               ElevatedButton(
-                  child:
-        AppText(text: AppString.yes,txtColor: AppColor.dialougeBoxColor,size: 18),
+                  child: AppText(text: AppString.yes, txtColor: AppColor.dialougeBoxColor, size: 18),
                   onPressed: () {
                     logOut(context);
                     Navigator.of(context).pop();

@@ -1,39 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:le_vech/Controller/All%20Screen%20Controller/horse_screen_controller.dart';
+import 'package:le_vech/Controller/All%20Screen%20Controller/khet_pedash_controller.dart';
 import 'package:le_vech/Widgets/app_conts.dart';
 import 'package:le_vech/Widgets/app_text.dart';
 import 'package:le_vech/Widgets/color_const.dart';
 import 'package:le_vech/screens/Profile%20Screen/le_vech_profile.dart';
 import 'package:le_vech/utils/firebase_get.dart';
 
-class HorseScreen extends StatefulWidget {
-  const HorseScreen({Key? key}) : super(key: key);
+class KhetPedashScreen extends StatefulWidget {
+  const KhetPedashScreen({Key? key}) : super(key: key);
 
   @override
-  State<HorseScreen> createState() => _HorseScreenState();
+  State<KhetPedashScreen> createState() => _KhetPedashScreenState();
 }
 
-class _HorseScreenState extends State<HorseScreen> {
-  HorseScreenController horseController = Get.put(HorseScreenController());
+class _KhetPedashScreenState extends State<KhetPedashScreen> {
+  KhetPedashController khetPedashController = Get.put(KhetPedashController());
 
   @override
   void initState() {
     setState(() {});
-    horseController.sellHorse(context);
+    khetPedashController.sellkhetPedash(context);
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-        child: Obx(() {
-          return horseController.isLodingData.value
+    return Obx(() {
+      return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+          child: khetPedashController.isLodingKhetPedash.value
               ? const CircularProgressIndicator()
-              : horseController.allSellHorse.isNotEmpty
+              : khetPedashController.allSellkhetPedash.isNotEmpty
                   ? GridView.builder(
-                      itemCount: horseController.allSellHorse.length,
+                      itemCount: khetPedashController.allSellkhetPedash.length,
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 4.8 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
@@ -43,8 +44,8 @@ class _HorseScreenState extends State<HorseScreen> {
                   : Container(
                       height: 400,
                       alignment: Alignment.center,
-              child: AppText(text: "કોઈ જાહેરાત નથી મળી.",txtColor: AppColor.iconColor,size: 22,fontWeight: FontWeight.w500,txtAlign: TextAlign.center));
-        }));
+                      child: AppText(text: "કોઈ જાહેરાત નથી મળી.", txtColor: AppColor.iconColor, size: 22, fontWeight: FontWeight.w500, txtAlign: TextAlign.center)));
+    });
   }
 }
 
@@ -58,19 +59,19 @@ class ItemWidget extends StatefulWidget {
 }
 
 class _ItemWidgetState extends State<ItemWidget> {
-  HorseScreenController horseController = Get.put(HorseScreenController());
-  List favHorseTempList = [];
+  List favOtherTempList = [];
+  KhetPedashController khetPedashController = Get.put(KhetPedashController());
 
   @override
   void initState() {
-    favHorseTempList = horseController.favHorseList[widget.index];
+    favOtherTempList = khetPedashController.favHorseList[widget.index];
     //  print(favTractorTempList);
     super.initState();
   }
 
   @override
   void dispose() {
-    favHorseTempList.clear();
+    favOtherTempList.clear();
     super.dispose();
   }
 
@@ -79,7 +80,7 @@ class _ItemWidgetState extends State<ItemWidget> {
     return Obx(() {
       return InkWell(
           onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => LeVechProfile(detail: horseController.allSellHorse[widget.index])));
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => LeVechProfile(detail: khetPedashController.allSellkhetPedash[widget.index])));
           },
           child: Card(
               elevation: 2,
@@ -96,38 +97,43 @@ class _ItemWidgetState extends State<ItemWidget> {
                             width: 140,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(6),
-                              image: DecorationImage(image: NetworkImage(horseController.allSellHorse[widget.index]["item_img"][0].toString().isNotEmpty
-                                  ? horseController.allSellHorse[widget.index]["item_img"][0].toString()
-                                  : "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),fit: BoxFit.cover),
+                              image: DecorationImage(
+                                  image: NetworkImage(khetPedashController.allSellkhetPedash[widget.index]["item_img"][0].toString().isNotEmpty
+                                      ? khetPedashController.allSellkhetPedash[widget.index]["item_img"][0].toString()
+                                      : "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
+                                  fit: BoxFit.cover),
                             ))),
                     const SizedBox(height: 10),
                     Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12),
                         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                          AppText(text: horseController.allSellHorse[widget.index]["name"],txtColor: AppColor.primarycolorblack,size: 16,fontWeight: FontWeight.w600,overflow: TextOverflow.ellipsis),
-                          /*Text(horseController.allSellHorse[widget.index]["item_type"],
-                              overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.primarycolorblack, fontSize: 16, fontWeight: FontWeight.w600)),*/
+                          AppText(
+                              text: khetPedashController.allSellkhetPedash[widget.index]["item_type"],
+                              txtColor: AppColor.primarycolorblack,
+                              size: 16,
+                              fontWeight: FontWeight.w600,
+                              overflow: TextOverflow.ellipsis),
                           const SizedBox(height: 10),
                           Row(children: [
                             Expanded(
-                                child: Text(horseController.allSellHorse[widget.index]["price"],
+                                child: Text(khetPedashController.allSellkhetPedash[widget.index]["price"],
                                     overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.price, fontSize: 16, fontWeight: FontWeight.w700))),
                             InkWell(
                                 onTap: () {
-                                  if (favHorseTempList.contains(userId)) {
-                                    favHorseTempList.remove(userId);
+                                  if (favOtherTempList.contains(userId)) {
+                                    favOtherTempList.remove(userId);
                                   } else {
-                                    favHorseTempList.add(userId);
+                                    favOtherTempList.add(userId);
                                   }
-                                  updateData('advertise', horseController.allSellHorse[widget.index].id, {'fav_user': favHorseTempList});
+                                  updateData('advertise', khetPedashController.allSellkhetPedash[widget.index].id, {'fav_user': favOtherTempList});
                                   setState(() {});
                                 },
-                                child: Icon(favHorseTempList.contains(userId) ? Icons.favorite : Icons.favorite_border,
-                                    color: favHorseTempList.contains(userId) ? AppColor.iconColor : AppColor.primarycolorblack, size: 24))
+                                child: Icon(favOtherTempList.contains(userId) ? Icons.favorite : Icons.favorite_border,
+                                    color: favOtherTempList.contains(userId) ? AppColor.iconColor : AppColor.primarycolorblack, size: 24))
                           ])
                         ])),
                     const SizedBox(height: 5),
-                    AppText(text: horseController.allSellHorse[widget.index]["item_type"],txtColor: AppColor.grey700,size: 13),
+                    AppText(text: khetPedashController.allSellkhetPedash[widget.index]["item_type"], txtColor: AppColor.grey700, size: 13),
                   ]))));
     });
   }

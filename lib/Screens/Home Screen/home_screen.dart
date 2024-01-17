@@ -114,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           height: 90,
                                           width: double.infinity,
                                           decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8), topLeft: Radius.circular(8), topRight: Radius.circular(8)),
+                                              borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8), topLeft: Radius.circular(8), topRight: Radius.circular(8)),
                                               color: Colors.yellow,
                                               image: DecorationImage(
                                                 image: AssetImage(homeController.imageList[index]),
@@ -161,7 +161,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             )),
                         const SizedBox(width: 18),
                         profileController.profileUrl.value.isNotEmpty
-                            ? SizedBox(width: MediaQuery.of(context).size.width*0.410,
+                            ? SizedBox(width: MediaQuery.of(context).size.width*0.30,
 
                           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                                   Text("${profileController.nameController.value.text} ${profileController.surnameController.value.text}",

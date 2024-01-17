@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:le_vech/Controller/All%20Screen%20Controller/all_category_controller.dart';
 import 'package:le_vech/Controller/Auth%20Controller/noted_controller.dart';
+import 'package:le_vech/Screens/All%20Category%20Screen/Khet%20Pedash%20Levech/khet_pedash_screen.dart';
 import 'package:le_vech/Screens/All%20Category%20Screen/Tractor%20Screen/tractor_screen.dart';
 import 'package:le_vech/Screens/Profile%20Screen/le_vech_profile.dart';
 import 'package:le_vech/Widgets/app_conts.dart';
@@ -97,7 +98,9 @@ class _AllCategoryScreenState extends State<AllCategoryScreen> {
                 ? const FourWheel()
                 : allCategoryController.selectedItem.value == AppString.others
                 ? const OtherScreen()
-                : Padding(
+                :    allCategoryController.selectedItem.value == "ખેત પેદાશ લે - વેચ"
+                ? const KhetPedashScreen()
+                :  Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 child: allCategoryController.isLodingData.value
                     ? const CircularProgressIndicator()
