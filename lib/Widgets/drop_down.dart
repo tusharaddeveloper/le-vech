@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:le_vech/Widgets/app_text.dart';
 import 'color_const.dart';
 
 class DropDown extends StatefulWidget {
@@ -36,7 +37,9 @@ class _DropDownState extends State<DropDown> {
                 // Array list of items
                 underline: SizedBox(),
                 items: widget.items.map((String items) {
-                  return DropdownMenuItem(value: items, child: Text(items, style: TextStyle(fontSize: 18, color: AppColor.primarycolorblack)));
+                  return DropdownMenuItem(value: items, child: /*Text(items, style: TextStyle(fontSize: 18, color: AppColor.primarycolorblack))*/
+                  AppText(text: items,txtColor: AppColor.primarycolorblack,size: 18),
+                  );
                 }).toList(),
                 onChanged: (String? newValue) {
                   setState(() {

@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:le_vech/Widgets/app_conts.dart';
+import 'package:le_vech/Widgets/app_text.dart';
 import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/screens/Auth/login_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -28,14 +29,11 @@ class HomeController extends GetxController {
 
   // get MobileNo. in firebase
   setLogin(String mobileNo) async {
-    userId=mobileNo;
+    userId = mobileNo;
     prefs = await SharedPreferences.getInstance();
     prefs.setBool("isLogin", true);
     prefs.setString('mobile_number', mobileNo);
-
   }
-
-
 
   logOutAlertDialog(BuildContext context) async {
     return showDialog(
@@ -43,30 +41,32 @@ class HomeController extends GetxController {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: AppColor.dialougeBoxColor,
-          title: Text(AppString.logOutQuestion, style: TextStyle(color: AppColor.primarycolor, fontSize: 20)),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: [
-                Text(AppString.logoutOption, style: TextStyle(color: AppColor.primarycolor, fontSize: 20)),
-              ],
+            backgroundColor: AppColor.dialougeBoxColor,
+            title: AppText(text: AppString.logOutQuestion,txtColor: AppColor.primarycolor,size: 20),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: [
+                  AppText(text: AppString.logoutOption, txtColor: AppColor.primarycolor, size: 20),
+                ],
+              ),
             ),
-          ),
-          actions: [
-            ElevatedButton(
-              child: Text(AppString.no, style: TextStyle(color: AppColor.dialougeBoxColor, fontSize: 18)),
-              onPressed: () {
-                Navigator.of(context).pop(); // Dismiss the Dialog
-              },
-            ),
-            ElevatedButton(
-                child: Text(AppString.yes, style: TextStyle(color: AppColor.dialougeBoxColor, fontSize: 18)),
+            actions: [
+              ElevatedButton(
+                child:
+        AppText(text: AppString.no,txtColor: AppColor.dialougeBoxColor,size: 18)
+                ,
                 onPressed: () {
-                  logOut(context);
-                  Navigator.of(context).pop();
-                })
-          ]
-        );
+                  Navigator.of(context).pop(); // Dismiss the Dialog
+                },
+              ),
+              ElevatedButton(
+                  child:
+        AppText(text: AppString.yes,txtColor: AppColor.dialougeBoxColor,size: 18),
+                  onPressed: () {
+                    logOut(context);
+                    Navigator.of(context).pop();
+                  })
+            ]);
       },
     );
   }

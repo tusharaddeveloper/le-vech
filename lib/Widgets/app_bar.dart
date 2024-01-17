@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import 'package:le_vech/Widgets/app_text.dart';
 import 'color_const.dart';
 import 'image_const.dart';
 
@@ -53,7 +54,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                                 },
                                 child: Icon(Icons.arrow_back_ios, color: AppColor.primarycolor, size: 28)),
                             Spacer(),
-                            Text(widget.info!, style: TextStyle(color: AppColor.primarycolor, fontSize: 28)),
+                            AppText(text: widget.info!,txtColor: AppColor.primarycolor,size: 28),
                             Spacer(),
                             Spacer()
                           ])))))

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:le_vech/Controller/Auth%20Controller/noted_controller.dart';
+import 'package:le_vech/Widgets/app_text.dart';
+import 'package:le_vech/Widgets/color_const.dart';
 import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/Widgets/string_const.dart';
 import 'package:le_vech/utils/firebase_get.dart';
@@ -13,8 +15,13 @@ import 'package:le_vech/utils/snackbar.dart';
 import 'package:le_vech/utils/storage_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+
+
+
 class ProfileController extends GetxController {
   NotedController notedController = Get.put(NotedController());
+
+
 
   RxList<QueryDocumentSnapshot> listOfDistrict = <QueryDocumentSnapshot>[].obs;
   List<QueryDocumentSnapshot> listOfTaluka = <QueryDocumentSnapshot>[];
@@ -47,7 +54,7 @@ class ProfileController extends GetxController {
         mobileController.text = profileData[0]["mobile_number"];
         addressController.text = profileData[0]['address'];
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("No Data Found")));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: AppText(text: 'No Data Found',txtColor: AppColor.primarycolorblack,size: 14),));
       }
       isLoader.value = false;
     } on Exception catch (e) {
@@ -118,14 +125,16 @@ class ProfileController extends GetxController {
                   child: Wrap(children: [
             ListTile(
                 leading: const Icon(Icons.photo_library),
-                title: const Text('Photo Library'),
+                title:
+                AppText(text: 'Photo Library',txtColor: AppColor.primarycolorblack,size: 14),
                 onTap: () {
                   selectImageFromGallery(context);
                   Navigator.of(context).pop();
                 }),
             ListTile(
                 leading: const Icon(Icons.photo_camera),
-                title: const Text('Camera'),
+                title:
+                AppText(text: 'Camera',txtColor: AppColor.primarycolorblack,size: 14),
                 onTap: () {
                   selectImageFromCamera(context);
                   Navigator.of(context).pop();

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:le_vech/Controller/Profile%20Controller/profile_controller.dart';
 import 'package:le_vech/Widgets/app_bar.dart';
+import 'package:le_vech/Widgets/app_text.dart';
 import 'package:le_vech/Widgets/app_textfieled.dart';
 import 'package:le_vech/Widgets/color_const.dart';
 import 'package:le_vech/Widgets/string_const.dart';
@@ -93,10 +94,12 @@ class _LeVechProfileState extends State<LeVechProfile> {
                               const SizedBox(width: 20),
                               Expanded(
                                   child: Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.start, children: [
-                                Text(widget.detail['name'],
-                                    overflow: TextOverflow.ellipsis, maxLines: 3, style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w600)),
+                               /* Text(widget.detail['name'],
+                                    overflow: TextOverflow.ellipsis, maxLines: 3, style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w600)),*/
+                                    AppText(text: widget.detail['name'],txtColor: AppColor.primarycolorblack,size: 20,fontWeight: FontWeight.w600,overflow: TextOverflow.ellipsis,maxLine: 3),
                                 const SizedBox(height: 10),
-                                Text(widget.detail['price'], overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.themecolor, fontSize: 20, fontWeight: FontWeight.w500))
+                                /*Text(widget.detail['price'], overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.themecolor, fontSize: 20, fontWeight: FontWeight.w500))*/
+                                    AppText(text: widget.detail['price'],txtColor: AppColor.themecolor,size: 20,fontWeight: FontWeight.w500,overflow: TextOverflow.ellipsis),
                               ]))
                             ])))),
                 const SizedBox(height: 10),
@@ -109,7 +112,9 @@ class _LeVechProfileState extends State<LeVechProfile> {
                         child: Column(children: [
                           Padding(
                               padding: const EdgeInsets.symmetric(vertical: 8),
-                              child: Text(AppString.addLevech, style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w600))),
+                              child: /*Text(AppString.addLevech, style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w600))*/
+                              AppText(text: AppString.addLevech,txtColor: AppColor.primarycolorblack,size: 20,fontWeight: FontWeight.w600),
+                          ),
                           Divider(color: AppColor.txtfilled, thickness: 2),
                           const SizedBox(height: 10),
                           Padding(
@@ -125,7 +130,8 @@ class _LeVechProfileState extends State<LeVechProfile> {
                               ])),
                           const SizedBox(height: 10),
                           Divider(color: AppColor.txtfilled, thickness: 2),
-                          Text(widget.detail['item_type'], style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w600)),
+                          /*Text(widget.detail['item_type'], style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w600)),*/
+                          AppText(text: widget.detail['item_type'],txtColor: AppColor.primarycolorblack,size: 20,fontWeight: FontWeight.w600),
                           Divider(color: AppColor.txtfilled, thickness: 2),
                           Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -134,7 +140,9 @@ class _LeVechProfileState extends State<LeVechProfile> {
                                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: AppColor.txtfilled),
                                   child: Padding(
                                       padding: const EdgeInsets.all(20),
-                                      child: Text(widget.detail['detail'], style: TextStyle(color: AppColor.primarycolorblack, fontSize: 18, fontWeight: FontWeight.w500)))))
+                                      child: /*Text(widget.detail['detail'], style: TextStyle(color: AppColor.primarycolorblack, fontSize: 18, fontWeight: FontWeight.w500))*/
+                                      AppText(text: widget.detail['detail'],txtColor: AppColor.primarycolorblack,size: 18,fontWeight: FontWeight.w500),
+                                  )))
                         ])))
               ]))
         ]))));

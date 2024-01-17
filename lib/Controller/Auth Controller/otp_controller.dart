@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:le_vech/Widgets/app_text.dart';
+import 'package:le_vech/Widgets/color_const.dart';
 import 'package:le_vech/screens/Auth/noted_screen.dart';
 import 'package:le_vech/screens/Home%20Screen/home_screen.dart';
 import 'package:le_vech/utils/firebase_get.dart';
@@ -29,7 +31,7 @@ class OTPController extends GetxController {
       } else {
         isLoading.value = false;
 
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(backgroundColor: Colors.red, content: Center(child: Text('Invalid Otp', style: TextStyle(color: Colors.black)))));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(backgroundColor: Colors.red, content: Center(child: AppText(text: 'Invalid Otp', size: 14, txtColor: AppColor.primarycolorblack))));
       }
     } catch (e) {
       isLoading.value = false;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:le_vech/Widgets/app_text.dart';
 import 'color_const.dart';
 
 class AppButton extends StatefulWidget {
@@ -28,7 +29,8 @@ class _AppButtonState extends State<AppButton> {
             child: Center(
               child: widget.isLoad ?? false
                   ? Padding(padding: EdgeInsets.all(3.0), child: CircularProgressIndicator(color: AppColor.primarycolor))
-                  : Text(widget.buttontxt, style: TextStyle(color: AppColor.primarycolor, fontSize: 20, fontWeight: FontWeight.w500)),
+                  : /*Text(widget.buttontxt, style: TextStyle(color: AppColor.primarycolor, fontSize: 20, fontWeight: FontWeight.w500))*/
+                  AppText(text: widget.buttontxt, txtColor: AppColor.primarycolor, size: 20, fontWeight: FontWeight.w500),
             )));
   }
 }

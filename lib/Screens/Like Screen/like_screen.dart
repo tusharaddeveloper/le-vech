@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:le_vech/Controller/All%20Screen%20Controller/all_category_controller.dart';
 import 'package:le_vech/Controller/Like%20Controller/like_screen_controller.dart';
 import 'package:le_vech/Screens/Profile%20Screen/le_vech_profile.dart';
 import 'package:le_vech/Widgets/app_bar.dart';
@@ -8,7 +7,6 @@ import 'package:le_vech/Widgets/app_conts.dart';
 import 'package:le_vech/Widgets/app_text.dart';
 import 'package:le_vech/Widgets/app_textfieled.dart';
 import 'package:le_vech/Widgets/color_const.dart';
-import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/Widgets/string_const.dart';
 import 'package:le_vech/utils/firebase_get.dart';
 
@@ -75,22 +73,20 @@ class _ItemWidgetState extends State<ItemWidget> {
   LikeController likeController = Get.put(LikeController());
   //bool isIcon = true;
  // List<String> imageList = [AppImage.tractorEicher, AppImage.cow, AppImage.horse, AppImage.bike, AppImage.car];
-  List favListTemp = [];
+
 
   @override
   void initState() {
-    favListTemp = likeController.getWhereLike[widget.index]['fav_user'];
+    likeController.favListTemp.value = likeController.getWhereLike[widget.index]['fav_user'];
 
-    print(favListTemp);
+    print(likeController.favListTemp);
     super.initState();
   }
-
   @override
   void dispose() {
     likeController.getWhereLike.clear();
     super.dispose();
   }
-
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -139,18 +135,18 @@ class _ItemWidgetState extends State<ItemWidget> {
                                     notedController.favoriteList.add(allCategoryController.profileData[widget.index].id);
                                   }
                                   allCategoryController.addFavorite(context);*/
-                                  if (favListTemp.contains(userId)) {
-                                    favListTemp.remove(userId);
+                                  if (likeController.favListTemp.contains(userId)) {
+                                    likeController.favListTemp.remove(userId);
                                     print(userId);
                                   } else {
-                                    favListTemp.add(userId);
+                                    likeController.favListTemp.add(userId);
                                     print(userId);
                                   }
-                                  updateData('advertise', likeController.getWhereLike[widget.index].id, {'fav_user': favListTemp});
+                                  updateData('advertise', likeController.getWhereLike[widget.index].id, {'fav_user': likeController.favListTemp});
                                   setState(() {});
                                 },
-                                child: Icon(favListTemp.contains(userId)  ? Icons.favorite : Icons.favorite_border,
-                                    color: favListTemp.contains(userId) ? AppColor.iconColor : AppColor.primarycolorblack, size: 24))
+                                child: Icon(likeController.favListTemp.contains(userId)  ? Icons.favorite : Icons.favorite_border,
+                                    color: likeController.favListTemp.contains(userId) ? AppColor.iconColor : AppColor.primarycolorblack, size: 24))
                           ])
                         ]))
                   ]))));

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:le_vech/Controller/Profile%20Controller/profile_controller.dart';
+import 'package:le_vech/Widgets/app_text.dart';
 import 'package:le_vech/Widgets/color_const.dart';
 import 'package:le_vech/Widgets/string_const.dart';
 import 'package:le_vech/utils/firebase_get.dart';
@@ -40,19 +41,22 @@ class SendAddController extends GetxController {
         builder: (BuildContext context) {
           return AlertDialog(
               backgroundColor: AppColor.dialougeBoxColor,
-              title: Text(AppString.deleteItem, style: TextStyle(color: AppColor.primarycolor, fontSize: 26)),
-              content: SingleChildScrollView(child: ListBody(children: <Widget>[Text(AppString.deleteOption, style: TextStyle(color: AppColor.primarycolor, fontSize: 20))])),
+              title: AppText(text: AppString.deleteItem, txtColor: AppColor.primarycolor, size: 26),
+              content: SingleChildScrollView(
+                  child: ListBody(children: [
+                AppText(text: AppString.deleteOption, txtColor: AppColor.primarycolor, size: 20),
+              ])),
               actions: [
                 ElevatedButton(
-                    child: Text(AppString.yes, style: TextStyle(color: AppColor.dialougeBoxColor, fontSize: 18)),
+                    child: AppText(text: AppString.yes, txtColor: AppColor.dialougeBoxColor, size: 18),
                     onPressed: () {
                       deleteData(adsData[id].id);
-                      Navigator.of(context).pop(); // Dismiss the Dialog
+                      Navigator.of(context).pop();
                     }),
                 ElevatedButton(
-                    child: Text(AppString.no, style: TextStyle(color: AppColor.dialougeBoxColor, fontSize: 18)),
+                    child: AppText(text: AppString.no, txtColor: AppColor.dialougeBoxColor, size: 18),
                     onPressed: () {
-                      Navigator.of(context).pop(); // Navigate to login
+                      Navigator.of(context).pop();
                     }),
               ]);
         });

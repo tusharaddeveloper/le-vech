@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:le_vech/Controller/Auth%20Controller/login_controller.dart';
+import 'package:le_vech/Widgets/app_text.dart';
 import 'package:le_vech/Widgets/string_const.dart';
 import 'package:le_vech/screens/Home%20Screen/home_screen.dart';
 import 'package:le_vech/utils/firebase_get.dart';
@@ -147,14 +148,14 @@ class NotedController extends GetxController {
                   child: Wrap(children: [
             ListTile(
                 leading: const Icon(Icons.photo_library),
-                title: const Text('Photo Library'),
+                title:  /*Text('Photo Library')*/ AppText(text:'Photo Library',size: 14),
                 onTap: () {
                   selectImageFromGallery(context);
                   Navigator.of(context).pop();
                 }),
             ListTile(
                 leading: const Icon(Icons.photo_camera),
-                title: const Text('Camera'),
+                title:   AppText(text:'Camera',size: 14) ,
                 onTap: () {
                   selectImageFromCamera(context);
                   Navigator.of(context).pop();
