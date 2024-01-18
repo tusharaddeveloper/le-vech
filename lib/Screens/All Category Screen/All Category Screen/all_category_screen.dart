@@ -4,8 +4,11 @@ import 'package:le_vech/Controller/All%20Screen%20Controller/all_category_contro
 import 'package:le_vech/Controller/Auth%20Controller/noted_controller.dart';
 import 'package:le_vech/Screens/All%20Category%20Screen/Khet%20Pedash%20Levech/khet_pedash_screen.dart';
 import 'package:le_vech/Screens/All%20Category%20Screen/Tractor%20Screen/tractor_screen.dart';
+import 'package:le_vech/Screens/All%20Category%20Screen/available_Job_screen.dart';
+import 'package:le_vech/Screens/All%20Category%20Screen/bhangar_screen.dart';
 import 'package:le_vech/Screens/All%20Category%20Screen/electronic_item_screen.dart';
 import 'package:le_vech/Screens/All%20Category%20Screen/leptop_tv_computer_screen.dart';
+import 'package:le_vech/Screens/All%20Category%20Screen/mobile_screen.dart';
 import 'package:le_vech/Screens/Profile%20Screen/le_vech_profile.dart';
 import 'package:le_vech/Widgets/app_conts.dart';
 import 'package:le_vech/Widgets/app_text.dart';
@@ -98,35 +101,41 @@ class _AllCategoryScreenState extends State<AllCategoryScreen> {
                                 : allCategoryController.selectedItem.value == "ખેત પેદાશ લે - વેચ"
                                     ? const KhetPedashScreen()
                                     : allCategoryController.selectedItem.value == "લેપટોપ કમ્પ્યુટર ટીવી લે-વેચ"
-                                        ? LaptopTVComputerItemScreen()
+                                        ? const LaptopTVComputerItemScreen()
                                         : allCategoryController.selectedItem.value == "ઇલેક્ટ્રોનિક સાધનો લે-વેચ"
-                                            ? ElectronicItemScreen()
-                                            : allCategoryController.selectedItem.value == AppString.others
-                                                ? const OtherScreen()
-                                                : Padding(
-                                                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                                                    child: allCategoryController.isLodingData.value
-                                                        ? const CircularProgressIndicator()
-                                                        : allCategoryController.profileData.isNotEmpty
-                                                            ? GridView.builder(
-                                                                itemCount: allCategoryController.profileData.length,
-                                                                shrinkWrap: true,
-                                                                physics: const NeverScrollableScrollPhysics(),
-                                                                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                                                    crossAxisCount: 2, childAspectRatio: 4.8 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
-                                                                itemBuilder: (context, index) {
-                                                                  return ItemWidget(index: index);
-                                                                })
-                                                            : Container(
-                                                                height: 400,
-                                                                alignment: Alignment.center,
-                                                                child: AppText(
-                                                                  text: "કોઈ જાહેરાત નથી મળી.",
-                                                                  txtColor: AppColor.iconColor,
-                                                                  size: 22,
-                                                                  fontWeight: FontWeight.w500,
-                                                                  txtAlign: TextAlign.center,
-                                                                )))
+                                            ? const ElectronicItemScreen()
+                                            : allCategoryController.selectedItem.value == "નોકરી"
+                                                ? const AvailableJobScreen()
+                                                : allCategoryController.selectedItem.value == "મોબાઇલ લે-વેચ"
+                                                    ? const MobileScreen()
+                                                    : allCategoryController.selectedItem.value == "ભંગાર લે-વેચ"
+                                                        ? const BhangarScreen()
+                                                        : allCategoryController.selectedItem.value == AppString.others
+                                                            ? const OtherScreen()
+                                                            : Padding(
+                                                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                                                                child: allCategoryController.isLodingData.value
+                                                                    ? const CircularProgressIndicator()
+                                                                    : allCategoryController.profileData.isNotEmpty
+                                                                        ? GridView.builder(
+                                                                            itemCount: allCategoryController.profileData.length,
+                                                                            shrinkWrap: true,
+                                                                            physics: const NeverScrollableScrollPhysics(),
+                                                                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                                                                crossAxisCount: 2, childAspectRatio: 4.8 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
+                                                                            itemBuilder: (context, index) {
+                                                                              return ItemWidget(index: index);
+                                                                            })
+                                                                        : Container(
+                                                                            height: 400,
+                                                                            alignment: Alignment.center,
+                                                                            child: AppText(
+                                                                              text: "કોઈ જાહેરાત નથી મળી.",
+                                                                              txtColor: AppColor.iconColor,
+                                                                              size: 22,
+                                                                              fontWeight: FontWeight.w500,
+                                                                              txtAlign: TextAlign.center,
+                                                                            )))
           ]);
         }))));
   }
