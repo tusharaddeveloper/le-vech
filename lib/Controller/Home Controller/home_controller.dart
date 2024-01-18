@@ -73,8 +73,35 @@ class HomeController extends GetxController {
     "ખેત ઓજાર લે-વેચ",
     "પક્ષીઓ લે-વેચ",
     "બળદ લે-વેચ",
-    "કુતરા લે-વેચ"].obs;
-  RxList<String> imageList = [AppImage.allCategory, AppImage.tractorEicher, AppImage.cow, AppImage.horse, AppImage.bike, AppImage.car, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo].obs;
+    "કુતરા લે-વેચ"
+  ].obs;
+  RxList<String> imageList = [
+    AppImage.allCategory,
+    AppImage.tractorEicher,
+    AppImage.cow,
+    AppImage.horse,
+    AppImage.bike,
+    AppImage.car,
+    AppImage.imglogo,
+    AppImage.khetFasalImg,
+    "${AppImage.electricalItems}",
+    AppImage.leptopTVComputer,
+    AppImage.jobIcon,
+    AppImage.phoneLevecha,
+    AppImage.imglogo,
+    AppImage.jaminMakanPloat,
+    AppImage.biyaranlevech,
+    AppImage.imglogo,
+    AppImage.fruitsAndVegetables,
+    AppImage.narsarirRop,
+    AppImage.sheepAndBakra,
+    AppImage.sanedoImg,
+    AppImage.trecterOjar,
+    AppImage.khetOjarImg,
+    AppImage.imglogo,
+    AppImage.oxImages,
+    AppImage.dogImg
+  ].obs;
 
   // get MobileNo. in firebase
   setLogin(String mobileNo) async {

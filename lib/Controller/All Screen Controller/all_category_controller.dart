@@ -15,7 +15,33 @@ class AllCategoryController extends GetxController {
   RxBool isLodingData = false.obs;
   RxString selectedItem = ''.obs;
 
-  List<String> imageList = [AppImage.allCategory, AppImage.tractorEicher, AppImage.cow, AppImage.horse, AppImage.bike, AppImage.car, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo, AppImage.imglogo];
+  List<String> imageList = [
+    AppImage.allCategory,
+    AppImage.tractorEicher,
+    AppImage.cow,
+    AppImage.horse,
+    AppImage.bike,
+    AppImage.car,
+    AppImage.imglogo,
+    AppImage.khetFasalImg,
+    "${AppImage.electricalItems}",
+    AppImage.leptopTVComputer,
+    AppImage.jobIcon,
+    AppImage.phoneLevecha,
+    AppImage.imglogo,
+    AppImage.jaminMakanPloat,
+    AppImage.biyaranlevech,
+    AppImage.imglogo,
+    AppImage.fruitsAndVegetables,
+    AppImage.narsarirRop,
+    AppImage.sheepAndBakra,
+    AppImage.sanedoImg,
+    AppImage.trecterOjar,
+    AppImage.khetOjarImg,
+    AppImage.imglogo,
+    AppImage.oxImages,
+    AppImage.dogImg
+  ];
   List itemName = [
     AppString.allInfo,
     AppString.tractor,

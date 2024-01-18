@@ -115,10 +115,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                           width: double.infinity,
                                           decoration: BoxDecoration(
                                               borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8), topLeft: Radius.circular(8), topRight: Radius.circular(8)),
-                                              color: Colors.yellow,
+                                              color: AppColor.primarycolor,
                                               image: DecorationImage(
                                                 image: AssetImage(homeController.imageList[index]),
-                                                fit: BoxFit.cover,
+                                                fit: BoxFit.contain,
                                               ))),
                                     ),
                                     Expanded(
@@ -152,16 +152,16 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(80),
                               child: CachedNetworkImage(
-                                  height: 100,
-                                  width: 100,
+                                  height: 90,
+                                  width: 90,
                                   imageUrl: profileController.profileUrl.value,
-                                  placeholder: (context, url) => Image(image: AssetImage(AppImage.imglogo)),
-                                  errorWidget: (context, url, error) => Image(image: AssetImage(AppImage.imglogo)),
+                                  placeholder: (context, url) => Image(image: AssetImage(AppImage.blurLogoImg)),
+                                  errorWidget: (context, url, error) => Image(image: AssetImage(AppImage.blurLogoImg)),
                                   fit: BoxFit.cover),
                             )),
                         const SizedBox(width: 18),
                         profileController.profileUrl.value.isNotEmpty
-                            ? SizedBox(width: MediaQuery.of(context).size.width*0.30,
+                            ? SizedBox(width: MediaQuery.of(context).size.width*0.35,
 
                           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                                   Text("${profileController.nameController.value.text} ${profileController.surnameController.value.text}",

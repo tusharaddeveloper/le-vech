@@ -4,6 +4,8 @@ import 'package:le_vech/Controller/All%20Screen%20Controller/all_category_contro
 import 'package:le_vech/Controller/Auth%20Controller/noted_controller.dart';
 import 'package:le_vech/Screens/All%20Category%20Screen/Khet%20Pedash%20Levech/khet_pedash_screen.dart';
 import 'package:le_vech/Screens/All%20Category%20Screen/Tractor%20Screen/tractor_screen.dart';
+import 'package:le_vech/Screens/All%20Category%20Screen/electronic_item_screen.dart';
+import 'package:le_vech/Screens/All%20Category%20Screen/leptop_tv_computer_screen.dart';
 import 'package:le_vech/Screens/Profile%20Screen/le_vech_profile.dart';
 import 'package:le_vech/Widgets/app_conts.dart';
 import 'package:le_vech/Widgets/app_text.dart';
@@ -13,7 +15,7 @@ import 'package:le_vech/Screens/All%20Category%20Screen/Cow%20Screen/cow_screen.
 import 'package:le_vech/Screens/All%20Category%20Screen/Fourwheel%20Screen/four_wheel.dart';
 import 'package:le_vech/Screens/All%20Category%20Screen/Horse%20Screen/horse_screen.dart';
 import 'package:le_vech/Screens/All%20Category%20Screen/Other%20Screen/other_screen.dart';
-import 'package:le_vech/Screens/All%20Category%20Screen/Twowheel%20Screen/two_wheel.dart';
+import 'package:le_vech/Screens/All%20Category%20Screen/two_wheel.dart';
 import 'package:le_vech/Widgets/app_bar.dart';
 import 'package:le_vech/utils/firebase_get.dart';
 
@@ -68,57 +70,63 @@ class _AllCategoryScreenState extends State<AllCategoryScreen> {
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(6),
                                       border:
-                                      Border.all(color: allCategoryController.selectedItem.value == allCategoryController.itemName[index] ? AppColor.themecolor : AppColor.primarycolor, width: 3),
+                                          Border.all(color: allCategoryController.selectedItem.value == allCategoryController.itemName[index] ? AppColor.themecolor : AppColor.primarycolor, width: 3),
                                       color: AppColor.primarycolor),
                                   child: Column(children: [
-                                      Container(
-                                      height: 70,
-                                      width: 80,
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(6), image: DecorationImage(image: AssetImage(allCategoryController.imageList[index]), fit: BoxFit.cover))),
-                                  Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: AppText(text: allCategoryController.itemName[index],
-                                          size: 14,
-                                          fontWeight: FontWeight.w600,
-                                          txtAlign: TextAlign.center,
-                                          txtColor: AppColor.primarycolorblack))
-                                      ]))));
+                                    Container(
+                                        height: 70,
+                                        width: 80,
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(6), image: DecorationImage(image: AssetImage(allCategoryController.imageList[index]), fit: BoxFit.cover))),
+                                    Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: AppText(
+                                            text: allCategoryController.itemName[index], size: 14, fontWeight: FontWeight.w600, txtAlign: TextAlign.center, txtColor: AppColor.primarycolorblack))
+                                  ]))));
                     })),
             const SizedBox(height: 20),
             allCategoryController.selectedItem.value == AppString.tractor
                 ? const TractorScreen()
                 : allCategoryController.selectedItem.value == AppString.cow
-                ? const CowScreen()
-                : allCategoryController.selectedItem.value == AppString.horse
-                ? const HorseScreen()
-                : allCategoryController.selectedItem.value == AppString.twoWheel
-                ? const TwoWheel()
-                : allCategoryController.selectedItem.value == AppString.fourWheel
-                ? const FourWheel()
-                : allCategoryController.selectedItem.value == AppString.others
-                ? const OtherScreen()
-                :    allCategoryController.selectedItem.value == "ખેત પેદાશ લે - વેચ"
-                ? const KhetPedashScreen()
-                :  Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                child: allCategoryController.isLodingData.value
-                    ? const CircularProgressIndicator()
-                    : allCategoryController.profileData.isNotEmpty
-                    ? GridView.builder(
-                    itemCount: allCategoryController.profileData.length,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate:
-                    const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 4.8 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
-                    itemBuilder: (context, index) {
-                      return ItemWidget(index: index);
-                    })
-                    : Container(
-                    height: 400,
-                    alignment: Alignment.center,
-                    child:  AppText(text: "કોઈ જાહેરાત નથી મળી.",txtColor: AppColor.iconColor,size: 22,fontWeight: FontWeight.w500,txtAlign: TextAlign.center,)
-                  ))
+                    ? const CowScreen()
+                    : allCategoryController.selectedItem.value == AppString.horse
+                        ? const HorseScreen()
+                        : allCategoryController.selectedItem.value == AppString.twoWheel
+                            ? const TwoWheel()
+                            : allCategoryController.selectedItem.value == AppString.fourWheel
+                                ? const FourWheel()
+                                : allCategoryController.selectedItem.value == "ખેત પેદાશ લે - વેચ"
+                                    ? const KhetPedashScreen()
+                                    : allCategoryController.selectedItem.value == "લેપટોપ કમ્પ્યુટર ટીવી લે-વેચ"
+                                        ? LaptopTVComputerItemScreen()
+                                        : allCategoryController.selectedItem.value == "ઇલેક્ટ્રોનિક સાધનો લે-વેચ"
+                                            ? ElectronicItemScreen()
+                                            : allCategoryController.selectedItem.value == AppString.others
+                                                ? const OtherScreen()
+                                                : Padding(
+                                                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                                                    child: allCategoryController.isLodingData.value
+                                                        ? const CircularProgressIndicator()
+                                                        : allCategoryController.profileData.isNotEmpty
+                                                            ? GridView.builder(
+                                                                itemCount: allCategoryController.profileData.length,
+                                                                shrinkWrap: true,
+                                                                physics: const NeverScrollableScrollPhysics(),
+                                                                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                                                    crossAxisCount: 2, childAspectRatio: 4.8 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
+                                                                itemBuilder: (context, index) {
+                                                                  return ItemWidget(index: index);
+                                                                })
+                                                            : Container(
+                                                                height: 400,
+                                                                alignment: Alignment.center,
+                                                                child: AppText(
+                                                                  text: "કોઈ જાહેરાત નથી મળી.",
+                                                                  txtColor: AppColor.iconColor,
+                                                                  size: 22,
+                                                                  fontWeight: FontWeight.w500,
+                                                                  txtAlign: TextAlign.center,
+                                                                )))
           ]);
         }))));
   }
@@ -177,9 +185,7 @@ class _ItemWidgetState extends State<ItemWidget> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(6),
                               image: DecorationImage(
-                                image: NetworkImage(allCategoryController.profileData[widget.index]["item_img"][0]
-                                    .toString()
-                                    .isNotEmpty
+                                image: NetworkImage(allCategoryController.profileData[widget.index]["item_img"][0].toString().isNotEmpty
                                     ? allCategoryController.profileData[widget.index]["item_img"][0].toString()
                                     : "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
                                 fit: BoxFit.cover,
@@ -200,9 +206,16 @@ class _ItemWidgetState extends State<ItemWidget> {
                           const SizedBox(height: 10),
                           Row(children: [
                             Expanded(
-                                child: AppText(text: allCategoryController.profileData[widget.index]["price"],txtColor: AppColor.price,size: 16,fontWeight: FontWeight.w700,overflow: TextOverflow.ellipsis,)
-                              /*Text(allCategoryController.profileData[widget.index]["price"],
-                                    overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.price, fontSize: 16, fontWeight: FontWeight.w700))*/),
+                                child: AppText(
+                              text: allCategoryController.profileData[widget.index]["price"],
+                              txtColor: AppColor.price,
+                              size: 16,
+                              fontWeight: FontWeight.w700,
+                              overflow: TextOverflow.ellipsis,
+                            )
+                                /*Text(allCategoryController.profileData[widget.index]["price"],
+                                    overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.price, fontSize: 16, fontWeight: FontWeight.w700))*/
+                                ),
                             InkWell(
                                 onTap: () {
                                   /*if (notedController.favoriteList.contains(allCategoryController.profileData[widget.index].id)) {
