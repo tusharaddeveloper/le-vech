@@ -7,6 +7,8 @@ import 'package:le_vech/Screens/All%20Category%20Screen/Khet%20Pedash%20Levech/k
 import 'package:le_vech/Screens/All%20Category%20Screen/Tractor%20Screen/tractor_screen.dart';
 import 'package:le_vech/Screens/All%20Category%20Screen/available_Job_screen.dart';
 import 'package:le_vech/Screens/All%20Category%20Screen/bhangar_screen.dart';
+import 'package:le_vech/Screens/All%20Category%20Screen/bird_screen.dart';
+import 'package:le_vech/Screens/All%20Category%20Screen/dogs_screen.dart';
 import 'package:le_vech/Screens/All%20Category%20Screen/electronic_item_screen.dart';
 import 'package:le_vech/Screens/All%20Category%20Screen/fruits_vegetables_screen.dart';
 import 'package:le_vech/Screens/All%20Category%20Screen/kheti_ojar_screen.dart';
@@ -14,6 +16,7 @@ import 'package:le_vech/Screens/All%20Category%20Screen/leptop_tv_computer_scree
 import 'package:le_vech/Screens/All%20Category%20Screen/makan_dukan_ploat_screen.dart';
 import 'package:le_vech/Screens/All%20Category%20Screen/mobile_screen.dart';
 import 'package:le_vech/Screens/All%20Category%20Screen/narsari_rop_screen.dart';
+import 'package:le_vech/Screens/All%20Category%20Screen/ox_screen.dart';
 import 'package:le_vech/Screens/All%20Category%20Screen/sanedo_tractor_screen.dart';
 import 'package:le_vech/Screens/All%20Category%20Screen/sheep_goat_screen.dart';
 import 'package:le_vech/Screens/All%20Category%20Screen/tractor_ojar_screen.dart';
@@ -42,12 +45,13 @@ class AllCategoryScreen extends StatefulWidget {
 class _AllCategoryScreenState extends State<AllCategoryScreen> {
   AllCategoryController allCategoryController = Get.put(AllCategoryController());
 
-  //ScrollController controller = ScrollController();
+  ScrollController controller = ScrollController();
   @override
   void initState() {
     setState(() {
-      //  allCategoryController.selectedItem.value =controller.position.toString();
-      allCategoryController.selectedItem.value = widget.itemName;
+     //controller.position.jumpTo(8);
+       // allCategoryController.selectedItem.value =controller.position.toString();
+       allCategoryController.selectedItem.value = widget.itemName;
       allCategoryController.getAllads(context);
     });
     super.initState();
@@ -64,6 +68,8 @@ class _AllCategoryScreenState extends State<AllCategoryScreen> {
             SizedBox(
                 height: 132,
                 child: ListView.builder(
+                  
+                 // controller: controller,
                     itemCount: allCategoryController.imageList.length,
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
@@ -134,35 +140,41 @@ class _AllCategoryScreenState extends State<AllCategoryScreen> {
                                                                                     ? const TractorOjarScreen()
                                                                                     : allCategoryController.selectedItem.value == "ખેત ઓજાર લે-વેચ"
                                                                                         ? const KhetiOjarScreen()
-                                                                                        : allCategoryController.selectedItem.value == AppString.others
-                                                                                            ? const OtherScreen()
-                                                                                            : Padding(
-                                                                                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                                                                                                child: allCategoryController.isLodingData.value
-                                                                                                    ? const CircularProgressIndicator()
-                                                                                                    : allCategoryController.profileData.isNotEmpty
-                                                                                                        ? GridView.builder(
-                                                                                                            itemCount: allCategoryController.profileData.length,
-                                                                                                            shrinkWrap: true,
-                                                                                                            physics: const NeverScrollableScrollPhysics(),
-                                                                                                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                                                                                                crossAxisCount: 2,
-                                                                                                                childAspectRatio: 4.8 / 5.8,
-                                                                                                                crossAxisSpacing: 2,
-                                                                                                                mainAxisSpacing: 2),
-                                                                                                            itemBuilder: (context, index) {
-                                                                                                              return ItemWidget(index: index);
-                                                                                                            })
-                                                                                                        : Container(
-                                                                                                            height: 400,
-                                                                                                            alignment: Alignment.center,
-                                                                                                            child: AppText(
-                                                                                                              text: "કોઈ જાહેરાત નથી મળી.",
-                                                                                                              txtColor: AppColor.iconColor,
-                                                                                                              size: 22,
-                                                                                                              fontWeight: FontWeight.w500,
-                                                                                                              txtAlign: TextAlign.center,
-                                                                                                            )))
+                                                                                        : allCategoryController.selectedItem.value == "પક્ષીઓ લે-વેચ"
+                                                                                            ? const BirdScreen()
+                                                                                            : allCategoryController.selectedItem.value == "બળદ લે-વેચ"
+                                                                                                ? const OXScreen()
+                                                                                                : allCategoryController.selectedItem.value == "કુતરા લે-વેચ"
+                                                                                                    ? const DogsScreen()
+                                                                                                    : allCategoryController.selectedItem.value == AppString.others
+                                                                                                        ? const OtherScreen()
+                                                                                                        : Padding(
+                                                                                                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                                                                                                            child: allCategoryController.isLodingData.value
+                                                                                                                ? const CircularProgressIndicator()
+                                                                                                                : allCategoryController.profileData.isNotEmpty
+                                                                                                                    ? GridView.builder(
+                                                                                                                        itemCount: allCategoryController.profileData.length,
+                                                                                                                        shrinkWrap: true,
+                                                                                                                        physics: const NeverScrollableScrollPhysics(),
+                                                                                                                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                                                                                                            crossAxisCount: 2,
+                                                                                                                            childAspectRatio: 4.8 / 5.8,
+                                                                                                                            crossAxisSpacing: 2,
+                                                                                                                            mainAxisSpacing: 2),
+                                                                                                                        itemBuilder: (context, index) {
+                                                                                                                          return ItemWidget(index: index);
+                                                                                                                        })
+                                                                                                                    : Container(
+                                                                                                                        height: 400,
+                                                                                                                        alignment: Alignment.center,
+                                                                                                                        child: AppText(
+                                                                                                                          text: "કોઈ જાહેરાત નથી મળી.",
+                                                                                                                          txtColor: AppColor.iconColor,
+                                                                                                                          size: 22,
+                                                                                                                          fontWeight: FontWeight.w500,
+                                                                                                                          txtAlign: TextAlign.center,
+                                                                                                                        )))
           ]);
         }))));
   }
