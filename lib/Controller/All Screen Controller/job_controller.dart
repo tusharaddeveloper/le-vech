@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:le_vech/utils/firebase_get.dart';
 
 class JobController extends GetxController {
- // RxBool isIcon = true.obs;
+
   RxBool isLodingJob = false.obs;
   RxList<QueryDocumentSnapshot> getJob = <QueryDocumentSnapshot>[].obs;
   List favJobList = [];

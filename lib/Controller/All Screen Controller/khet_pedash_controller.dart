@@ -6,11 +6,10 @@ import 'package:le_vech/Widgets/string_const.dart';
 import 'package:le_vech/utils/firebase_get.dart';
 
 class KhetPedashController extends GetxController {
-  // RxBool isIcon = true.obs;
   RxBool isLodingKhetPedash = false.obs;
   RxList<QueryDocumentSnapshot> allSellkhetPedash = <QueryDocumentSnapshot>[].obs;
-  // RxBool isLoader = false.obs;
-  List favHorseList = [];
+
+  List favKhetPedashList = [];
 
   sellkhetPedash(BuildContext context) async {
     try {
@@ -19,7 +18,7 @@ class KhetPedashController extends GetxController {
 
       if (allSellkhetPedash.isNotEmpty) {
         for(int i=0;i<allSellkhetPedash.length;i++){
-          favHorseList.add(allSellkhetPedash[i]['fav_user']);
+          favKhetPedashList.add(allSellkhetPedash[i]['fav_user']);
         }
       } else {
         print("No Data Found");
