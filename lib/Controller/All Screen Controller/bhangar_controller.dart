@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:le_vech/utils/firebase_get.dart';
 
 class BhangarController extends GetxController {
-  //RxBool isIcon = true.obs;
+
   RxBool isLodingBhangar = false.obs;
   RxList<QueryDocumentSnapshot> sellBhangar = <QueryDocumentSnapshot>[].obs;
   List favBhangarList = [];

@@ -10,7 +10,7 @@ class AppImage {
   static String profileImage = "assets/images/profileimg.png";
   static String biyaranlevech = "assets/images/biyaran_leveche.png";
   static String electricalItems = "assets/images/electrical_items.jpg";
-  static String jaminMakanPloat = "assets/images/jamin_makan_Ploat.jpg";
+  static String jaminMakanPloat = "assets/images/jamin_makan_plot.jpg";
   static String jobIcon = "assets/images/jobicon.png";
   static String phoneLevecha = "assets/images/phone_levecha.png";
   static String khetaPedashItems = "assets/images/khetapedash_items.jpg";
@@ -25,4 +25,7 @@ class AppImage {
   static String narsarirRop = "assets/images/narsarirRop.jpeg";
   static String khetFasalImg = "assets/images/khetFasalImg.jpg";
   static String blurLogoImg = "assets/images/blurLogo.jpeg";
+  static String anya = "assets/images/anya.jpg";
+  static String bhangar = "assets/images/bhangar.png";
+  static String birds = "assets/images/birds.png";
 }

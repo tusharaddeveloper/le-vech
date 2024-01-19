@@ -1,26 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:le_vech/Controller/All%20Screen%20Controller/bhangar_controller.dart';
+import 'package:le_vech/Controller/All%20Screen%20Controller/sanedo_tractor_controller.dart';
 import 'package:le_vech/Widgets/app_conts.dart';
 import 'package:le_vech/Widgets/app_text.dart';
 import 'package:le_vech/Widgets/color_const.dart';
 import 'package:le_vech/screens/Profile%20Screen/le_vech_profile.dart';
 import 'package:le_vech/utils/firebase_get.dart';
 
-class BhangarScreen extends StatefulWidget {
-  const BhangarScreen({Key? key}) : super(key: key);
+class SanedoTractorScreen extends StatefulWidget {
+  const SanedoTractorScreen({Key? key}) : super(key: key);
 
   @override
-  State<BhangarScreen> createState() => _BhangarScreenState();
+  State<SanedoTractorScreen> createState() => _SanedoTractorScreenState();
 }
 
-class _BhangarScreenState extends State<BhangarScreen> {
-  BhangarController bhangarController = Get.put(BhangarController());
+class _SanedoTractorScreenState extends State<SanedoTractorScreen> {
+  
+  SanedoTractorController sanedoTractorController = Get.put(SanedoTractorController());
 
   @override
   void initState() {
     setState(() {});
-    bhangarController.sellAllBhangar(context);
+    sanedoTractorController.sellAllSanedoTractor(context);
     super.initState();
   }
 
@@ -29,11 +31,11 @@ class _BhangarScreenState extends State<BhangarScreen> {
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
         child: Obx(() {
-          return bhangarController.isLodingBhangar.value
+          return sanedoTractorController.isLodingSanedoTractor.value
               ? const CircularProgressIndicator()
-              : bhangarController.sellBhangar.isNotEmpty
+              : sanedoTractorController.sellSanedoTractor.isNotEmpty
                   ? GridView.builder(
-                      itemCount: bhangarController.sellBhangar.length,
+                      itemCount: sanedoTractorController.sellSanedoTractor.length,
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 4.8 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
@@ -57,19 +59,19 @@ class ItemWidget extends StatefulWidget {
 }
 
 class _ItemWidgetState extends State<ItemWidget> {
-  BhangarController bhangarController = Get.put(BhangarController());
-  List favBhangarTempList = [];
-
+  SanedoTractorController sanedoTractorController = Get.put(SanedoTractorController());
+  
+  List favsanedoTractorTempList = [];
   @override
   void initState() {
-    favBhangarTempList = bhangarController.favBhangarList[widget.index];
-    //  print(favTractorTempList);
+    favsanedoTractorTempList = sanedoTractorController.favSanedoTractorList[widget.index];
+
     super.initState();
   }
 
   @override
   void dispose() {
-    favBhangarTempList.clear();
+    favsanedoTractorTempList.clear();
     super.dispose();
   }
 
@@ -78,7 +80,7 @@ class _ItemWidgetState extends State<ItemWidget> {
     return Obx(() {
       return InkWell(
           onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => LeVechProfile(detail: bhangarController.sellBhangar[widget.index])));
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => LeVechProfile(detail: sanedoTractorController.sellSanedoTractor[widget.index])));
           },
           child: Card(
               elevation: 2,
@@ -96,38 +98,38 @@ class _ItemWidgetState extends State<ItemWidget> {
                             width: 140,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(6),
-                              image: DecorationImage(image: NetworkImage(bhangarController.sellBhangar[widget.index]["item_img"][0].toString().isNotEmpty
-                                  ? bhangarController.sellBhangar[widget.index]["item_img"][0].toString()
+                              image: DecorationImage(image: NetworkImage(sanedoTractorController.sellSanedoTractor[widget.index]["item_img"][0].toString().isNotEmpty
+                                  ? sanedoTractorController.sellSanedoTractor[widget.index]["item_img"][0].toString()
                                   : "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),fit: BoxFit.cover),
                             ))),
                     const SizedBox(height: 10),
                     Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12),
                         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                          AppText(text: bhangarController.sellBhangar[widget.index]["name"],txtColor: AppColor.primarycolorblack,size: 16,fontWeight: FontWeight.w600,overflow: TextOverflow.ellipsis),
+                          AppText(text: sanedoTractorController.sellSanedoTractor[widget.index]["name"],txtColor: AppColor.primarycolorblack,size: 16,fontWeight: FontWeight.w600,overflow: TextOverflow.ellipsis),
                           /*Text(twoWheelController.allSellTwoWheel[widget.index]["item_type"],
                               overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.primarycolorblack, fontSize: 16, fontWeight: FontWeight.w600)),*/
                           const SizedBox(height: 10),
                           Row(children: [
                             Expanded(
-                                child: Text(bhangarController.sellBhangar[widget.index]["price"],
+                                child: Text(sanedoTractorController.sellSanedoTractor[widget.index]["price"],
                                     overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.price, fontSize: 16, fontWeight: FontWeight.w700))),
                             InkWell(
                                 onTap: () {
-                                  if (favBhangarTempList.contains(userId)) {
-                                    favBhangarTempList.remove(userId);
+                                  if (favsanedoTractorTempList.contains(userId)) {
+                                    favsanedoTractorTempList.remove(userId);
                                   } else {
-                                    favBhangarTempList.add(userId);
+                                    favsanedoTractorTempList.add(userId);
                                   }
-                                  updateData('advertise', bhangarController.sellBhangar[widget.index].id, {'fav_user': favBhangarTempList});
+                                  updateData('advertise', sanedoTractorController.sellSanedoTractor[widget.index].id, {'fav_user': favsanedoTractorTempList});
                                   setState(() {});
                                 },
-                                child: Icon(favBhangarTempList.contains(userId) ? Icons.favorite : Icons.favorite_border,
-                                    color: favBhangarTempList.contains(userId) ? AppColor.iconColor : AppColor.primarycolorblack, size: 24))
+                                child: Icon(favsanedoTractorTempList.contains(userId) ? Icons.favorite : Icons.favorite_border,
+                                    color: favsanedoTractorTempList.contains(userId) ? AppColor.iconColor : AppColor.primarycolorblack, size: 24))
                           ])
                         ])),
                     const SizedBox(height: 5),
-                    AppText(text: bhangarController.sellBhangar[widget.index]["item_type"],txtColor: AppColor.grey700,size: 13),
+                    AppText(text: sanedoTractorController.sellSanedoTractor[widget.index]["item_type"],txtColor: AppColor.grey700,size: 13),
                   ]))));
     });
   }

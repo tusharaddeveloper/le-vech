@@ -9,9 +9,14 @@ import 'package:le_vech/Screens/All%20Category%20Screen/available_Job_screen.dar
 import 'package:le_vech/Screens/All%20Category%20Screen/bhangar_screen.dart';
 import 'package:le_vech/Screens/All%20Category%20Screen/electronic_item_screen.dart';
 import 'package:le_vech/Screens/All%20Category%20Screen/fruits_vegetables_screen.dart';
+import 'package:le_vech/Screens/All%20Category%20Screen/kheti_ojar_screen.dart';
 import 'package:le_vech/Screens/All%20Category%20Screen/leptop_tv_computer_screen.dart';
 import 'package:le_vech/Screens/All%20Category%20Screen/makan_dukan_ploat_screen.dart';
 import 'package:le_vech/Screens/All%20Category%20Screen/mobile_screen.dart';
+import 'package:le_vech/Screens/All%20Category%20Screen/narsari_rop_screen.dart';
+import 'package:le_vech/Screens/All%20Category%20Screen/sanedo_tractor_screen.dart';
+import 'package:le_vech/Screens/All%20Category%20Screen/sheep_goat_screen.dart';
+import 'package:le_vech/Screens/All%20Category%20Screen/tractor_ojar_screen.dart';
 import 'package:le_vech/Screens/Profile%20Screen/le_vech_profile.dart';
 import 'package:le_vech/Widgets/app_conts.dart';
 import 'package:le_vech/Widgets/app_text.dart';
@@ -119,32 +124,45 @@ class _AllCategoryScreenState extends State<AllCategoryScreen> {
                                                                 ? const BiyaranScreen()
                                                                 : allCategoryController.selectedItem.value == "ફળ શાકભાજી લે-વેચ"
                                                                     ? const FruitsVegetablesScreen()
-                                                                    : allCategoryController.selectedItem.value == AppString.others
-                                                                        ? const OtherScreen()
-                                                                        : Padding(
-                                                                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                                                                            child: allCategoryController.isLodingData.value
-                                                                                ? const CircularProgressIndicator()
-                                                                                : allCategoryController.profileData.isNotEmpty
-                                                                                    ? GridView.builder(
-                                                                                        itemCount: allCategoryController.profileData.length,
-                                                                                        shrinkWrap: true,
-                                                                                        physics: const NeverScrollableScrollPhysics(),
-                                                                                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                                                                            crossAxisCount: 2, childAspectRatio: 4.8 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
-                                                                                        itemBuilder: (context, index) {
-                                                                                          return ItemWidget(index: index);
-                                                                                        })
-                                                                                    : Container(
-                                                                                        height: 400,
-                                                                                        alignment: Alignment.center,
-                                                                                        child: AppText(
-                                                                                          text: "કોઈ જાહેરાત નથી મળી.",
-                                                                                          txtColor: AppColor.iconColor,
-                                                                                          size: 22,
-                                                                                          fontWeight: FontWeight.w500,
-                                                                                          txtAlign: TextAlign.center,
-                                                                                        )))
+                                                                    : allCategoryController.selectedItem.value == "નર્સરી રોપ લે-વેચ"
+                                                                        ? const NarsariRopScreen()
+                                                                        : allCategoryController.selectedItem.value == "ઘેટાં બકરાં લે-વેચ"
+                                                                            ? const SheepGoatScreen()
+                                                                            : allCategoryController.selectedItem.value == "સનેડો ટ્રેક્ટર લે-વેચ"
+                                                                                ? const SanedoTractorScreen()
+                                                                                : allCategoryController.selectedItem.value == "ટ્રેક્ટર ઓજાર લે-વેચ"
+                                                                                    ? const TractorOjarScreen()
+                                                                                    : allCategoryController.selectedItem.value == "ખેત ઓજાર લે-વેચ"
+                                                                                        ? const KhetiOjarScreen()
+                                                                                        : allCategoryController.selectedItem.value == AppString.others
+                                                                                            ? const OtherScreen()
+                                                                                            : Padding(
+                                                                                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                                                                                                child: allCategoryController.isLodingData.value
+                                                                                                    ? const CircularProgressIndicator()
+                                                                                                    : allCategoryController.profileData.isNotEmpty
+                                                                                                        ? GridView.builder(
+                                                                                                            itemCount: allCategoryController.profileData.length,
+                                                                                                            shrinkWrap: true,
+                                                                                                            physics: const NeverScrollableScrollPhysics(),
+                                                                                                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                                                                                                crossAxisCount: 2,
+                                                                                                                childAspectRatio: 4.8 / 5.8,
+                                                                                                                crossAxisSpacing: 2,
+                                                                                                                mainAxisSpacing: 2),
+                                                                                                            itemBuilder: (context, index) {
+                                                                                                              return ItemWidget(index: index);
+                                                                                                            })
+                                                                                                        : Container(
+                                                                                                            height: 400,
+                                                                                                            alignment: Alignment.center,
+                                                                                                            child: AppText(
+                                                                                                              text: "કોઈ જાહેરાત નથી મળી.",
+                                                                                                              txtColor: AppColor.iconColor,
+                                                                                                              size: 22,
+                                                                                                              fontWeight: FontWeight.w500,
+                                                                                                              txtAlign: TextAlign.center,
+                                                                                                            )))
           ]);
         }))));
   }
