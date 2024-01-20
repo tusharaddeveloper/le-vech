@@ -23,7 +23,7 @@ class HomeController extends GetxController {
     Icon(Icons.share, size: 28, color: AppColor.themecolor)
   ].obs;*/
 
-  RxList drowerName = [
+  RxList<String> drowerName = [
     AppString.allInfo,
     AppString.addInfo,
     AppString.like,

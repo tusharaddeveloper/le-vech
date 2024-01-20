@@ -20,7 +20,11 @@ class _AppButtonState extends State<AppButton> {
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          widget.onTap!();
+          if(widget.isLoad== false) {
+            widget.onTap!();
+          }else{
+            print("hahahahahahahahhahahahahahah");
+          }
         },
         child: Container(
             height: widget.height,

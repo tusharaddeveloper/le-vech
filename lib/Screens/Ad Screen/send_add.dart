@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:le_vech/Controller/Add%20Controller/send_add_controller.dart';
+import 'package:le_vech/Controller/send_add_controller.dart';
 import 'package:le_vech/Widgets/app_text.dart';
 import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/Widgets/app_bar.dart';

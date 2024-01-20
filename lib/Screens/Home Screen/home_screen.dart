@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:get/get.dart';
-import 'package:le_vech/Controller/Profile%20Controller/profile_controller.dart';
-import 'package:le_vech/Controller/Home%20Controller/home_controller.dart';
-import 'package:le_vech/Screens/All%20Category%20Screen/All%20Category%20Screen/all_category_screen.dart';
+import 'package:le_vech/Controller/profile_controller.dart';
+import 'package:le_vech/Controller/home_controller.dart';
+import 'package:le_vech/Screens/catrgory_item_screen.dart';
 import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/screens/Ad%20Screen/add_screen.dart';
 import 'package:le_vech/screens/Ad%20Screen/send_add.dart';
@@ -96,7 +96,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemBuilder: (context, index) {
                       return InkWell(
                           onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => AllCategoryScreen(itemName: homeController.itemName[index])));
+                           // Navigator.of(context).push(MaterialPageRoute(builder: (context) => AllCategoryScreen(itemName: homeController.itemName[index])));
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => CatrgoryItemScreen( selectedindex: index)));
                           },
                           child: Card(
                               elevation: 2,
@@ -118,7 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               color: AppColor.primarycolor,
                                               image: DecorationImage(
                                                 image: AssetImage(homeController.imageList[index]),
-                                                fit: BoxFit.contain,
+                                                fit: BoxFit.cover,
                                               ))),
                                     ),
                                     Expanded(

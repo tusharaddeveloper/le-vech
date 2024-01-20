@@ -42,7 +42,7 @@ class AppString {
   static String others = "અન્ય લે - વેચ ";
   static String myProfile = " મારી પ્રોફાઈલ  ";
 
-  static String allInfo = " બધી જાહેરાતો ";
+  static String allInfo = "બધી જાહેરાતો";
   static String addInfo = " તમારી જાહેરાત ઉમેરો ";
   static String like = " પસંદગી કરેલ ";
   static String youSendInfo = " તમે મુકેલી જાહેરાતો ";

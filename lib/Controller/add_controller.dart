@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:le_vech/Controller/Auth%20Controller/noted_controller.dart';
-import 'package:le_vech/Controller/Profile%20Controller/profile_controller.dart';
+import 'package:le_vech/Controller/profile_controller.dart';
 import 'package:le_vech/Widgets/app_text.dart';
 import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/Widgets/string_const.dart';

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
-import 'package:le_vech/Controller/Add%20Controller/add_controller.dart';
 import 'package:le_vech/Controller/Auth%20Controller/noted_controller.dart';
+import 'package:le_vech/Controller/add_controller.dart';
 import 'package:le_vech/Widgets/app_bar.dart';
 import 'package:le_vech/Widgets/app_button.dart';
 import 'package:le_vech/Widgets/app_text.dart';
