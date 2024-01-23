@@ -55,7 +55,7 @@ class HomeController extends GetxController {
     AppString.horse,
     AppString.twoWheel,
     AppString.fourWheel,
-    AppString.others,
+
     "ખેત પેદાશ લે - વેચ",
     "ઇલેક્ટ્રોનિક સાધનો લે-વેચ",
     "લેપટોપ કમ્પ્યુટર ટીવી લે-વેચ",
@@ -72,7 +72,8 @@ class HomeController extends GetxController {
     "ખેત ઓજાર લે-વેચ",
     "પક્ષીઓ લે-વેચ",
     "બળદ લે-વેચ",
-    "કુતરા લે-વેચ"
+    "કુતરા લે-વેચ",
+    AppString.others,
   ].obs;
   RxList<String> imageList = [
     AppImage.allCategory,
@@ -81,7 +82,7 @@ class HomeController extends GetxController {
     AppImage.horse,
     AppImage.bike,
     AppImage.car,
-    AppImage.anya,
+
     AppImage.khetFasalImg,
     "${AppImage.electricalItems}",
     AppImage.leptopTVComputer,
@@ -98,7 +99,8 @@ class HomeController extends GetxController {
     AppImage.khetOjarImg,
     AppImage.birds,
     AppImage.oxImages,
-    AppImage.dogImg
+    AppImage.dogImg,
+    AppImage.anya,
   ].obs;
 
   // get MobileNo. in firebase

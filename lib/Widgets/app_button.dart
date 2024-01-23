@@ -33,7 +33,7 @@ class _AppButtonState extends State<AppButton> {
             child: Center(
               child: widget.isLoad ?? false
                   ? Padding(padding: EdgeInsets.all(3.0), child: CircularProgressIndicator(color: AppColor.primarycolor))
-                  : /*Text(widget.buttontxt, style: TextStyle(color: AppColor.primarycolor, fontSize: 20, fontWeight: FontWeight.w500))*/
+                  :
                   AppText(text: widget.buttontxt, txtColor: AppColor.primarycolor, size: 20, fontWeight: FontWeight.w500),
             )));
   }

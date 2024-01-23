@@ -3,8 +3,10 @@ import 'package:get/get.dart';
 import 'package:le_vech/Controller/catrgory_item_controller.dart';
 import 'package:le_vech/Screens/Profile%20Screen/le_vech_profile.dart';
 import 'package:le_vech/Widgets/app_bar.dart';
+import 'package:le_vech/Widgets/app_conts.dart';
 import 'package:le_vech/Widgets/app_text.dart';
 import 'package:le_vech/Widgets/color_const.dart';
+import 'package:le_vech/utils/firebase_get.dart';
 
 class CatrgoryItemScreen extends StatefulWidget {
   CatrgoryItemScreen({super.key, this.selectedindex});
@@ -17,34 +19,24 @@ class CatrgoryItemScreen extends StatefulWidget {
 
 class _CatrgoryItemScreenState extends State<CatrgoryItemScreen> {
   CatrgoryItemController catrgoryItemController = Get.put(CatrgoryItemController());
-  ScrollController controller = ScrollController();
+  List favListCatrgoryItemTemp = [];
 
   @override
   void initState() {
     if (widget.selectedindex == 0) {
       catrgoryItemController.allCategoryItem(context);
-
-        animateToIndex();
-
-
+      catrgoryItemController.animateToIndex();
     } else {
       catrgoryItemController.categoryItem(context, catrgoryItemController.itemName[widget.selectedindex!]);
-
-
-        animateToIndex();
-
+      catrgoryItemController.animateToIndex();
     }
     super.initState();
   }
 
-  animateToIndex() {
-    if (controller.hasClients) {
-      Future.delayed(Duration(milliseconds: 500), () {
-        controller.position.jumpTo(widget.selectedindex! * 116);
-      });
-
-    }
-
+  @override
+  void dispose() {
+    favListCatrgoryItemTemp.clear();
+    super.dispose();
   }
 
   @override
@@ -56,7 +48,7 @@ class _CatrgoryItemScreenState extends State<CatrgoryItemScreen> {
           SizedBox(
               height: 132,
               child: ListView.builder(
-                  controller: controller,
+                  controller: catrgoryItemController.controller,
                   itemCount: catrgoryItemController.imageList.length,
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
@@ -126,12 +118,9 @@ class _CatrgoryItemScreenState extends State<CatrgoryItemScreen> {
                                                   decoration: BoxDecoration(
                                                     borderRadius: BorderRadius.circular(6),
                                                     image: DecorationImage(
-                                                        image: NetworkImage(
-                                                            /*catrgoryItemController.allSellCow[0]["item_img"][0].toString().isNotEmpty
-                                                ?
-                                                :*/ /*  catrgoryItemController.allSellCow[0]["item_img"].toString().isNotEmpty?*/ catrgoryItemController
-                                                                .allSellCow[index]["item_img"][0]
-                                                                .toString() /*:"https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"*/),
+                                                        image: NetworkImage(catrgoryItemController.allSellCow[index]["item_img"][0].toString().isNotEmpty
+                                                            ? catrgoryItemController.allSellCow[index]["item_img"][0].toString()
+                                                            : "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
                                                         fit: BoxFit.cover),
                                                   ))),
                                           const SizedBox(height: 10),
@@ -156,15 +145,16 @@ class _CatrgoryItemScreenState extends State<CatrgoryItemScreen> {
                                                   ),
                                                   InkWell(
                                                       onTap: () {
-                                                        /*if (favDogsTempList.contains(userId)) {
-                                                  favDogsTempList.remove(userId);
-                                                } else {
-                                                  favDogsTempList.add(userId);
-                                                }
-                                                updateData('advertise', dogsController.sellDogs[widget.index].id, {'fav_user': favDogsTempList});
-                                                setState(() {});*/
+                                                        if (favListCatrgoryItemTemp.contains(userId)) {
+                                                          favListCatrgoryItemTemp.remove(userId);
+                                                        } else {
+                                                          favListCatrgoryItemTemp.add(userId);
+                                                        }
+                                                        updateData('advertise', catrgoryItemController.allSellCow[index].id, {'fav_user': favListCatrgoryItemTemp});
+                                                        setState(() {});
                                                       },
-                                                      child: Icon(/*favDogsTempList.contains(userId)*/ Icons.favorite, color: AppColor.iconColor, size: 24))
+                                                      child: Icon(favListCatrgoryItemTemp.contains(userId) ? Icons.favorite : Icons.favorite_border,
+                                                          color: favListCatrgoryItemTemp.contains(userId) ? AppColor.iconColor : AppColor.primarycolorblack, size: 24))
                                                 ])
                                               ])),
                                           const SizedBox(height: 5),

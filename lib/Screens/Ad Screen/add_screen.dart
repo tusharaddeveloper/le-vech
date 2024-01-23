@@ -86,7 +86,7 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                     AppString.horse,
                     AppString.twoWheel,
                     AppString.fourWheel,
-                    AppString.others,
+
                     "ખેત પેદાશ લે - વેચ",
                     "ઇલેક્ટ્રોનિક સાધનો લે-વેચ",
                     "લેપટોપ કમ્પ્યુટર ટીવી લે-વેચ",
@@ -103,7 +103,7 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                     "ખેત ઓજાર લે-વેચ",
                     "પક્ષીઓ લે-વેચ",
                     "બળદ લે-વેચ",
-                    "કુતરા લે-વેચ"],
+                    "કુતરા લે-વેચ",AppString.others],
                   dropdownvalue: addController.selectItem,
                   onTap: (String value) {
                     setState(() {
