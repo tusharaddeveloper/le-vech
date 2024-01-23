@@ -47,15 +47,16 @@ class SendAddController extends GetxController {
                 AppText(text: AppString.deleteOption, txtColor: AppColor.primarycolor, size: 20),
               ])),
               actions: [
+
+                ElevatedButton(
+                    child: AppText(text: AppString.no, txtColor: AppColor.dialougeBoxColor, size: 18),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    }),
                 ElevatedButton(
                     child: AppText(text: AppString.yes, txtColor: AppColor.dialougeBoxColor, size: 18),
                     onPressed: () {
                       deleteData(adsData[id].id);
-                      Navigator.of(context).pop();
-                    }),
-                ElevatedButton(
-                    child: AppText(text: AppString.no, txtColor: AppColor.dialougeBoxColor, size: 18),
-                    onPressed: () {
                       Navigator.of(context).pop();
                     }),
               ]);

@@ -20,16 +20,18 @@ class CatrgoryItemScreen extends StatefulWidget {
 class _CatrgoryItemScreenState extends State<CatrgoryItemScreen> {
   CatrgoryItemController catrgoryItemController = Get.put(CatrgoryItemController());
   List favListCatrgoryItemTemp = [];
+  ScrollController controller = ScrollController();
 
   @override
   void initState() {
     if (widget.selectedindex == 0) {
       catrgoryItemController.allCategoryItem(context);
-      catrgoryItemController.animateToIndex();
+      animateToIndex();
     } else {
       catrgoryItemController.categoryItem(context, catrgoryItemController.itemName[widget.selectedindex!]);
-      catrgoryItemController.animateToIndex();
+      animateToIndex();
     }
+    //favListCatrgoryItemTemp = catrgoryItemController.favCategoryItemList[catrgoryItemController.allSellCow.length];
     super.initState();
   }
 
@@ -37,6 +39,14 @@ class _CatrgoryItemScreenState extends State<CatrgoryItemScreen> {
   void dispose() {
     favListCatrgoryItemTemp.clear();
     super.dispose();
+  }
+
+  animateToIndex() {
+    if (controller.hasClients) {
+      Future.delayed(Duration(milliseconds: 500), () {
+        controller.position.jumpTo(widget.selectedindex! * 116);
+      });
+    }
   }
 
   @override
@@ -48,7 +58,7 @@ class _CatrgoryItemScreenState extends State<CatrgoryItemScreen> {
           SizedBox(
               height: 132,
               child: ListView.builder(
-                  controller: catrgoryItemController.controller,
+                  controller: controller,
                   itemCount: catrgoryItemController.imageList.length,
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
@@ -56,7 +66,6 @@ class _CatrgoryItemScreenState extends State<CatrgoryItemScreen> {
                     return InkWell(
                         onTap: () async {
                           widget.selectedindex = index;
-
                           if (widget.selectedindex == 0) {
                             catrgoryItemController.allCategoryItem(context);
                           } else {
@@ -116,13 +125,12 @@ class _CatrgoryItemScreenState extends State<CatrgoryItemScreen> {
                                                   height: 100,
                                                   width: 140,
                                                   decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(6),
-                                                    image: DecorationImage(
-                                                        image: NetworkImage(catrgoryItemController.allSellCow[index]["item_img"][0].toString().isNotEmpty
-                                                            ? catrgoryItemController.allSellCow[index]["item_img"][0].toString()
-                                                            : "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
-                                                        fit: BoxFit.cover),
-                                                  ))),
+                                                      borderRadius: BorderRadius.circular(6),
+                                                      image: DecorationImage(
+                                                          image: NetworkImage(catrgoryItemController.allSellCow[index]["item_img"][0].toString().isNotEmpty
+                                                              ? catrgoryItemController.allSellCow[index]["item_img"][0].toString()
+                                                              : "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
+                                                          fit: BoxFit.cover)))),
                                           const SizedBox(height: 10),
                                           Padding(
                                               padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -136,13 +144,12 @@ class _CatrgoryItemScreenState extends State<CatrgoryItemScreen> {
                                                 const SizedBox(height: 10),
                                                 Row(children: [
                                                   Expanded(
-                                                    child: AppText(
-                                                        text: catrgoryItemController.allSellCow[index]["price"],
-                                                        txtColor: AppColor.primarycolorblack,
-                                                        size: 16,
-                                                        fontWeight: FontWeight.w600,
-                                                        overflow: TextOverflow.ellipsis),
-                                                  ),
+                                                      child: AppText(
+                                                          text: catrgoryItemController.allSellCow[index]["price"],
+                                                          txtColor: AppColor.primarycolorblack,
+                                                          fontWeight: FontWeight.w600,
+                                                          overflow: TextOverflow.ellipsis,
+                                                          size: 16)),
                                                   InkWell(
                                                       onTap: () {
                                                         if (favListCatrgoryItemTemp.contains(userId)) {

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:le_vech/Controller/send_add_controller.dart';
 import 'package:le_vech/Widgets/app_text.dart';
-import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/Widgets/app_bar.dart';
 import 'package:le_vech/Widgets/color_const.dart';
 import 'package:le_vech/Widgets/string_const.dart';
@@ -103,12 +102,14 @@ class _SendAddState extends State<SendAdd> {
                                                     Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                                                       /*Text(sendAddController.adsData[index]['price'],
                                                             overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.priceclr, fontSize: 18, fontWeight: FontWeight.w500)),*/
-                                                      AppText(
-                                                          text: sendAddController.adsData[index]['price'],
-                                                          txtColor: AppColor.priceclr,
-                                                          size: 18,
-                                                          fontWeight: FontWeight.w500,
-                                                          overflow: TextOverflow.ellipsis),
+                                                      Expanded(
+                                                        child: AppText(
+                                                            text: sendAddController.adsData[index]['price'],
+                                                            txtColor: AppColor.priceclr,
+                                                            size: 18,
+                                                            fontWeight: FontWeight.w500,
+                                                            overflow: TextOverflow.ellipsis),
+                                                      ),
                                                       InkWell(
                                                           onTap: () {
                                                             sendAddController.logOut(context, index);

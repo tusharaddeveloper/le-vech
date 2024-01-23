@@ -80,7 +80,7 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             child: Column(children: [
               DropDown(
-                  items: [ AppString.allInfo,
+                  items: [
                     AppString.tractor,
                     AppString.cow,
                     AppString.horse,
