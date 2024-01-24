@@ -11,7 +11,7 @@ class CatrgoryItemController extends GetxController {
   RxList<QueryDocumentSnapshot> allSellCow = <QueryDocumentSnapshot>[].obs;
   RxBool isLodingData = false.obs;
   List favCategoryItemList = [];
-
+  ScrollController controller = ScrollController();
 
   List<String> imageList = [
     AppImage.allCategory,
@@ -66,7 +66,22 @@ class CatrgoryItemController extends GetxController {
     AppString.others,
   ];
 
+  animateToIndex(int index) {
+    if (controller.hasClients) {
+      controller.position.jumpTo(index * 116);
+    }
+  }
 
+  Future  runData(BuildContext context,int index) async {
+    print(index);
+    if (index == 0) {
+      allCategoryItem(context);
+      await animateToIndex( index);
+    } else {
+      categoryItem(context,itemName[index]);
+      await animateToIndex(index);
+    }
+  }
 
   categoryItem(BuildContext context, String categrish) async {
     try {

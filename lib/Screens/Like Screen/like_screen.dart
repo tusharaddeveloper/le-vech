@@ -28,35 +28,37 @@ class _LikeScreenState extends State<LikeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      return Scaffold(
-          backgroundColor: AppColor.txtfilled,
-          body: SafeArea(
-              child: SingleChildScrollView(
-                  child: Column(children: [
-            AppBarWidget(height: 130, width: double.infinity, isLogo: false, info: AppString.like),
-            const SizedBox(height: 20),
-            Padding(padding: const EdgeInsets.symmetric(horizontal: 8), child: AppTextField(txtValue: AppString.searchBar, prefixIcon: Icons.search)),
-            const SizedBox(height: 20),
-            Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                child: likeController.isLodingData.value
-                    ? const CircularProgressIndicator()
-                    :likeController.getWhereLike.isNotEmpty? GridView.builder(
-                        itemCount: likeController.getWhereLike.length,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 4.8 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
-                        itemBuilder: (context, index) {
-                          return ItemWidget(index: index);
-                        })
-                    : Container(
-                        height: 400,
-                        alignment: Alignment.center,
-                    child: AppText(text: "કોઈ જાહેરાત નથી મળી.",txtColor: AppColor.iconColor,size: 22,fontWeight: FontWeight.w500,txtAlign: TextAlign.center))
-            )
-          ]))));
-    });
+    return Scaffold(
+        backgroundColor: AppColor.txtfilled,
+        body: SafeArea(
+            child: Obx(() {
+              return SingleChildScrollView(
+                child: Column(children: [
+                  AppBarWidget(height: 130, width: double.infinity, isLogo: false, info: AppString.like),
+                  const SizedBox(height: 20),
+                  Padding(padding: const EdgeInsets.symmetric(horizontal: 8), child: AppTextField(txtValue: AppString.searchBar, prefixIcon: Icons.search)),
+                  const SizedBox(height: 20),
+                  Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                      child: likeController.isLodingData.value
+                          ? const CircularProgressIndicator()
+                          :likeController.getWhereLike.isNotEmpty
+                          ? GridView.builder(
+                          itemCount: likeController.getWhereLike.length,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 4.8 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
+                          itemBuilder: (context, index) {
+                            return ItemWidget(index: index);
+                          })
+                          : Container(
+                          height: 400,
+                          alignment: Alignment.center,
+                          child: AppText(text: "કોઈ જાહેરાત નથી મળી.",txtColor: AppColor.iconColor,size: 22,fontWeight: FontWeight.w500,txtAlign: TextAlign.center))
+                  )
+                ]),
+              );
+            })));
   }
 }
 
@@ -71,22 +73,20 @@ class ItemWidget extends StatefulWidget {
 
 class _ItemWidgetState extends State<ItemWidget> {
   LikeController likeController = Get.put(LikeController());
-  //bool isIcon = true;
- // List<String> imageList = [AppImage.tractorEicher, AppImage.cow, AppImage.horse, AppImage.bike, AppImage.car];
 
-
-  @override
+   @override
   void initState() {
-    likeController.favListTemp.value = likeController.getWhereLike[widget.index]['fav_user'];
-
+    likeController.favListTemp = likeController.getWhereLike[widget.index]['fav_user'];
     print(likeController.favListTemp);
     super.initState();
   }
+
   @override
   void dispose() {
     likeController.getWhereLike.clear();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -110,7 +110,9 @@ class _ItemWidgetState extends State<ItemWidget> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(6),
                               image: DecorationImage(
-                                image: NetworkImage(likeController.getWhereLike[widget.index]["item_img"][0].toString().isNotEmpty
+                                image: NetworkImage(likeController.getWhereLike[widget.index]["item_img"][0]
+                                    .toString()
+                                    .isNotEmpty
                                     ? likeController.getWhereLike[widget.index]["item_img"][0].toString()
                                     : "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
                                 fit: BoxFit.cover,
@@ -120,21 +122,24 @@ class _ItemWidgetState extends State<ItemWidget> {
                     Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12),
                         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                          /*Text(likeController.getWhereLike[widget.index]["item_type"],overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.primarycolorblack, fontSize: 16, fontWeight: FontWeight.w600)),*/
-                           AppText(text: likeController.getWhereLike[widget.index]["item_type"],txtColor: AppColor.primarycolorblack,size: 16,fontWeight: FontWeight.w600,txtAlign: TextAlign.center,overflow: TextOverflow.ellipsis),
+                          AppText(text: likeController.getWhereLike[widget.index]["item_type"],
+                              txtColor: AppColor.primarycolorblack,
+                              size: 16,
+                              fontWeight: FontWeight.w600,
+                              txtAlign: TextAlign.center,
+                              overflow: TextOverflow.ellipsis),
                           const SizedBox(height: 10),
                           Row(children: [
                             Expanded(
-                                child:  AppText(text: likeController.getWhereLike[widget.index]["price"],overflow: TextOverflow.ellipsis,txtColor: AppColor.price,size: 16,fontWeight: FontWeight.w700),
-                              /*Text(likeController.getWhereLike[widget.index]["price"], overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.price, fontSize: 16, fontWeight: FontWeight.w700))*/),
+                              child: AppText(text: likeController.getWhereLike[widget.index]["price"],
+                                  overflow: TextOverflow.ellipsis,
+                                  txtColor: AppColor.price,
+                                  size: 16,
+                                  fontWeight: FontWeight.w700)
+                              ),
                             InkWell(
                                 onTap: () {
-                                  /*if (notedController.favoriteList.contains(allCategoryController.profileData[widget.index].id)) {
-                                    notedController.favoriteList.remove(allCategoryController.profileData[widget.index].id);
-                                  } else {
-                                    notedController.favoriteList.add(allCategoryController.profileData[widget.index].id);
-                                  }
-                                  allCategoryController.addFavorite(context);*/
+
                                   if (likeController.favListTemp.contains(userId)) {
                                     likeController.favListTemp.remove(userId);
                                     print(userId);
@@ -143,9 +148,9 @@ class _ItemWidgetState extends State<ItemWidget> {
                                     print(userId);
                                   }
                                   updateData('advertise', likeController.getWhereLike[widget.index].id, {'fav_user': likeController.favListTemp});
-                                  setState(() {});
+                                 setState(() {});
                                 },
-                                child: Icon(likeController.favListTemp.contains(userId)  ? Icons.favorite : Icons.favorite_border,
+                                child: Icon(likeController.favListTemp.contains(userId) ? Icons.favorite : Icons.favorite_border,
                                     color: likeController.favListTemp.contains(userId) ? AppColor.iconColor : AppColor.primarycolorblack, size: 24))
                           ])
                         ]))
@@ -153,3 +158,4 @@ class _ItemWidgetState extends State<ItemWidget> {
     });
   }
 }
+

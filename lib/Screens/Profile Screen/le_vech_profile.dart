@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:le_vech/Controller/profile_controller.dart';
+import 'package:le_vech/Screens/Profile%20Screen/sell_profile_images.dart';
 import 'package:le_vech/Widgets/app_bar.dart';
 import 'package:le_vech/Widgets/app_text.dart';
 import 'package:le_vech/Widgets/app_textfieled.dart';
@@ -20,7 +21,6 @@ class LeVechProfile extends StatefulWidget {
 }
 
 class _LeVechProfileState extends State<LeVechProfile> {
-
   ProfileController profileController = Get.put(ProfileController());
 
   @override
@@ -29,9 +29,9 @@ class _LeVechProfileState extends State<LeVechProfile> {
     super.initState();
   }
 
-   setData(){
+  setData() {
     setState(() {
-      profileController. levechImageList = widget.detail["item_img"];
+      profileController.levechImageList = widget.detail["item_img"];
     });
   }
 
@@ -48,23 +48,27 @@ class _LeVechProfileState extends State<LeVechProfile> {
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
               child: Column(children: [
                 CarouselSlider(
-                    options: CarouselOptions(height: 190, autoPlay: false,enableInfiniteScroll: false, autoPlayInterval: const Duration(seconds: 2), aspectRatio: 16 / 9, viewportFraction: 1),
+                    options: CarouselOptions(height: 190, autoPlay: false, enableInfiniteScroll: false, autoPlayInterval: const Duration(seconds: 2), aspectRatio: 16 / 9, viewportFraction: 1),
                     items: profileController.levechImageList.map((i) {
                       return Builder(builder: (BuildContext context) {
-                        return Column(children: [
-                          Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 8),
-                              child: Container(
-                                  height: 190,
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(30),
-                                    image: DecorationImage(image: NetworkImage(i), fit: BoxFit.cover),
-                                  )))
-                        ]);
+                        return InkWell(
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => SellProfileImages(image: profileController.levechImageList.toList())));
+                          },
+                          child: Column(children: [
+                            Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 8),
+                                child: Container(
+                                    height: 190,
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30),
+                                      image: DecorationImage(image: NetworkImage(i), fit: BoxFit.cover),
+                                    )))
+                          ]),
+                        );
                       });
                     }).toList()),
-
                 const SizedBox(height: 20),
                 Card(
                     elevation: 3,
@@ -76,30 +80,29 @@ class _LeVechProfileState extends State<LeVechProfile> {
                             padding: const EdgeInsets.symmetric(horizontal: 8.0),
                             child: Row(children: [
                               Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
                                 child: Container(
                                     height: 90,
                                     width: 90,
                                     decoration: const BoxDecoration(shape: BoxShape.circle),
                                     child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(80),
-                                        child:  CachedNetworkImage(
-                                            height: 100,
-                                            width: 100,
-                                            imageUrl: profileController.profileUrl.value,
-                                            placeholder: (context, url) => const Image(image: AssetImage('assets/images/logops.jpg')),
-                                            errorWidget: (context, url, error) => const Image(image: AssetImage('assets/images/logops.jpg')),
-                                            fit: BoxFit.cover),)),
+                                      borderRadius: BorderRadius.circular(80),
+                                      child: CachedNetworkImage(
+                                          height: 100,
+                                          width: 100,
+                                          imageUrl: profileController.profileUrl.value,
+                                          placeholder: (context, url) => const Image(image: AssetImage('assets/images/logops.jpg')),
+                                          errorWidget: (context, url, error) => const Image(image: AssetImage('assets/images/logops.jpg')),
+                                          fit: BoxFit.cover),
+                                    )),
                               ),
-                              const SizedBox(width: 20),
+                              const SizedBox(width: 10),
                               Expanded(
                                   child: Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.start, children: [
-                               /* Text(widget.detail['name'],
-                                    overflow: TextOverflow.ellipsis, maxLines: 3, style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w600)),*/
-                                    AppText(text: widget.detail['name'],txtColor: AppColor.primarycolorblack,size: 20,fontWeight: FontWeight.w600,overflow: TextOverflow.ellipsis,maxLine: 3),
+                                AppText(
+                                    text: "Name:- ${widget.detail['name']}", txtColor: AppColor.primarycolorblack, size: 18, fontWeight: FontWeight.w600, overflow: TextOverflow.ellipsis, maxLine: 2),
                                 const SizedBox(height: 10),
-                                /*Text(widget.detail['price'], overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.themecolor, fontSize: 20, fontWeight: FontWeight.w500))*/
-                                    AppText(text: widget.detail['price'],txtColor: AppColor.themecolor,size: 20,fontWeight: FontWeight.w500,overflow: TextOverflow.ellipsis),
+                                AppText(text: "₹  ${widget.detail['price']}", txtColor: AppColor.themecolor, size: 16, fontWeight: FontWeight.w500, overflow: TextOverflow.ellipsis),
                               ]))
                             ])))),
                 const SizedBox(height: 10),
@@ -111,9 +114,8 @@ class _LeVechProfileState extends State<LeVechProfile> {
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
                         child: Column(children: [
                           Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 8),
-                              child: /*Text(AppString.addLevech, style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w600))*/
-                              AppText(text: AppString.addLevech,txtColor: AppColor.primarycolorblack,size: 20,fontWeight: FontWeight.w600),
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            child: AppText(text: AppString.addLevech, txtColor: AppColor.primarycolorblack, size: 20, fontWeight: FontWeight.w600),
                           ),
                           Divider(color: AppColor.txtfilled, thickness: 2),
                           const SizedBox(height: 10),
@@ -131,7 +133,7 @@ class _LeVechProfileState extends State<LeVechProfile> {
                           const SizedBox(height: 10),
                           Divider(color: AppColor.txtfilled, thickness: 2),
                           /*Text(widget.detail['item_type'], style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w600)),*/
-                          AppText(text: widget.detail['item_type'],txtColor: AppColor.primarycolorblack,size: 20,fontWeight: FontWeight.w600),
+                          AppText(text: widget.detail['item_type'], txtColor: AppColor.primarycolorblack, size: 20, fontWeight: FontWeight.w600),
                           Divider(color: AppColor.txtfilled, thickness: 2),
                           Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -139,9 +141,9 @@ class _LeVechProfileState extends State<LeVechProfile> {
                                   width: double.infinity,
                                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: AppColor.txtfilled),
                                   child: Padding(
-                                      padding: const EdgeInsets.all(20),
-                                      child: /*Text(widget.detail['detail'], style: TextStyle(color: AppColor.primarycolorblack, fontSize: 18, fontWeight: FontWeight.w500))*/
-                                      AppText(text: widget.detail['detail'],txtColor: AppColor.primarycolorblack,size: 18,fontWeight: FontWeight.w500),
+                                    padding: const EdgeInsets.all(20),
+                                    child: /*Text(widget.detail['detail'], style: TextStyle(color: AppColor.primarycolorblack, fontSize: 18, fontWeight: FontWeight.w500))*/
+                                        AppText(text: widget.detail['detail'], txtColor: AppColor.primarycolorblack, size: 18, fontWeight: FontWeight.w500),
                                   )))
                         ])))
               ]))

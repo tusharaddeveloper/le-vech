@@ -5,7 +5,7 @@ import 'package:le_vech/utils/firebase_get.dart';
 
 class LikeController extends GetxController {
   RxBool isLodingData = false.obs;
-   RxList favListTemp = [].obs;
+   List favListTemp = [];
 
   RxList<QueryDocumentSnapshot> getWhereLike = <QueryDocumentSnapshot>[].obs;
   RxList<QueryDocumentSnapshot> profileData = <QueryDocumentSnapshot>[].obs;

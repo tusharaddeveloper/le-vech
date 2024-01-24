@@ -34,8 +34,7 @@ class _SendAddState extends State<SendAdd> {
             Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  // Text("AppString.youSendInfo", style: TextStyle(color: AppColor.primarycolorblack, fontSize: 22)),
-                  //  const SizedBox(height: 16),
+
                   sendAddController.isGetAddLodding.value
                       ? const Center(child: CircularProgressIndicator())
                       : sendAddController.adsData.isNotEmpty
@@ -95,16 +94,12 @@ class _SendAddState extends State<SendAdd> {
                                                         fontWeight: FontWeight.w500,
                                                         overflow: TextOverflow.ellipsis),
 
-                                                    /* Text(sendAddController.adsData[index]['item_type'], overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.themecolor, fontSize: 18, fontWeight: FontWeight.bold)),
-                                                      Text(sendAddController.adsData[index]['district'], overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.themecolor, fontSize: 14, fontWeight: FontWeight.w500)),
-                                                      Text(sendAddController.adsData[index]['taluka'], overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.themecolor, fontSize: 14, fontWeight: FontWeight.w500)),
-                                                      Text(sendAddController.adsData[index]['village'], overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.themecolor, fontSize: 14, fontWeight: FontWeight.w500)),*/
                                                     Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                                                       /*Text(sendAddController.adsData[index]['price'],
                                                             overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.priceclr, fontSize: 18, fontWeight: FontWeight.w500)),*/
                                                       Expanded(
                                                         child: AppText(
-                                                            text: sendAddController.adsData[index]['price'],
+                                                            text: "₹ ${sendAddController.adsData[index]['price']}",
                                                             txtColor: AppColor.priceclr,
                                                             size: 18,
                                                             fontWeight: FontWeight.w500,

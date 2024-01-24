@@ -34,7 +34,7 @@ class ProfileController extends GetxController {
   TextEditingController addressController = TextEditingController();
 
   String? mo;
-  List<String> imageList = [AppImage.tractorEicher, AppImage.cow, AppImage.horse, AppImage.bike, AppImage.car, AppImage.imglogo];
+ // List<String> imageList = [AppImage.tractorEicher, AppImage.cow, AppImage.horse, AppImage.bike, AppImage.car, AppImage.imglogo];
   List levechImageList = [];
   //RxBool isFirst = true.obs;
   RxBool isUpdateLoding = false.obs;

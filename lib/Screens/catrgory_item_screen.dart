@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:le_vech/Controller/catrgory_item_controller.dart';
+import 'package:le_vech/Controller/category_item_controller.dart';
 import 'package:le_vech/Screens/Profile%20Screen/le_vech_profile.dart';
 import 'package:le_vech/Widgets/app_bar.dart';
 import 'package:le_vech/Widgets/app_conts.dart';
@@ -19,46 +19,33 @@ class CatrgoryItemScreen extends StatefulWidget {
 
 class _CatrgoryItemScreenState extends State<CatrgoryItemScreen> {
   CatrgoryItemController catrgoryItemController = Get.put(CatrgoryItemController());
-  List favListCatrgoryItemTemp = [];
-  ScrollController controller = ScrollController();
+
+
 
   @override
   void initState() {
-    if (widget.selectedindex == 0) {
-      catrgoryItemController.allCategoryItem(context);
-      animateToIndex();
-    } else {
-      catrgoryItemController.categoryItem(context, catrgoryItemController.itemName[widget.selectedindex!]);
-      animateToIndex();
-    }
-    //favListCatrgoryItemTemp = catrgoryItemController.favCategoryItemList[catrgoryItemController.allSellCow.length];
+    Future.delayed(Duration(milliseconds: 500), () {
+      catrgoryItemController.runData(context,widget.selectedindex!);
+    });
+
     super.initState();
   }
 
-  @override
-  void dispose() {
-    favListCatrgoryItemTemp.clear();
-    super.dispose();
-  }
 
-  animateToIndex() {
-    if (controller.hasClients) {
-      Future.delayed(Duration(milliseconds: 500), () {
-        controller.position.jumpTo(widget.selectedindex! * 116);
-      });
-    }
-  }
+
+
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Obx(() {
+    return Scaffold(
+        body: Obx(() {
       return Column(
         children: [
           AppBarWidget(height: 130, width: double.infinity, isLogo: false, info: catrgoryItemController.itemName[widget.selectedindex!]),
           SizedBox(
               height: 132,
               child: ListView.builder(
-                  controller: controller,
+                  controller: catrgoryItemController.controller,
                   itemCount: catrgoryItemController.imageList.length,
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
@@ -107,66 +94,7 @@ class _CatrgoryItemScreenState extends State<CatrgoryItemScreen> {
                           // physics: const NeverScrollableScrollPhysics(),
                           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 4.8 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
                           itemBuilder: (context, index) {
-                            return InkWell(
-                                onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => LeVechProfile(detail: catrgoryItemController.allSellCow[index])));
-                                },
-                                child: Card(
-                                    elevation: 2,
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-                                    child: Container(
-                                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), color: AppColor.primarycolor),
-                                        child: Column(children: [
-                                          const SizedBox(height: 08),
-                                          Card(
-                                              elevation: 3,
-                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-                                              child: Container(
-                                                  height: 100,
-                                                  width: 140,
-                                                  decoration: BoxDecoration(
-                                                      borderRadius: BorderRadius.circular(6),
-                                                      image: DecorationImage(
-                                                          image: NetworkImage(catrgoryItemController.allSellCow[index]["item_img"][0].toString().isNotEmpty
-                                                              ? catrgoryItemController.allSellCow[index]["item_img"][0].toString()
-                                                              : "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
-                                                          fit: BoxFit.cover)))),
-                                          const SizedBox(height: 10),
-                                          Padding(
-                                              padding: const EdgeInsets.symmetric(horizontal: 12),
-                                              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                                                AppText(
-                                                    text: catrgoryItemController.allSellCow[index]["name"],
-                                                    txtColor: AppColor.primarycolorblack,
-                                                    size: 16,
-                                                    fontWeight: FontWeight.w600,
-                                                    overflow: TextOverflow.ellipsis),
-                                                const SizedBox(height: 10),
-                                                Row(children: [
-                                                  Expanded(
-                                                      child: AppText(
-                                                          text: catrgoryItemController.allSellCow[index]["price"],
-                                                          txtColor: AppColor.primarycolorblack,
-                                                          fontWeight: FontWeight.w600,
-                                                          overflow: TextOverflow.ellipsis,
-                                                          size: 16)),
-                                                  InkWell(
-                                                      onTap: () {
-                                                        if (favListCatrgoryItemTemp.contains(userId)) {
-                                                          favListCatrgoryItemTemp.remove(userId);
-                                                        } else {
-                                                          favListCatrgoryItemTemp.add(userId);
-                                                        }
-                                                        updateData('advertise', catrgoryItemController.allSellCow[index].id, {'fav_user': favListCatrgoryItemTemp});
-                                                        setState(() {});
-                                                      },
-                                                      child: Icon(favListCatrgoryItemTemp.contains(userId) ? Icons.favorite : Icons.favorite_border,
-                                                          color: favListCatrgoryItemTemp.contains(userId) ? AppColor.iconColor : AppColor.primarycolorblack, size: 24))
-                                                ])
-                                              ])),
-                                          const SizedBox(height: 5),
-                                          AppText(text: catrgoryItemController.allSellCow[index]["item_type"], txtColor: AppColor.grey700, size: 13),
-                                        ]))));
+                            return ItemName( indexofItem: index);
                           }),
                     )
                   : Container(
@@ -178,3 +106,89 @@ class _CatrgoryItemScreenState extends State<CatrgoryItemScreen> {
     }));
   }
 }
+class ItemName extends StatefulWidget {
+   ItemName({super.key, required this.indexofItem});
+   int indexofItem;
+   @override
+    State<ItemName> createState() => _ItemNameState();
+}
+
+class _ItemNameState extends State<ItemName> {
+  CatrgoryItemController catrgoryItemController = Get.put(CatrgoryItemController());
+  @override
+  void initState() {
+    favListCatrgoryItemTemp = catrgoryItemController.favCategoryItemList[widget.indexofItem];
+    super.initState();
+  }
+  List favListCatrgoryItemTemp = [];
+  @override
+  void dispose() {
+    favListCatrgoryItemTemp.clear();
+    super.dispose();
+  }
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => LeVechProfile(detail: catrgoryItemController.allSellCow[widget.indexofItem])));
+        },
+        child: Card(
+            elevation: 2,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+            child: Container(
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), color: AppColor.primarycolor),
+                child: Column(children: [
+                  const SizedBox(height: 08),
+                  Card(
+                      elevation: 3,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                      child: Container(
+                          height: 100,
+                          width: 140,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6),
+                              image: DecorationImage(
+                                  image: NetworkImage(catrgoryItemController.allSellCow[widget.indexofItem]["item_img"][0].toString().isNotEmpty
+                                      ? catrgoryItemController.allSellCow[widget.indexofItem]["item_img"][0].toString()
+                                      : "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
+                                  fit: BoxFit.cover)))),
+                  const SizedBox(height: 10),
+                  Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                        AppText(
+                            text: catrgoryItemController.allSellCow[widget.indexofItem]["name"],
+                            txtColor: AppColor.primarycolorblack,
+                            size: 16,
+                            fontWeight: FontWeight.w600,
+                            overflow: TextOverflow.ellipsis),
+                        const SizedBox(height: 10),
+                        Row(children: [
+
+                          Expanded(
+                              child: AppText(
+                                  text: "₹ ${catrgoryItemController.allSellCow[widget.indexofItem]["price"]}",
+                                  txtColor: AppColor.primarycolorblack,
+                                  fontWeight: FontWeight.w600,
+                                  overflow: TextOverflow.ellipsis,
+                                  size: 16)),
+                          InkWell(
+                              onTap: () {
+                                if (favListCatrgoryItemTemp.contains(userId)) {
+                                  favListCatrgoryItemTemp.remove(userId);
+                                } else {
+                                  favListCatrgoryItemTemp.add(userId);
+                                }
+                                updateData('advertise', catrgoryItemController.allSellCow[widget.indexofItem].id, {'fav_user': favListCatrgoryItemTemp});
+                                setState(() {});
+                              },
+                              child: Icon(favListCatrgoryItemTemp.contains(userId) ? Icons.favorite : Icons.favorite_border,
+                                  color: favListCatrgoryItemTemp.contains(userId) ? AppColor.iconColor : AppColor.primarycolorblack, size: 24))
+                        ])
+                      ])),
+                  const SizedBox(height: 5),
+                  AppText(text: catrgoryItemController.allSellCow[widget.indexofItem]["item_type"], txtColor: AppColor.grey700, size: 13),
+                ]))));
+  }
+}
+
