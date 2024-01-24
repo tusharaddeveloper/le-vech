@@ -1,5 +1,3 @@
-import 'dart:async';
-import 'dart:ffi';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -8,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:le_vech/Controller/profile_controller.dart';
 import 'package:le_vech/Controller/home_controller.dart';
 import 'package:le_vech/Screens/catrgory_item_screen.dart';
+import 'package:le_vech/Widgets/app_text.dart';
 import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/screens/Ad%20Screen/add_screen.dart';
 import 'package:le_vech/screens/Ad%20Screen/send_add.dart';
@@ -40,6 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
 
     return Obx(() {
       return Scaffold(
@@ -93,46 +93,48 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemCount: homeController.itemName.length,
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, childAspectRatio: 5.2 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, childAspectRatio: size.height * 0.001, crossAxisSpacing: 2, mainAxisSpacing: 2),
                     itemBuilder: (context, index) {
                       return InkWell(
                           onTap: () {
-                           // Navigator.of(context).push(MaterialPageRoute(builder: (context) => AllCategoryScreen(itemName: homeController.itemName[index])));
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => CatrgoryItemScreen( selectedindex: index)));
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => CatrgoryItemScreen(selectedindex: index)));
                           },
                           child: Card(
                               elevation: 2,
                               shape: const RoundedRectangleBorder(
                                   borderRadius: BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8), topLeft: Radius.circular(8), topRight: Radius.circular(8))),
-
                               child: Container(
                                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: AppColor.primarycolor),
                                   child: Column(children: [
-                                    Card(
-                                      margin: EdgeInsets.zero,
-                                      shape: const RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8), topLeft: Radius.circular(8), topRight: Radius.circular(8))),
-                                      child: Container(
-                                          height: 90,
-                                          width: double.infinity,
-                                          decoration: BoxDecoration(
-                                              borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8), topLeft: Radius.circular(8), topRight: Radius.circular(8)),
-                                              color: AppColor.primarycolor,
-                                              image: DecorationImage(
-                                                image: AssetImage(homeController.imageList[index]),
-                                                fit: BoxFit.cover,
-                                              ))),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Card(
+                                        margin: EdgeInsets.zero,
+                                        shape: const RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8), topLeft: Radius.circular(8), topRight: Radius.circular(8))),
+                                        child: Container(
+                                            height: size.height * 0.10,
+                                            width: double.infinity,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    const BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8), topLeft: Radius.circular(8), topRight: Radius.circular(8)),
+                                                color: AppColor.primarycolor,
+                                                image: DecorationImage(
+                                                  image: AssetImage(homeController.imageList[index]),
+                                                  fit: BoxFit.cover,
+                                                ))),
+                                      ),
                                     ),
                                     Expanded(
-                                      child: Padding(
-                                          padding: const EdgeInsets.all(6.0),
-                                          child: Text(
-                                            homeController.itemName[index],
-                                            maxLines: 1,
-                                            style: TextStyle(color: AppColor.primarycolorblack, fontSize: 14, fontWeight: FontWeight.w600),
-                                            textAlign: TextAlign.center,
-                                          )),
-                                    )
+                                        child: Center(
+                                            child: AppText(
+                                                text: homeController.itemName[index],
+                                                maxLine: 2,
+                                                txtColor: AppColor.primarycolorblack,
+                                                size: 14,
+                                                fontWeight: FontWeight.w600,
+                                                txtAlign: TextAlign.center)))
                                   ]))));
                     }))
           ]))),
@@ -163,21 +165,33 @@ class _HomeScreenState extends State<HomeScreen> {
                             )),
                         const SizedBox(width: 18),
                         profileController.profileUrl.value.isNotEmpty
-                            ? SizedBox(width: MediaQuery.of(context).size.width*0.35,
-
-                          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                                  Text("${profileController.nameController.value.text} ${profileController.surnameController.value.text}",
-                                      overflow: TextOverflow.ellipsis,maxLines: 1 ,style: TextStyle(fontSize: 18, color: AppColor.primarycolor)),
+                            ? SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.35,
+                                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                                  AppText(
+                                      text: "${profileController.nameController.value.text} ${profileController.surnameController.value.text}",
+                                      maxLine: 1,
+                                      txtColor: AppColor.primarycolor,
+                                      size: 20,
+                                      fontWeight: FontWeight.w500,
+                                      overflow: TextOverflow.ellipsis),
                                   const SizedBox(height: 6),
-                                  Text("+91 ${profileController.mobileController.value.text}", overflow: TextOverflow.ellipsis,maxLines: 1, style: TextStyle(fontSize: 16, color: AppColor.primarycolor))
+                                  AppText(
+                                      text: "+91 ${profileController.mobileController.value.text}",
+                                      fontWeight: FontWeight.w500,
+                                      maxLine: 1,
+                                      txtColor: AppColor.primarycolor,
+                                      size: 18,
+                                      overflow: TextOverflow.ellipsis),
                                 ]),
-                            )
-                            : Text(" Le-vecha ", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 18, color: AppColor.primarycolor))
+                              )
+                            : AppText(text: " Le-vecha ", txtColor: AppColor.primarycolor, size: 18),
                       ]),
                       const Spacer(),
                       Row(children: [
                         const Spacer(),
-                        Text(AppString.edit, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 18, color: AppColor.primarycolor)),
+                        /* Text(AppString.edit, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 18, color: AppColor.primarycolor)),*/
+                        AppText(text: AppString.edit, txtColor: AppColor.primarycolor, size: 18, overflow: TextOverflow.ellipsis),
                         const SizedBox(width: 10),
                         Icon(Icons.edit, color: AppColor.primarycolor, size: 22),
                         const SizedBox(width: 20)
@@ -187,24 +201,25 @@ class _HomeScreenState extends State<HomeScreen> {
                     )),
             ListTile(
                 leading: Icon(Icons.home_outlined, size: 28, color: AppColor.themecolor),
-                title: Text(homeController.drowerName[0], style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w500)),
+                title: /*Text(homeController.drowerName[0], style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w500)),*/
+                    AppText(text: homeController.drowerName[0], txtColor: AppColor.primarycolorblack, size: 20, fontWeight: FontWeight.w500),
                 onTap: () {
                   Navigator.pop(context);
                 }),
             const Divider(thickness: 2),
             ListTile(
                 leading: Icon(Icons.add_circle_outline, size: 28, color: AppColor.themecolor),
-                title: Text(homeController.drowerName[1], style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w500)),
+                title: AppText(text: homeController.drowerName[1], fontWeight: FontWeight.w500, txtColor: AppColor.primarycolorblack, size: 20),
                 onTap: () {
                   Navigator.pop(context);
-                  Timer(const Duration(microseconds: 500), () {
+                  Future.delayed(const Duration(milliseconds: 500), () {
                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => const AddItemsScreen()));
                   });
                 }),
             const Divider(thickness: 2),
             ListTile(
                 leading: Icon(Icons.favorite_border, size: 28, color: AppColor.themecolor),
-                title: Text(homeController.drowerName[2], style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w500)),
+                title: AppText(text: homeController.drowerName[2], fontWeight: FontWeight.w500, txtColor: AppColor.primarycolorblack, size: 20),
                 onTap: () {
                   Navigator.pop(context);
                   Future.delayed(const Duration(microseconds: 500));
@@ -213,7 +228,12 @@ class _HomeScreenState extends State<HomeScreen> {
             const Divider(thickness: 2),
             ListTile(
                 leading: Icon(Icons.save, size: 28, color: AppColor.themecolor),
-                title: Text(homeController.drowerName[3], style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w500)),
+                title: AppText(
+                  text: homeController.drowerName[3],
+                  fontWeight: FontWeight.w500,
+                  txtColor: AppColor.primarycolorblack,
+                  size: 20,
+                ),
                 onTap: () {
                   Navigator.pop(context);
                   Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SendAdd()));
@@ -221,7 +241,7 @@ class _HomeScreenState extends State<HomeScreen> {
             const Divider(thickness: 2),
             ListTile(
                 leading: Icon(Icons.share, size: 28, color: AppColor.themecolor),
-                title: Text(homeController.drowerName[4], style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w500)),
+                title: AppText(text: homeController.drowerName[4], fontWeight: FontWeight.w500, txtColor: AppColor.primarycolorblack, size: 20),
                 onTap: () {
                   //Navigator.pop(context);
                   Share.share("com.example.le_vech");
@@ -229,7 +249,7 @@ class _HomeScreenState extends State<HomeScreen> {
             const Divider(thickness: 2),
             ListTile(
                 leading: Icon(Icons.logout, size: 28, color: AppColor.themecolor),
-                title: Text(AppString.logOut, style: TextStyle(color: AppColor.primarycolorblack, fontSize: 20, fontWeight: FontWeight.w500)),
+                title: AppText(text: AppString.logOut, fontWeight: FontWeight.w500, txtColor: AppColor.primarycolorblack, size: 20),
                 onTap: () {
                   homeController.logOutAlertDialog(context);
                 })

@@ -83,11 +83,10 @@ class _CatrgoryItemScreenState extends State<CatrgoryItemScreen> {
                                   ]))));
                     })),
             catrgoryItemController.isLodingData.value
-                ? const Center(
-                    child: Padding(
-                    padding: EdgeInsets.only(top: 200.0),
-                    child: CircularProgressIndicator(),
-                  ))
+                ? const Padding(
+                padding: EdgeInsets.only(top: 200.0),
+                child: CircularProgressIndicator(),
+                  )
                 : catrgoryItemController.allSellCow.isNotEmpty
                     ? Expanded(
                         child: GridView.builder(
@@ -100,10 +99,12 @@ class _CatrgoryItemScreenState extends State<CatrgoryItemScreen> {
                               return ItemName( indexofItem: index,itemIndex: widget.selectedindex,);
                             }),
                       )
-                    : Container(
-                        height: 500,
-                        alignment: Alignment.center,
-                        child: AppText(text: "કોઈ જાહેરાત નથી મળી.", txtColor: AppColor.iconColor, size: 22, fontWeight: FontWeight.w500, txtAlign: TextAlign.center))
+                    : Expanded(
+                      child: Container(
+
+                          alignment: Alignment.center,
+                          child: AppText(text: "કોઈ જાહેરાત નથી મળી.", txtColor: AppColor.iconColor, size: 22, fontWeight: FontWeight.w500, txtAlign: TextAlign.center)),
+                    )
           ],
         );
       })),

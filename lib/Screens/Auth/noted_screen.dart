@@ -110,6 +110,10 @@ class _NotedScreenState extends State<NotedScreen> {
                               errorSnackBar(context, AppString.pleaseSurName);
                             } else if (notedController.addressController.value.text.isEmpty) {
                               errorSnackBar(context, AppString.pleaseAdd);
+                            } else if (loginController.mobileNoController.value.text.isEmpty) {
+                              errorSnackBar(context, AppString.enterNum);
+                            } else if (loginController.mobileNoController.value.text.length < 10) {
+                            errorSnackBar(context, AppString.enterTenNumber);
                             } else {
                               notedController.setData(context, widget.Mobile);
                             }

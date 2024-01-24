@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
@@ -48,7 +47,7 @@ class AddController extends GetxController {
         selectedImages.add(File(xfilePick[i].path));
       }
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: AppText(text: "Images Not Select",size: 14,)));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: AppText(text: "Images Not Select",size: 14)));
     }
     if (pickedFile.isNotEmpty) {
       for (var element in pickedFile) {

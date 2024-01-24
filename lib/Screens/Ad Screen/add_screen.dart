@@ -95,7 +95,6 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                     "બિયારણ દવા લે-વેચ",
                     "ફળ શાકભાજી લે-વેચ",
                     "નર્સરી રોપ લે-વેચ",
-                    "ઘેટાં બકરાં લે-વેચ",
                     "સનેડો ટ્રેક્ટર લે-વેચ",
                     "ટ્રેક્ટર ઓજાર લે-વેચ",
                     "ખેત ઓજાર લે-વેચ",
@@ -178,7 +177,7 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                     } else if (addController.addMobileController.value.text.isEmpty) {
                       errorSnackBar(context, AppString.enterNum);
                     } else if (addController.addMobileController.value.text.length < 10) {
-                      errorSnackBar(context, "કૃપા કરીને દસ અંકનો મોબાઇલ નંબર દાખલ કરો");
+                      errorSnackBar(context, AppString.enterTenNumber);
                     } else if (addController.addressController.value.text.isEmpty) {
                       errorSnackBar(context, AppString.pleaseAdd);
                     } else {

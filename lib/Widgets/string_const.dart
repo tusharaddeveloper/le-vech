@@ -3,6 +3,7 @@ class AppString {
   static String baseCollection = 'le-vech_config';
   static String baseDoc = 'developer';
   static String enterNum = "કૃપા કરી તમારો મોબાઇલ નંબર દાખલ કરો.";
+  static String enterTenNumber = "કૃપા કરીને દસ અંકનો મોબાઇલ નંબર દાખલ કરો";
   static String mobileNo = "મોબાઈલ નંબર";
   static String getOtp = "OTP  મેળવો";
 
