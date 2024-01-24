@@ -8,6 +8,7 @@ import 'package:le_vech/Widgets/app_bar.dart';
 import 'package:le_vech/Widgets/app_text.dart';
 import 'package:le_vech/Widgets/app_textfieled.dart';
 import 'package:le_vech/Widgets/color_const.dart';
+import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/Widgets/string_const.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -58,13 +59,24 @@ class _LeVechProfileState extends State<LeVechProfile> {
                           child: Column(children: [
                             Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 8),
-                                child: Container(
+                                child: /*Container(
                                     height: 190,
                                     width: double.infinity,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(30),
                                       image: DecorationImage(image: NetworkImage(i), fit: BoxFit.cover),
-                                    )))
+                                    ))*/
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(30),
+                                  child: CachedNetworkImage(
+                                      height: 190,
+                                      width: double.infinity,
+                                      imageUrl: i,
+                                      placeholder: (context, url) => Image(image: AssetImage(AppImage.imglogo),fit: BoxFit.cover,),
+                                      errorWidget: (context, url, error) => Image(image: AssetImage(AppImage.imglogo),fit: BoxFit.cover),
+                                      fit: BoxFit.cover),
+                                )
+                            )
                           ]),
                         );
                       });

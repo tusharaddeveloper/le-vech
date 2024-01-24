@@ -95,8 +95,6 @@ class _SendAddState extends State<SendAdd> {
                                                         overflow: TextOverflow.ellipsis),
 
                                                     Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                                                      /*Text(sendAddController.adsData[index]['price'],
-                                                            overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColor.priceclr, fontSize: 18, fontWeight: FontWeight.w500)),*/
                                                       Expanded(
                                                         child: AppText(
                                                             text: "₹ ${sendAddController.adsData[index]['price']}",
@@ -123,7 +121,7 @@ class _SendAddState extends State<SendAdd> {
                                   size: 22,
                                   fontWeight: FontWeight.w500,
                                   txtAlign: TextAlign
-                                      .center), /*Text(AppString.noItemAdd, style: TextStyle(color: AppColor.iconColor, fontSize: 22, fontWeight: FontWeight.w500), textAlign: TextAlign.center)*/
+                                      .center),
                             )
                 ]))
           ]);

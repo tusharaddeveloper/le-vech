@@ -10,6 +10,7 @@ import 'package:le_vech/Widgets/app_textfieled.dart';
 import 'package:le_vech/Widgets/color_const.dart';
 import 'package:le_vech/Widgets/drop_down.dart';
 import 'package:le_vech/Widgets/string_const.dart';
+import 'package:le_vech/utils/snackbar.dart';
 
 class AddItemsScreen extends StatefulWidget {
   const AddItemsScreen({Key? key}) : super(key: key);
@@ -45,8 +46,7 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
             },
             child: Row(
               children: [
-                AppText(text: AppString.addPhoto,txtColor: AppColor.primarycolorblack,size: 20,fontWeight: FontWeight.w500)
-                /*Text(AppString.addPhoto, style: const TextStyle(color: Color(0xff000000), fontSize: 20, fontWeight: FontWeight.w500))*/,
+                AppText(text: AppString.addPhoto, txtColor: AppColor.primarycolorblack, size: 20, fontWeight: FontWeight.w500),
                 const SizedBox(width: 8),
                 Icon(Icons.add_circle_outline, size: 28, color: AppColor.themecolor),
               ],
@@ -66,15 +66,14 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                             height: 190,
                             width: double.infinity,
                             decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
-                            child: Image.file(i, fit: BoxFit.fill),
+                            child: Image.file(i, fit: BoxFit.cover),
                           ))
                     ]);
                   });
                 }).toList(),
               ),
         const SizedBox(height: 20),
-        AppText(text: AppString.sellingItem,txtColor: AppColor.primarycolorblack,size: 18,fontWeight: FontWeight.w400),
-
+        AppText(text: AppString.sellingItem, txtColor: AppColor.primarycolorblack, size: 18, fontWeight: FontWeight.w400),
         const SizedBox(height: 20),
         Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -86,7 +85,6 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                     AppString.horse,
                     AppString.twoWheel,
                     AppString.fourWheel,
-
                     "ખેત પેદાશ લે - વેચ",
                     "ઇલેક્ટ્રોનિક સાધનો લે-વેચ",
                     "લેપટોપ કમ્પ્યુટર ટીવી લે-વેચ",
@@ -103,7 +101,9 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                     "ખેત ઓજાર લે-વેચ",
                     "પક્ષીઓ લે-વેચ",
                     "બળદ લે-વેચ",
-                    "કુતરા લે-વેચ",AppString.others],
+                    "કુતરા લે-વેચ",
+                    AppString.others
+                  ],
                   dropdownvalue: addController.selectItem,
                   onTap: (String value) {
                     setState(() {
@@ -111,17 +111,15 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                     });
                   }),
               const SizedBox(height: 10),
-              AppTextField(controller: addController.addNameController, txtValue: AppString.name),
+              AppTextField(controller: addController.addNameController.value, txtValue: AppString.name),
               const SizedBox(height: 20),
-              AppTextField(controller: addController.priceController, txtValue: AppString.price, keytype: TextInputType.number),
+              AppTextField(controller: addController.priceController.value, txtValue: AppString.price, keytype: TextInputType.number),
               const SizedBox(height: 20),
-              AppText(text: AppString.sellingInfo,txtColor: AppColor.primarycolorblack,size: 18,fontWeight: FontWeight.w400),
-              /*Text(AppString.sellingInfo, style: TextStyle(color: AppColor.primarycolorblack, fontWeight: FontWeight.w400, fontSize: 18)),*/
+              AppText(text: AppString.sellingInfo, txtColor: AppColor.primarycolorblack, size: 18, fontWeight: FontWeight.w400),
               const SizedBox(height: 20),
-              AppTextField(controller: addController.detailsController, txtValue: AppString.infoSend, maxLines: 4, counterTxt: ""),
+              AppTextField(controller: addController.detailsController.value, txtValue: AppString.infoSend, maxLines: 4, counterTxt: ""),
               const SizedBox(height: 20),
-              AppText(text: AppString.sellingplace,txtColor: AppColor.primarycolorblack,size: 18,fontWeight: FontWeight.w400),
-             // Text(AppString.sellingplace, style: TextStyle(color: AppColor.primarycolorblack, fontWeight: FontWeight.w400, fontSize: 18)),
+              AppText(text: AppString.sellingplace, txtColor: AppColor.primarycolorblack, size: 18, fontWeight: FontWeight.w400),
               const SizedBox(height: 20),
               AppTextField(txtValue: AppString.guj, readOnly: true),
               const SizedBox(height: 10),
@@ -158,9 +156,10 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                     });
                   }),
               const SizedBox(height: 10),
-              AppTextField(controller: addController.addMobileController, txtValue: AppString.mobileNo, keytype: TextInputType.number, lableValue: AppString.mobileNo, counterTxt: '', maxLength: 10),
+              AppTextField(
+                  controller: addController.addMobileController.value, txtValue: AppString.mobileNo, keytype: TextInputType.number, lableValue: AppString.mobileNo, counterTxt: '', maxLength: 10),
               const SizedBox(height: 10),
-              AppTextField(controller: addController.addressController, txtValue: AppString.add, maxLines: 4, counterTxt: ""),
+              AppTextField(controller: addController.addressController.value, txtValue: AppString.add, maxLines: 4, counterTxt: ""),
               const SizedBox(height: 20),
               AppButton(
                   height: 60,
@@ -168,7 +167,9 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                   isLoad: addController.isItemAddLoader.value,
                   buttontxt: AppString.send,
                   onTap: () {
-                    /* if (notedController.nameController.value.text.isEmpty) {
+                    if (addController.selectedImages.isEmpty) {
+                      errorSnackBar(context, AppString.pleaseAddImage);
+                    } else if (addController.addNameController.value.text.isEmpty) {
                       errorSnackBar(context, AppString.pleaseName);
                     } else if (addController.priceController.value.text.isEmpty) {
                       errorSnackBar(context, AppString.pleaseAddprice);
@@ -176,10 +177,13 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                       errorSnackBar(context, AppString.pleaseAddinfo);
                     } else if (addController.addMobileController.value.text.isEmpty) {
                       errorSnackBar(context, AppString.enterNum);
-                    } else if (notedController.addressController.value.text.isEmpty) {
+                    } else if (addController.addMobileController.value.text.length < 10) {
+                      errorSnackBar(context, "કૃપા કરીને દસ અંકનો મોબાઇલ નંબર દાખલ કરો");
+                    } else if (addController.addressController.value.text.isEmpty) {
                       errorSnackBar(context, AppString.pleaseAdd);
-                    } else {*/
-                    addController.setItemData(context);
+                    } else {
+                      addController.setItemData(context);
+                    }
                   })
             ]))
       ]);

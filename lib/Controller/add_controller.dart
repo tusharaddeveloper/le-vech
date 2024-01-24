@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
@@ -17,11 +19,12 @@ class AddController extends GetxController {
   NotedController notedController = Get.put(NotedController());
   ProfileController profileController = Get.put(ProfileController());
 
-  TextEditingController addNameController = TextEditingController();
-  TextEditingController priceController = TextEditingController();
-  TextEditingController detailsController = TextEditingController();
-  TextEditingController addMobileController = TextEditingController();
-  TextEditingController addressController = TextEditingController();
+  Rx<TextEditingController> addNameController = TextEditingController().obs;
+  Rx<TextEditingController> priceController = TextEditingController().obs;
+  Rx<TextEditingController> detailsController = TextEditingController().obs;
+  Rx<TextEditingController> addMobileController = TextEditingController().obs;
+  Rx<TextEditingController> addressController = TextEditingController().obs;
+
 
   final ImagePicker _picker = ImagePicker();
   List<Uint8List> images = [];
@@ -83,15 +86,15 @@ class AddController extends GetxController {
 
       storeData('advertise',  {
         'item_img': url,
-        'name': addNameController.text,
+        'name': addNameController.value.text,
         'item_type': selectItem,
-        'price': priceController.text,
-        'detail': detailsController.text,
+        'price': priceController.value.text,
+        'detail': detailsController.value.text,
         'district': notedController.districSelect.value,
         'taluka': notedController.talukaSelect.value,
         'village': notedController.villageSelect.value,
-        'mobile_number': addMobileController.text,
-        'address': addressController.text,
+        'mobile_number': addMobileController.value.text,
+        'address': addressController.value.text,
         'login_mo': profileController.mobileController.text,
         'fav_user':[]
       });
@@ -106,11 +109,11 @@ class AddController extends GetxController {
     imagePath.clear();
     url.clear();
     selectedImages.clear();
-    priceController.clear();
-    addNameController.clear();
-    detailsController.clear();
-    addMobileController.clear();
-    addressController.clear();
+    priceController.value.clear();
+    addNameController.value.clear();
+    detailsController.value.clear();
+    addMobileController.value.clear();
+    addressController.value.clear();
 
     isItemAddLoader.value = false;
     Navigator.pop(context);

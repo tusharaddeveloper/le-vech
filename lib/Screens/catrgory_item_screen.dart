@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:le_vech/Controller/category_item_controller.dart';
@@ -6,6 +7,7 @@ import 'package:le_vech/Widgets/app_bar.dart';
 import 'package:le_vech/Widgets/app_conts.dart';
 import 'package:le_vech/Widgets/app_text.dart';
 import 'package:le_vech/Widgets/color_const.dart';
+import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/utils/firebase_get.dart';
 
 class CatrgoryItemScreen extends StatefulWidget {
@@ -37,78 +39,81 @@ class _CatrgoryItemScreenState extends State<CatrgoryItemScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Obx(() {
-      return Column(
-        children: [
-          AppBarWidget(height: 130, width: double.infinity, isLogo: false, info: catrgoryItemController.itemName[widget.selectedindex!]),
-          SizedBox(
-              height: 132,
-              child: ListView.builder(
-                  controller: catrgoryItemController.controller,
-                  itemCount: catrgoryItemController.imageList.length,
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                        onTap: () async {
-                          widget.selectedindex = index;
-                          if (widget.selectedindex == 0) {
-                            catrgoryItemController.allCategoryItem(context);
-                          } else {
-                            catrgoryItemController.categoryItem(context, catrgoryItemController.itemName[widget.selectedindex!]);
-                          }
-                        },
-                        child: Card(
-                            elevation: 2,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-                            child: Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(6),
-                                    border: Border.all(color: widget.selectedindex == index ? AppColor.themecolor : AppColor.primarycolor, width: 3),
-                                    color: AppColor.primarycolor),
-                                child: Column(children: [
-                                  Container(
-                                      height: 70,
-                                      width: 80,
-                                      decoration:
-                                          BoxDecoration(borderRadius: BorderRadius.circular(6), image: DecorationImage(image: AssetImage(catrgoryItemController.imageList[index]), fit: BoxFit.cover))),
-                                  Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: AppText(
-                                          text: catrgoryItemController.itemName[index], size: 14, fontWeight: FontWeight.w600, txtAlign: TextAlign.center, txtColor: AppColor.primarycolorblack))
-                                ]))));
-                  })),
-          catrgoryItemController.isLodingData.value
-              ? const Center(
-                  child: Padding(
-                  padding: EdgeInsets.only(top: 200.0),
-                  child: CircularProgressIndicator(),
-                ))
-              : catrgoryItemController.allSellCow.isNotEmpty
-                  ? Expanded(
-                      child: GridView.builder(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          itemCount: catrgoryItemController.allSellCow.length,
-                          shrinkWrap: true,
-                          // physics: const NeverScrollableScrollPhysics(),
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 4.8 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
-                          itemBuilder: (context, index) {
-                            return ItemName( indexofItem: index);
-                          }),
-                    )
-                  : Container(
-                      height: 500,
-                      alignment: Alignment.center,
-                      child: AppText(text: "કોઈ જાહેરાત નથી મળી.", txtColor: AppColor.iconColor, size: 22, fontWeight: FontWeight.w500, txtAlign: TextAlign.center))
-        ],
-      );
-    }));
+    return SafeArea(
+      child: Scaffold(
+          body: Obx(() {
+        return Column(
+          children: [
+            AppBarWidget(height: 130, width: double.infinity, isLogo: false, info: catrgoryItemController.itemName[widget.selectedindex!]),
+            SizedBox(
+                height: 132,
+                child: ListView.builder(
+                    controller: catrgoryItemController.controller,
+                    itemCount: catrgoryItemController.imageList.length,
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                          onTap: () async {
+                            widget.selectedindex = index;
+                            if (widget.selectedindex == 0) {
+                              catrgoryItemController.allCategoryItem(context);
+                            } else {
+                              catrgoryItemController.categoryItem(context, catrgoryItemController.itemName[widget.selectedindex!]);
+                            }
+                          },
+                          child: Card(
+                              elevation: 2,
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(6),
+                                      border: Border.all(color: widget.selectedindex == index ? AppColor.themecolor : AppColor.primarycolor, width: 3),
+                                      color: AppColor.primarycolor),
+                                  child: Column(children: [
+                                    Container(
+                                        height: 70,
+                                        width: 80,
+                                        decoration:
+                                            BoxDecoration(borderRadius: BorderRadius.circular(6), image: DecorationImage(image: AssetImage(catrgoryItemController.imageList[index]), fit: BoxFit.cover))),
+                                    Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: AppText(
+                                            text: catrgoryItemController.itemName[index], size: 14, fontWeight: FontWeight.w600, txtAlign: TextAlign.center, txtColor: AppColor.primarycolorblack))
+                                  ]))));
+                    })),
+            catrgoryItemController.isLodingData.value
+                ? const Center(
+                    child: Padding(
+                    padding: EdgeInsets.only(top: 200.0),
+                    child: CircularProgressIndicator(),
+                  ))
+                : catrgoryItemController.allSellCow.isNotEmpty
+                    ? Expanded(
+                        child: GridView.builder(
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                            itemCount: catrgoryItemController.allSellCow.length,
+                            shrinkWrap: true,
+                            // physics: const NeverScrollableScrollPhysics(),
+                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 4.8 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
+                            itemBuilder: (context, index) {
+                              return ItemName( indexofItem: index,itemIndex: widget.selectedindex,);
+                            }),
+                      )
+                    : Container(
+                        height: 500,
+                        alignment: Alignment.center,
+                        child: AppText(text: "કોઈ જાહેરાત નથી મળી.", txtColor: AppColor.iconColor, size: 22, fontWeight: FontWeight.w500, txtAlign: TextAlign.center))
+          ],
+        );
+      })),
+    );
   }
 }
 class ItemName extends StatefulWidget {
-   ItemName({super.key, required this.indexofItem});
+   ItemName({super.key, required this.indexofItem,this.itemIndex});
    int indexofItem;
+   int? itemIndex;
    @override
     State<ItemName> createState() => _ItemNameState();
 }
@@ -142,7 +147,7 @@ class _ItemNameState extends State<ItemName> {
                   Card(
                       elevation: 3,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-                      child: Container(
+                      child: /*Container(
                           height: 100,
                           width: 140,
                           decoration: BoxDecoration(
@@ -151,7 +156,21 @@ class _ItemNameState extends State<ItemName> {
                                   image: NetworkImage(catrgoryItemController.allSellCow[widget.indexofItem]["item_img"][0].toString().isNotEmpty
                                       ? catrgoryItemController.allSellCow[widget.indexofItem]["item_img"][0].toString()
                                       : "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
-                                  fit: BoxFit.cover)))),
+                                  fit: BoxFit.cover)))*/
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(6),
+                        child: CachedNetworkImage(
+                            height: 100,
+                            width: 140,
+
+                            imageUrl: catrgoryItemController.allSellCow[widget.indexofItem]["item_img"][0],
+                            placeholder: (context, url) => Image(image: AssetImage(catrgoryItemController.imageList[widget.itemIndex!]),fit: BoxFit.cover,),
+                            errorWidget: (context, url, error) => Image(image: AssetImage(catrgoryItemController.imageList[widget.itemIndex!]),fit: BoxFit.cover),
+                            fit: BoxFit.cover),
+                      )
+
+
+                  ),
                   const SizedBox(height: 10),
                   Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12),
