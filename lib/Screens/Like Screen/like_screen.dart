@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:le_vech/Controller/like_screen_controller.dart';
@@ -7,6 +8,7 @@ import 'package:le_vech/Widgets/app_conts.dart';
 import 'package:le_vech/Widgets/app_text.dart';
 import 'package:le_vech/Widgets/app_textfieled.dart';
 import 'package:le_vech/Widgets/color_const.dart';
+import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/Widgets/string_const.dart';
 import 'package:le_vech/utils/firebase_get.dart';
 
@@ -30,35 +32,33 @@ class _LikeScreenState extends State<LikeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: AppColor.txtfilled,
-        body: SafeArea(
-            child: Obx(() {
-              return SingleChildScrollView(
-                child: Column(children: [
-                  AppBarWidget(height: 130, width: double.infinity, isLogo: false, info: AppString.like),
-                  const SizedBox(height: 20),
-                  Padding(padding: const EdgeInsets.symmetric(horizontal: 8), child: AppTextField(txtValue: AppString.searchBar, prefixIcon: Icons.search)),
-                  const SizedBox(height: 20),
-                  Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                      child: likeController.isLodingData.value
-                          ? const CircularProgressIndicator()
-                          :likeController.getWhereLike.isNotEmpty
+        body: SafeArea(child: Obx(() {
+          return SingleChildScrollView(
+            child: Column(children: [
+              AppBarWidget(height: 130, width: double.infinity, isLogo: false, info: AppString.like),
+              const SizedBox(height: 20),
+              Padding(padding: const EdgeInsets.symmetric(horizontal: 8), child: AppTextField(txtValue: AppString.searchBar, prefixIcon: Icons.search)),
+              const SizedBox(height: 20),
+              Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  child: likeController.isLodingData.value
+                      ? const CircularProgressIndicator()
+                      : likeController.getWhereLike.isNotEmpty
                           ? GridView.builder(
-                          itemCount: likeController.getWhereLike.length,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 4.8 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
-                          itemBuilder: (context, index) {
-                            return ItemWidget(index: index);
-                          })
+                              itemCount: likeController.getWhereLike.length,
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 4.8 / 5.8, crossAxisSpacing: 2, mainAxisSpacing: 2),
+                              itemBuilder: (context, index) {
+                                return ItemWidget(index: index);
+                              })
                           : Container(
-                          height: 400,
-                          alignment: Alignment.center,
-                          child: AppText(text: "કોઈ જાહેરાત નથી મળી.",txtColor: AppColor.iconColor,size: 22,fontWeight: FontWeight.w500,txtAlign: TextAlign.center))
-                  )
-                ]),
-              );
-            })));
+                              height: 400,
+                              alignment: Alignment.center,
+                              child: AppText(text: "કોઈ જાહેરાત નથી મળી.", txtColor: AppColor.iconColor, size: 22, fontWeight: FontWeight.w500, txtAlign: TextAlign.center)))
+            ]),
+          );
+        })));
   }
 }
 
@@ -74,7 +74,7 @@ class ItemWidget extends StatefulWidget {
 class _ItemWidgetState extends State<ItemWidget> {
   LikeController likeController = Get.put(LikeController());
 
-   @override
+  @override
   void initState() {
     likeController.favListTemp = likeController.getWhereLike[widget.index]['fav_user'];
     print(likeController.favListTemp);
@@ -104,25 +104,27 @@ class _ItemWidgetState extends State<ItemWidget> {
                     Card(
                         elevation: 3,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-                        child: Container(
-                            height: 100,
-                            width: 140,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(6),
-                              image: DecorationImage(
-                                image: NetworkImage(likeController.getWhereLike[widget.index]["item_img"][0]
-                                    .toString()
-                                    .isNotEmpty
-                                    ? likeController.getWhereLike[widget.index]["item_img"][0].toString()
-                                    : "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
-                                fit: BoxFit.cover,
-                              ),
-                            ))),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(6),
+                          child: CachedNetworkImage(
+                              height: 100,
+                              width: 140,
+                              imageUrl: likeController.getWhereLike[widget.index]["item_img"][0].toString().isNotEmpty
+                                  ? likeController.getWhereLike[widget.index]["item_img"][0].toString()
+                                  : "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                              placeholder: (context, url) => Image(
+                                    image: AssetImage(AppImage.imglogo),
+                                    fit: BoxFit.cover,
+                                  ),
+                              errorWidget: (context, url, error) => Image(image: AssetImage(AppImage.imglogo), fit: BoxFit.cover),
+                              fit: BoxFit.cover),
+                        )),
                     const SizedBox(height: 10),
                     Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12),
                         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                          AppText(text: likeController.getWhereLike[widget.index]["item_type"],
+                          AppText(
+                              text: likeController.getWhereLike[widget.index]["item_type"],
                               txtColor: AppColor.primarycolorblack,
                               size: 16,
                               fontWeight: FontWeight.w600,
@@ -131,15 +133,10 @@ class _ItemWidgetState extends State<ItemWidget> {
                           const SizedBox(height: 10),
                           Row(children: [
                             Expanded(
-                              child: AppText(text: likeController.getWhereLike[widget.index]["price"],
-                                  overflow: TextOverflow.ellipsis,
-                                  txtColor: AppColor.price,
-                                  size: 16,
-                                  fontWeight: FontWeight.w700)
-                              ),
+                                child: AppText(
+                                    text: likeController.getWhereLike[widget.index]["price"], overflow: TextOverflow.ellipsis, txtColor: AppColor.price, size: 16, fontWeight: FontWeight.w700)),
                             InkWell(
                                 onTap: () {
-
                                   if (likeController.favListTemp.contains(userId)) {
                                     likeController.favListTemp.remove(userId);
                                     print(userId);
@@ -148,7 +145,7 @@ class _ItemWidgetState extends State<ItemWidget> {
                                     print(userId);
                                   }
                                   updateData('advertise', likeController.getWhereLike[widget.index].id, {'fav_user': likeController.favListTemp});
-                                 setState(() {});
+                                  setState(() {});
                                 },
                                 child: Icon(likeController.favListTemp.contains(userId) ? Icons.favorite : Icons.favorite_border,
                                     color: likeController.favListTemp.contains(userId) ? AppColor.iconColor : AppColor.primarycolorblack, size: 24))
@@ -158,4 +155,3 @@ class _ItemWidgetState extends State<ItemWidget> {
     });
   }
 }
-

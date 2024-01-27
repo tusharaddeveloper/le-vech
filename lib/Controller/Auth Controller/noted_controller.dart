@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:le_vech/Controller/Auth%20Controller/login_controller.dart';
 import 'package:le_vech/Widgets/app_text.dart';
+import 'package:le_vech/Widgets/color_const.dart';
+import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/Widgets/string_const.dart';
 import 'package:le_vech/screens/Home%20Screen/home_screen.dart';
 import 'package:le_vech/utils/firebase_get.dart';
@@ -141,21 +143,24 @@ class NotedController extends GetxController {
 
   void selectImage(BuildContext context) {
     showModalBottomSheet(
+      backgroundColor: AppColor.primarycolor,
         context: context,
         builder: (BuildContext bc) {
           return SafeArea(
+
               child: SizedBox(
+
                   child: Wrap(children: [
             ListTile(
                 leading: const Icon(Icons.photo_library),
-                title:  /*Text('Photo Library')*/ AppText(text:'Photo Library',size: 14),
+                title: AppText(text:'Photo Library',size: 16,txtColor: AppColor.primarycolorblack),
                 onTap: () {
                   selectImageFromGallery(context);
                   Navigator.of(context).pop();
                 }),
             ListTile(
                 leading: const Icon(Icons.photo_camera),
-                title:   AppText(text:'Camera',size: 14) ,
+                title:   AppText(text:'Camera',size: 16,txtColor: AppColor.primarycolorblack) ,
                 onTap: () {
                   selectImageFromCamera(context);
                   Navigator.of(context).pop();

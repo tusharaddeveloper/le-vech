@@ -59,24 +59,18 @@ class _LeVechProfileState extends State<LeVechProfile> {
                           child: Column(children: [
                             Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 8),
-                                child: /*Container(
-                                    height: 190,
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(30),
-                                      image: DecorationImage(image: NetworkImage(i), fit: BoxFit.cover),
-                                    ))*/
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(30),
-                                  child: CachedNetworkImage(
-                                      height: 190,
-                                      width: double.infinity,
-                                      imageUrl: i,
-                                      placeholder: (context, url) => Image(image: AssetImage(AppImage.imglogo),fit: BoxFit.cover,),
-                                      errorWidget: (context, url, error) => Image(image: AssetImage(AppImage.imglogo),fit: BoxFit.cover),
-                                      fit: BoxFit.cover),
-                                )
-                            )
+                                child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(30),
+                                    child: CachedNetworkImage(
+                                        height: 190,
+                                        width: double.infinity,
+                                        imageUrl: i,
+                                        placeholder: (context, url) => Image(
+                                              image: AssetImage(AppImage.imglogo),
+                                              fit: BoxFit.cover,
+                                            ),
+                                        errorWidget: (context, url, error) => Image(image: AssetImage(AppImage.imglogo), fit: BoxFit.cover),
+                                        fit: BoxFit.cover)))
                           ]),
                         );
                       });
@@ -114,7 +108,7 @@ class _LeVechProfileState extends State<LeVechProfile> {
                                 AppText(
                                     text: "Name:- ${widget.detail['name']}", txtColor: AppColor.primarycolorblack, size: 18, fontWeight: FontWeight.w600, overflow: TextOverflow.ellipsis, maxLine: 2),
                                 const SizedBox(height: 10),
-                                AppText(text: "₹  ${widget.detail['price']}", txtColor: AppColor.themecolor, size: 16, fontWeight: FontWeight.w500, overflow: TextOverflow.ellipsis),
+                                AppText(text: "₹ ${widget.detail['price']}", txtColor: AppColor.themecolor, size: 16, fontWeight: FontWeight.w500, overflow: TextOverflow.ellipsis),
                               ]))
                             ])))),
                 const SizedBox(height: 10),

@@ -15,13 +15,7 @@ class HomeController extends GetxController {
   var scaffoldKey = GlobalKey<ScaffoldState>();
   RxString profilePic = ''.obs;
 
-  /*RxList<Icon> drowerIcon = [
-    Icon(Icons.home_outlined, size: 30, color: AppColor.themecolor),
-    Icon(Icons.add_circle_outline, size: 28, color: AppColor.themecolor),
-    Icon(Icons.favorite_border, size: 28, color: AppColor.themecolor),
-    Icon(Icons.save, size: 28, color: AppColor.themecolor),
-    Icon(Icons.share, size: 28, color: AppColor.themecolor)
-  ].obs;*/
+
 
   RxList<String> drowerName = [
     AppString.allInfo,
@@ -29,32 +23,17 @@ class HomeController extends GetxController {
     AppString.like,
     AppString.youSendInfo,
     AppString.share,
-    "ખેત પેદાશ લે - વેચ",
-    "ઇલેક્ટ્રોનિક સાધનો લે-વેચ",
-    "લેપટોપ કમ્પ્યુટર ટીવી લે-વેચ",
-    "નોકરી",
-    "મોબાઇલ લે-વેચ",
-    "ભંગાર લે-વેચ",
-    "મકાન દુકાન પ્લોટ લે-વેચ",
-    "બિયારણ દવા લે-વેચ",
-    "જમીન લે-વેચ",
-    "ફળ શાકભાજી લે-વેચ",
-    "નર્સરી રોપ લે-વેચ",
-    "સનેડો ટ્રેક્ટર લે-વેચ",
-    "ટ્રેક્ટર ઓજાર લે-વેચ",
-    "ખેત ઓજાર લે-વેચ",
-    "પક્ષીઓ લે-વેચ",
-    "બળદ લે-વેચ",
-    "કુતરા લે-વેચ"
   ].obs;
+
   RxList<String> itemName = [
     AppString.allInfo,
     AppString.tractor,
     AppString.cow,
+    "ભેંસ લે-વેચ",
     AppString.horse,
     AppString.twoWheel,
     AppString.fourWheel,
-    "ખેત પેદાશ લે - વેચ",
+    "ખેત પેદાશ લે-વેચ",
     "ઇલેક્ટ્રોનિક સાધનો લે-વેચ",
     "લેપટોપ કમ્પ્યુટર ટીવી લે-વેચ",
     "નોકરી",
@@ -66,16 +45,19 @@ class HomeController extends GetxController {
     "નર્સરી રોપ લે-વેચ",
     "સનેડો ટ્રેક્ટર લે-વેચ",
     "ટ્રેક્ટર ઓજાર લે-વેચ",
+    "અન્ય વાહન લે-વેચ",
     "ખેત ઓજાર લે-વેચ",
     "પક્ષીઓ લે-વેચ",
     "બળદ લે-વેચ",
     "કુતરા લે-વેચ",
+    "અન્ય પ્રાણી લે-વેચ",
     AppString.others,
   ].obs;
   RxList<String> imageList = [
     AppImage.allCategory,
     AppImage.tractorEicher,
     AppImage.cow,
+    AppImage.buffaloImg,
     AppImage.horse,
     AppImage.bike,
     AppImage.car,
@@ -91,10 +73,12 @@ class HomeController extends GetxController {
     AppImage.narsarirRop,
     AppImage.sanedoImg,
     AppImage.trecterOjar,
+    AppImage.vehicalIma,
     AppImage.khetOjarImg,
     AppImage.birds,
     AppImage.oxImages,
     AppImage.dogImg,
+    AppImage.animalImg,
     AppImage.anya,
   ].obs;
 

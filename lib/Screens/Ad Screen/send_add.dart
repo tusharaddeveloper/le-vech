@@ -1,9 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:le_vech/Controller/send_add_controller.dart';
 import 'package:le_vech/Widgets/app_text.dart';
 import 'package:le_vech/Widgets/app_bar.dart';
 import 'package:le_vech/Widgets/color_const.dart';
+import 'package:le_vech/Widgets/image_const.dart';
 import 'package:le_vech/Widgets/string_const.dart';
 import 'package:le_vech/screens/Profile%20Screen/le_vech_profile.dart';
 
@@ -56,7 +58,7 @@ class _SendAddState extends State<SendAdd> {
                                             child: Padding(
                                                 padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
                                                 child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                                                  Container(
+                                                 /* Container(
                                                       height: 130,
                                                       width: 120,
                                                       decoration: BoxDecoration(
@@ -65,7 +67,19 @@ class _SendAddState extends State<SendAdd> {
                                                             image: NetworkImage(sendAddController.adsData[index]["item_img"][0].toString().isNotEmpty
                                                                 ? sendAddController.adsData[index]["item_img"][0].toString()
                                                                 : "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
-                                                            fit: BoxFit.cover),)),
+                                                            fit: BoxFit.cover),)),*/
+                                                  ClipRRect(
+                                                    borderRadius: BorderRadius.circular(8),
+                                                    child: CachedNetworkImage(
+                                                        height: 130,
+                                                        width: 120,
+                                                        imageUrl: sendAddController.adsData[index]["item_img"][0].toString().isNotEmpty
+                                                            ? sendAddController.adsData[index]["item_img"][0].toString()
+                                                            : "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                                                        placeholder: (context, url) => Image(image: AssetImage(AppImage.imglogo),fit: BoxFit.cover,),
+                                                        errorWidget: (context, url, error) => Image(image: AssetImage(AppImage.imglogo),fit: BoxFit.cover),
+                                                        fit: BoxFit.cover),
+                                                  ),
                                                   const SizedBox(width: 10),
                                                   Expanded(
                                                       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [

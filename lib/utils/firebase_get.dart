@@ -52,7 +52,46 @@ Future<List<QueryDocumentSnapshot<Object?>>> firebaseGetwhere(String collection,
   }
 }
 
-//Store data
+
+
+///pagination
+
+
+@override
+Future<List<QueryDocumentSnapshot<Object?>>> firebaseLimite(String collection,int limit ) async {
+  List<QueryDocumentSnapshot> firebaseData = <QueryDocumentSnapshot>[];
+  try {
+    //var storeData = await FirebaseFirestore.instance.collection(AppString.baseCollection).doc(AppString.baseDoc).collection(collection).where(field, isEqualTo: fieldValue).get();
+    var storeData = await FirebaseFirestore.instance.collection(AppString.baseCollection).doc(AppString.baseDoc).collection(collection).orderBy(descending:true, 'name').limit(limit).get();
+
+    firebaseData = storeData.docs;
+
+    return firebaseData;
+  } catch (e) {
+    return firebaseData;
+  }
+}
+
+@override
+Future<List<QueryDocumentSnapshot<Object?>>> firebasePaginationData(String collection,DocumentSnapshot startAfter ,int limit ) async {
+  List<QueryDocumentSnapshot> firebaseData = <QueryDocumentSnapshot>[];
+  try {
+    var storeData = await FirebaseFirestore.instance.collection(AppString.baseCollection).doc(AppString.baseDoc).collection(collection).orderBy(descending:true,'name').startAfterDocument(startAfter).limit(limit).get();
+    firebaseData = storeData.docs;
+    return firebaseData;
+  } catch (e) {
+    return firebaseData;
+  }
+}
+
+
+
+
+
+///Store data
+
+
+
 
 @override
 void storeDataDocs(String collection, String docsId, Map<String, dynamic> data) async {

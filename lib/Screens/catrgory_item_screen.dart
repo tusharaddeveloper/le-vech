@@ -6,8 +6,9 @@ import 'package:le_vech/Screens/Profile%20Screen/le_vech_profile.dart';
 import 'package:le_vech/Widgets/app_bar.dart';
 import 'package:le_vech/Widgets/app_conts.dart';
 import 'package:le_vech/Widgets/app_text.dart';
+import 'package:le_vech/Widgets/app_textfieled.dart';
 import 'package:le_vech/Widgets/color_const.dart';
-import 'package:le_vech/Widgets/image_const.dart';
+import 'package:le_vech/Widgets/string_const.dart';
 import 'package:le_vech/utils/firebase_get.dart';
 
 class CatrgoryItemScreen extends StatefulWidget {
@@ -26,7 +27,26 @@ class _CatrgoryItemScreenState extends State<CatrgoryItemScreen> {
 
   @override
   void initState() {
-    Future.delayed(Duration(milliseconds: 500), () {
+
+
+
+    catrgoryItemController.controllerGreedView.addListener(() {
+     // print("Daaaaa");
+     // print(catrgoryItemController.controllerGreedView.positions);
+      double maxScroll=catrgoryItemController.controllerGreedView.position.maxScrollExtent;
+      double currentScroll=catrgoryItemController.controllerGreedView.position.pixels;
+      double delta=MediaQuery.of(context).size.height*0.25;
+      if(maxScroll-currentScroll < delta){
+
+        catrgoryItemController.getMoreActivityData();
+
+      }
+
+    });
+
+
+
+    Future.delayed(Duration(milliseconds: 1), () {
       catrgoryItemController.runData(context,widget.selectedindex!);
     });
 
@@ -56,9 +76,12 @@ class _CatrgoryItemScreenState extends State<CatrgoryItemScreen> {
                       return InkWell(
                           onTap: () async {
                             widget.selectedindex = index;
+
                             if (widget.selectedindex == 0) {
+
                               catrgoryItemController.allCategoryItem(context);
                             } else {
+
                               catrgoryItemController.categoryItem(context, catrgoryItemController.itemName[widget.selectedindex!]);
                             }
                           },
@@ -82,6 +105,7 @@ class _CatrgoryItemScreenState extends State<CatrgoryItemScreen> {
                                             text: catrgoryItemController.itemName[index], size: 14, fontWeight: FontWeight.w600, txtAlign: TextAlign.center, txtColor: AppColor.primarycolorblack))
                                   ]))));
                     })),
+            Padding(padding: const EdgeInsets.symmetric(horizontal: 8,vertical:10), child: AppTextField(txtValue: AppString.searchBar, prefixIcon: Icons.search)),
             catrgoryItemController.isLodingData.value
                 ? const Padding(
                 padding: EdgeInsets.only(top: 200.0),
@@ -90,6 +114,7 @@ class _CatrgoryItemScreenState extends State<CatrgoryItemScreen> {
                 : catrgoryItemController.allSellCow.isNotEmpty
                     ? Expanded(
                         child: GridView.builder(
+                          controller: catrgoryItemController.controllerGreedView,
                             padding: const EdgeInsets.symmetric(vertical: 10),
                             itemCount: catrgoryItemController.allSellCow.length,
                             shrinkWrap: true,
@@ -130,6 +155,12 @@ class _ItemNameState extends State<ItemName> {
   @override
   void dispose() {
     favListCatrgoryItemTemp.clear();
+
+   // catrgoryItemController.gettingMoreProduct.value=false;
+   // catrgoryItemController.moreProductAvailable.value=true;
+   // catrgoryItemController.allSellCow.clear();
+   // catrgoryItemController.startAfterDocument=null;
+
     super.dispose();
   }
   @override
@@ -148,16 +179,7 @@ class _ItemNameState extends State<ItemName> {
                   Card(
                       elevation: 3,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-                      child: /*Container(
-                          height: 100,
-                          width: 140,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(6),
-                              image: DecorationImage(
-                                  image: NetworkImage(catrgoryItemController.allSellCow[widget.indexofItem]["item_img"][0].toString().isNotEmpty
-                                      ? catrgoryItemController.allSellCow[widget.indexofItem]["item_img"][0].toString()
-                                      : "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
-                                  fit: BoxFit.cover)))*/
+                      child:
                       ClipRRect(
                         borderRadius: BorderRadius.circular(6),
                         child: CachedNetworkImage(

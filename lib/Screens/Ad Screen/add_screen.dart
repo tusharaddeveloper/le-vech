@@ -82,10 +82,11 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                   items: [
                     AppString.tractor,
                     AppString.cow,
+                    "ભેંસ લે-વેચ",
                     AppString.horse,
                     AppString.twoWheel,
                     AppString.fourWheel,
-                    "ખેત પેદાશ લે - વેચ",
+                    "ખેત પેદાશ લે-વેચ",
                     "ઇલેક્ટ્રોનિક સાધનો લે-વેચ",
                     "લેપટોપ કમ્પ્યુટર ટીવી લે-વેચ",
                     "નોકરી",
@@ -97,11 +98,13 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                     "નર્સરી રોપ લે-વેચ",
                     "સનેડો ટ્રેક્ટર લે-વેચ",
                     "ટ્રેક્ટર ઓજાર લે-વેચ",
+                    "અન્ય વાહન લે-વેચ",
                     "ખેત ઓજાર લે-વેચ",
                     "પક્ષીઓ લે-વેચ",
                     "બળદ લે-વેચ",
                     "કુતરા લે-વેચ",
-                    AppString.others
+                    "અન્ય પ્રાણી લે-વેચ",
+                    AppString.others,
                   ],
                   dropdownvalue: addController.selectItem,
                   onTap: (String value) {
@@ -155,8 +158,7 @@ class _AddItemsScreenState extends State<AddItemsScreen> {
                     });
                   }),
               const SizedBox(height: 10),
-              AppTextField(
-                  controller: addController.addMobileController.value, txtValue: AppString.mobileNo, keytype: TextInputType.number, lableValue: AppString.mobileNo, counterTxt: '', maxLength: 10),
+              AppTextField(controller: addController.addMobileController.value, txtValue: AppString.mobileNo, keytype: TextInputType.number, lableValue: AppString.mobileNo, counterTxt: '', maxLength: 10),
               const SizedBox(height: 10),
               AppTextField(controller: addController.addressController.value, txtValue: AppString.add, maxLines: 4, counterTxt: ""),
               const SizedBox(height: 20),

@@ -72,14 +72,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Column(children: [
                   CarouselSlider(
-                      options: CarouselOptions(height: 150, autoPlay: true, autoPlayInterval: const Duration(seconds: 2), aspectRatio: 16 / 9, viewportFraction: 1),
+                      options: CarouselOptions(height: 190, autoPlay: true, autoPlayInterval: const Duration(seconds: 2), aspectRatio: 16 / 9, viewportFraction: 1),
                       items: homeController.imageList.map((i) {
                         return Builder(builder: (BuildContext context) {
                           return Column(children: [
                             Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 8),
                                 child: Container(
-                                    height: 150,
+                                    height: 190,
                                     width: double.infinity,
                                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), image: DecorationImage(image: AssetImage(i), fit: BoxFit.cover))))
                           ]);
@@ -181,7 +181,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       fontWeight: FontWeight.w500,
                                       maxLine: 1,
                                       txtColor: AppColor.primarycolor,
-                                      size: 18,
+                                      size: 16,
                                       overflow: TextOverflow.ellipsis),
                                 ]),
                               )

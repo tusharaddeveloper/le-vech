@@ -1,7 +1,6 @@
 class AppImage {
   static String allCategory = "assets/images/menu.png";
   static String imglogo = "assets/images/logops.jpg";
-  static String courselImg = "assets/images/tractorr.jpg";
   static String tractorEicher = "assets/images/tractorLogo.png";
   static String cow = "assets/images/cowLogo.png";
   static String horse = "assets/images/Horse.png";
@@ -10,15 +9,13 @@ class AppImage {
   static String profileImage = "assets/images/profileimg.png";
   static String biyaranlevech = "assets/images/biyaran_leveche.png";
   static String electricalItems = "assets/images/tvfridgeLogo.png";
-  static String jaminMakanPloat = "assets/images/jamin_makan_plot.jpg";
+  static String jaminMakanPloat = "assets/images/home.jpg";
   static String jobIcon = "assets/images/jobLogo.png";
   static String phoneLevecha = "assets/images/mobileLogo.png";
-  static String khetaPedashItems = "assets/images/khetapedash_items.jpg";
   static String leptopTVComputer = "assets/images/leptopLogo.png";
   static String khetOjarImg = "assets/images/khetOjarImg.png";
   static String oxImages = "assets/images/oxImages.jpg";
   static String sanedoImg = "assets/images/sanedoImg.jpg";
- // static String sheepAndBakra = "assets/images/sheepandgoatImg.jpg";
   static String trecterOjar = "assets/images/trecterOjar.jpg";
   static String dogImg = "assets/images/dogImg.jpg";
   static String fruitsAndVegetables = "assets/images/fruitsAndVegetables.jpg";
@@ -28,4 +25,7 @@ class AppImage {
   static String anya = "assets/images/anya.jpg";
   static String bhangar = "assets/images/bhangar.png";
   static String birds = "assets/images/birds.png";
+  static String animalImg = "assets/images/anyaAnimals.png";
+  static String vehicalIma = "assets/images/anyaVehical.png";
+  static String buffaloImg = "assets/images/buffaloImage.png";
 }
