@@ -7,6 +7,7 @@ import 'package:le_vech/utils/firebase_get.dart';
 import 'package:flutter/material.dart';
 
 class CatrgoryItemController extends GetxController {
+
   CatrgoryItemScreen catrgoryItemScreen = Get.put(CatrgoryItemScreen());
   RxList<QueryDocumentSnapshot> allSellCow = <QueryDocumentSnapshot>[].obs;
 
@@ -16,6 +17,7 @@ class CatrgoryItemController extends GetxController {
   ScrollController controllerGreedView = ScrollController();
 
   DocumentSnapshot? startAfterDocument;
+
   int perPage = 10;
   RxBool gettingMoreProduct = false.obs;
   RxBool moreProductAvailable = true.obs;
@@ -97,12 +99,14 @@ class CatrgoryItemController extends GetxController {
 
   categoryItem(BuildContext context, String categrish) async {
     try {
+      startAfterDocument = null;
       allSellCow.clear();
+      gettingMoreProduct.value = false;
+      moreProductAvailable.value = true;
       favCategoryItemList.clear();
-
       isLodingData.value = true;
-      allSellCow.value = await firebaseGetwhere("advertise", "item_type", categrish);
-
+      allSellCow.value = await firebaseGetwhereLimit("advertise", "item_type", categrish, perPage);
+    //  startAfterDocument = allSellCow[allSellCow.length - 1];
       if (allSellCow.isNotEmpty) {
         for (int i = 0; i < allSellCow.length; i++) {
           favCategoryItemList.add(allSellCow[i]['fav_user']);
@@ -110,7 +114,6 @@ class CatrgoryItemController extends GetxController {
       } else {
         print("No Data Found");
       }
-
       isLodingData.value = false;
     } on Exception catch (e) {
       isLodingData.value = false;
@@ -120,11 +123,10 @@ class CatrgoryItemController extends GetxController {
 
   allCategoryItem(BuildContext context) async {
     try {
-
-      startAfterDocument=null;
+      startAfterDocument = null;
       allSellCow.clear();
-       gettingMoreProduct.value = false;
-       moreProductAvailable.value = true;
+      gettingMoreProduct.value = false;
+      moreProductAvailable.value = true;
       favCategoryItemList.clear();
 
       isLodingData.value = true;
@@ -139,7 +141,6 @@ class CatrgoryItemController extends GetxController {
       } else {
         print("No Data Found");
       }
-
       isLodingData.value = false;
     } on Exception catch (e) {
       isLodingData.value = false;
@@ -171,5 +172,33 @@ class CatrgoryItemController extends GetxController {
     allSellCow.addAll(getTradeData);
     startAfterDocument = getTradeData[getTradeData.length - 1];
     gettingMoreProduct.value = false;
+  }
+
+  void getLoadMoreData(String categrish) async {
+    if (moreProductAvailable == false) {
+      print("No more product");
+      return;
+    }
+    if (gettingMoreProduct == true) {
+      return;
+    }
+    gettingMoreProduct.value = true;
+    /*var getTradeData = await firebasePaginationData('advertise', startAfterDocument!, perPage);*/
+    var getTradeData = await firebaseGetwhereLimit("advertise", "item_type", categrish, perPage);
+    if (getTradeData.isNotEmpty) {
+      for (int i = 0; i < getTradeData.length; i++) {
+        favCategoryItemList.add(getTradeData[i]['fav_user']);
+      }
+      print("data get");
+    } else {
+      print("No Data Found");
+    }
+    if (getTradeData.length < perPage) {
+      moreProductAvailable.value = false;
+    }
+    allSellCow.addAll(getTradeData);
+    startAfterDocument = getTradeData[getTradeData.length - 1];
+    gettingMoreProduct.value = false;
+
   }
 }

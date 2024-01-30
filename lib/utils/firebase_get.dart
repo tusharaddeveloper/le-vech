@@ -52,10 +52,7 @@ Future<List<QueryDocumentSnapshot<Object?>>> firebaseGetwhere(String collection,
   }
 }
 
-
-
 ///pagination
-
 
 @override
 Future<List<QueryDocumentSnapshot<Object?>>> firebaseLimite(String collection,int limit ) async {
@@ -72,6 +69,25 @@ Future<List<QueryDocumentSnapshot<Object?>>> firebaseLimite(String collection,in
   }
 }
 
+///
+// get data with where
+
+@override
+Future<List<QueryDocumentSnapshot<Object?>>> firebaseGetwhereLimit(String collection, String field, String fieldValue,int limit) async {
+  List<QueryDocumentSnapshot> firebaseData = <QueryDocumentSnapshot>[];
+  try {
+    // var storeData = await FirebaseFirestore.instance.collection(AppString.baseCollection).doc(AppString.baseDoc).collection(collection).where(field, isEqualTo: fieldValue).get();
+    var storeData = await FirebaseFirestore.instance.collection(AppString.baseCollection).doc(AppString.baseDoc).collection(collection).where(field, isEqualTo: fieldValue).orderBy(descending:true, 'name').limit(limit).get();
+
+    firebaseData = storeData.docs;
+
+    return firebaseData;
+  } catch (e) {
+    return firebaseData;
+  }
+}
+
+
 @override
 Future<List<QueryDocumentSnapshot<Object?>>> firebasePaginationData(String collection,DocumentSnapshot startAfter ,int limit ) async {
   List<QueryDocumentSnapshot> firebaseData = <QueryDocumentSnapshot>[];
@@ -84,15 +100,7 @@ Future<List<QueryDocumentSnapshot<Object?>>> firebasePaginationData(String colle
   }
 }
 
-
-
-
-
 ///Store data
-
-
-
-
 @override
 void storeDataDocs(String collection, String docsId, Map<String, dynamic> data) async {
   try {
@@ -101,10 +109,7 @@ void storeDataDocs(String collection, String docsId, Map<String, dynamic> data) 
     print(e);
   }
 }
-/*@override
-void addData()async{
- await FirebaseFirestore.instance.collection().add({'text': 'data added through app'});
-}*/
+
 
 @override
 void storeDataDocsSubCollection(String collection, String docsId, String subCollection, Map<String, dynamic> data) async {
@@ -121,18 +126,10 @@ void storeData(String collection, Map<String, dynamic> data) async {
 }
 
 // Update Data
-
 @override
 void updateData(String collection, String docId, Map<String, dynamic> data) async {
   await FirebaseFirestore.instance.collection(AppString.baseCollection).doc(AppString.baseDoc).collection(collection).doc(docId).update(data);
 }
 
-@override
-void updateDataSubCollection(String collection, String docId, String subCollection, String subDocId, Map<String, dynamic> data) async {
-  await FirebaseFirestore.instance.collection(AppString.baseCollection).doc(AppString.baseDoc).collection(collection).doc(docId).collection(subCollection).doc(subDocId).update(data);
-}
 
-@override
-void deleteData(String collection, String docId) async {
-  await FirebaseFirestore.instance.collection(AppString.baseCollection).doc(AppString.baseDoc).collection(collection).doc(docId).delete();
-}
+

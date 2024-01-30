@@ -23,12 +23,8 @@ class CatrgoryItemScreen extends StatefulWidget {
 class _CatrgoryItemScreenState extends State<CatrgoryItemScreen> {
   CatrgoryItemController catrgoryItemController = Get.put(CatrgoryItemController());
 
-
-
   @override
   void initState() {
-
-
 
     catrgoryItemController.controllerGreedView.addListener(() {
      // print("Daaaaa");
@@ -37,9 +33,12 @@ class _CatrgoryItemScreenState extends State<CatrgoryItemScreen> {
       double currentScroll=catrgoryItemController.controllerGreedView.position.pixels;
       double delta=MediaQuery.of(context).size.height*0.25;
       if(maxScroll-currentScroll < delta){
-
-        catrgoryItemController.getMoreActivityData();
-
+        if (widget.selectedindex == 0) {
+          catrgoryItemController.getMoreActivityData();
+        } else {
+          catrgoryItemController.getLoadMoreData(catrgoryItemController.itemName[widget.selectedindex!]);
+          print("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
+        }
       }
 
     });
@@ -49,7 +48,6 @@ class _CatrgoryItemScreenState extends State<CatrgoryItemScreen> {
     Future.delayed(Duration(milliseconds: 1), () {
       catrgoryItemController.runData(context,widget.selectedindex!);
     });
-
     super.initState();
   }
 
