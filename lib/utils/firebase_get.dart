@@ -53,7 +53,7 @@ Future<List<QueryDocumentSnapshot<Object?>>> firebaseGetwhere(String collection,
 }
 
 ///pagination
-
+/*                     cbbbbbbbbbbbbbbbbbbbbbf                        */
 @override
 Future<List<QueryDocumentSnapshot<Object?>>> firebaseLimite(String collection,int limit ) async {
   List<QueryDocumentSnapshot> firebaseData = <QueryDocumentSnapshot>[];
@@ -68,10 +68,20 @@ Future<List<QueryDocumentSnapshot<Object?>>> firebaseLimite(String collection,in
     return firebaseData;
   }
 }
-
-///
+/*                         fggggggggggggggggggggggggg           */
+@override
+Future<List<QueryDocumentSnapshot<Object?>>> firebasePaginationData(String collection,DocumentSnapshot startAfter ,int limit ) async {
+  List<QueryDocumentSnapshot> firebaseData = <QueryDocumentSnapshot>[];
+  try {
+    var storeData = await FirebaseFirestore.instance.collection(AppString.baseCollection).doc(AppString.baseDoc).collection(collection).orderBy(descending:true,'name').startAfterDocument(startAfter).limit(limit).get();
+    firebaseData = storeData.docs;
+    return firebaseData;
+  } catch (e) {
+    return firebaseData;
+  }
+}
 // get data with where
-
+/*                             categarishas                              */
 @override
 Future<List<QueryDocumentSnapshot<Object?>>> firebaseGetwhereLimit(String collection, String field, String fieldValue,int limit) async {
   List<QueryDocumentSnapshot> firebaseData = <QueryDocumentSnapshot>[];
@@ -86,19 +96,20 @@ Future<List<QueryDocumentSnapshot<Object?>>> firebaseGetwhereLimit(String collec
     return firebaseData;
   }
 }
-
-
+/*dvgggggggggggggggggggggggggg                            categaris                     grrrrrrrrrrrrrr*/
 @override
-Future<List<QueryDocumentSnapshot<Object?>>> firebasePaginationData(String collection,DocumentSnapshot startAfter ,int limit ) async {
+Future<List<QueryDocumentSnapshot<Object?>>> firebaseCategrishPaginationData(String collection,String field, String fieldValue,DocumentSnapshot startAfter ,int limit ) async {
   List<QueryDocumentSnapshot> firebaseData = <QueryDocumentSnapshot>[];
   try {
-    var storeData = await FirebaseFirestore.instance.collection(AppString.baseCollection).doc(AppString.baseDoc).collection(collection).orderBy(descending:true,'name').startAfterDocument(startAfter).limit(limit).get();
+  //  var storeData = await FirebaseFirestore.instance.collection(AppString.baseCollection).doc(AppString.baseDoc).collection(collection).orderBy(descending:true,'name').startAfterDocument(startAfter).limit(limit).get();
+    var storeData = await FirebaseFirestore.instance.collection(AppString.baseCollection).doc(AppString.baseDoc).collection(collection).where(field, isEqualTo: fieldValue).orderBy(descending:true,'name').startAfterDocument(startAfter).limit(limit).get();
     firebaseData = storeData.docs;
     return firebaseData;
   } catch (e) {
     return firebaseData;
   }
 }
+
 
 ///Store data
 @override

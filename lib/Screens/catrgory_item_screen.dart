@@ -43,16 +43,11 @@ class _CatrgoryItemScreenState extends State<CatrgoryItemScreen> {
 
     });
 
-
-
     Future.delayed(Duration(milliseconds: 1), () {
       catrgoryItemController.runData(context,widget.selectedindex!);
     });
     super.initState();
   }
-
-
-
 
 
   @override
@@ -74,12 +69,9 @@ class _CatrgoryItemScreenState extends State<CatrgoryItemScreen> {
                       return InkWell(
                           onTap: () async {
                             widget.selectedindex = index;
-
                             if (widget.selectedindex == 0) {
-
                               catrgoryItemController.allCategoryItem(context);
                             } else {
-
                               catrgoryItemController.categoryItem(context, catrgoryItemController.itemName[widget.selectedindex!]);
                             }
                           },

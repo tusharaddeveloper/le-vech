@@ -106,7 +106,8 @@ class CatrgoryItemController extends GetxController {
       favCategoryItemList.clear();
       isLodingData.value = true;
       allSellCow.value = await firebaseGetwhereLimit("advertise", "item_type", categrish, perPage);
-    //  startAfterDocument = allSellCow[allSellCow.length - 1];
+
+      startAfterDocument = allSellCow[allSellCow.length - 1];
       if (allSellCow.isNotEmpty) {
         for (int i = 0; i < allSellCow.length; i++) {
           favCategoryItemList.add(allSellCow[i]['fav_user']);
@@ -119,6 +120,7 @@ class CatrgoryItemController extends GetxController {
       isLodingData.value = false;
       print(e);
     }
+    print("dataget sijgiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiid             rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrf");
   }
 
   allCategoryItem(BuildContext context) async {
@@ -183,8 +185,7 @@ class CatrgoryItemController extends GetxController {
       return;
     }
     gettingMoreProduct.value = true;
-    /*var getTradeData = await firebasePaginationData('advertise', startAfterDocument!, perPage);*/
-    var getTradeData = await firebaseGetwhereLimit("advertise", "item_type", categrish, perPage);
+  var getTradeData = await firebaseCategrishPaginationData("advertise", "item_type", categrish, startAfterDocument!, perPage );
     if (getTradeData.isNotEmpty) {
       for (int i = 0; i < getTradeData.length; i++) {
         favCategoryItemList.add(getTradeData[i]['fav_user']);
